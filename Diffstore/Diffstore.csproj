@@ -1,5 +1,4 @@
 <Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
@@ -7,6 +6,7 @@
     <ConfigurationGroup>Release</ConfigurationGroup>
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
-
-
+  <ItemGroup>
+    <PackageReference Include="Fasterflect" Version="2.1.3" />
+  </ItemGroup>
 </Project>
