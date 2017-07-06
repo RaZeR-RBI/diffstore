@@ -1,12 +1,7 @@
 namespace Diffstore
 {
-    public enum StorageType
+    public enum TablePartitioning
     {
-        FilesOnly, Cached, InMemory
-    }
-
-    public enum Partitioning
-    {
-        None, FileSize, Timespan
+        None, FileSize, KeySpan
     }
 }

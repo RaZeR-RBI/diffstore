@@ -8,10 +8,13 @@ using Fasterflect;
 
 namespace Diffstore.Serialization
 {
-    public class BinarySerializer : ISerializer<BinaryReader, BinaryWriter>
+    /// <summary>
+    /// Custom binary formatter based on BinaryReader/BinaryWriter for improved performance
+    /// </summary>
+    public class FastBinaryFormatter : IFormatter<BinaryReader, BinaryWriter>
     {
-        private static BinarySerializer _instance = new BinarySerializer();
-        public static BinarySerializer Instance
+        private static FastBinaryFormatter _instance = new FastBinaryFormatter();
+        public static FastBinaryFormatter Instance
         {
             get { return _instance; }
         }
@@ -19,7 +22,7 @@ namespace Diffstore.Serialization
         private static Dictionary<Type, MethodInfo> readMethods = new Dictionary<Type, MethodInfo>();
         private static Dictionary<Type, MethodInfo> writeMethods = new Dictionary<Type, MethodInfo>();
 
-        static BinarySerializer()
+        static FastBinaryFormatter()
         {
             var allReaderMethods = typeof(BinaryReader).GetMethods();
             Array.ForEach(allReaderMethods, (method) => {

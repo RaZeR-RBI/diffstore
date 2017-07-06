@@ -5,16 +5,16 @@ using Xunit;
 
 namespace Diffstore.Tests.Serialization
 {
-    public class BasicSerializationTest : IDisposable
+    public class FastBinaryFormatterTest : IDisposable
     {
 
         private MemoryStream stream;
         private BinaryReader reader;
         private BinaryWriter writer;
 
-        private BinarySerializer serializer = BinarySerializer.Instance;
+        private FastBinaryFormatter formatter = FastBinaryFormatter.Instance;
 
-        public BasicSerializationTest()
+        public FastBinaryFormatterTest()
         {
             stream = new MemoryStream();
             reader = new BinaryReader(stream);
@@ -37,9 +37,9 @@ namespace Diffstore.Tests.Serialization
         [InlineData(123)]
         public void ByteSerialization(byte expected)
         {
-            serializer.Serialize(expected, writer);
+            formatter.Serialize(expected, writer);
             stream.Seek(0, SeekOrigin.Begin);
-            var actual = serializer.Deserialize(typeof(byte), reader);
+            var actual = formatter.Deserialize(typeof(byte), reader);
             Assert.Equal(expected, actual);
         }
 
@@ -51,9 +51,9 @@ namespace Diffstore.Tests.Serialization
         [InlineData(1337)]
         public void ShortSerialization(short expected)
         {
-            serializer.Serialize(expected, writer);
+            formatter.Serialize(expected, writer);
             stream.Seek(0, SeekOrigin.Begin);
-            var actual = serializer.Deserialize(typeof(short), reader);
+            var actual = formatter.Deserialize(typeof(short), reader);
             Assert.Equal(expected, actual);
         }
 
@@ -64,9 +64,9 @@ namespace Diffstore.Tests.Serialization
         [InlineData(1337)]
         public void IntSerialization(int expected)
         {
-            serializer.Serialize(expected, writer);
+            formatter.Serialize(expected, writer);
             stream.Seek(0, SeekOrigin.Begin);
-            var actual = serializer.Deserialize(typeof(int), reader);
+            var actual = formatter.Deserialize(typeof(int), reader);
             Assert.Equal(expected, actual);
         }
 
@@ -77,9 +77,9 @@ namespace Diffstore.Tests.Serialization
         [InlineData(1337)]
         public void LongSerialization(long expected)
         {
-            serializer.Serialize(expected, writer);
+            formatter.Serialize(expected, writer);
             stream.Seek(0, SeekOrigin.Begin);
-            var actual = serializer.Deserialize(typeof(int), reader);
+            var actual = formatter.Deserialize(typeof(long), reader);
             Assert.Equal(expected, actual);
         }
     }
