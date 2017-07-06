@@ -2,7 +2,7 @@ namespace Diffstore
 {
     public enum StorageType
     {
-        Filesystem, InMemory
+        FilesOnly, Cached, InMemory
     }
 
     public enum Partitioning

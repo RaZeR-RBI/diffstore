@@ -3,5 +3,10 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)' == 'Debug_CLS'">
+    <ConfigurationGroup>Release</ConfigurationGroup>
+    <DebugSymbols>true</DebugSymbols>
+  </PropertyGroup>
+
 
 </Project>
