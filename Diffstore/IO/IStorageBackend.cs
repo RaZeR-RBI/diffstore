@@ -1,56 +1,31 @@
-using System;
-using System.Collections.Generic;
-using System.IO;
-
 namespace Diffstore.IO
 {
-    /// <summary>
-    /// Abstract class for storage backend implementations
-    /// </summary>
-    public abstract class IStorageBackend<TStorageOptions, TEntityOptions, TTableOptions>
+    public interface IStorageBackend<TKey, TInput, TOutput>
     {
-        protected TStorageOptions _storageOptions;
-        protected TEntityOptions _entityOptions;
-        protected TTableOptions _tableOptions;
-
-        /// <summary>
-        /// Passes parameters to base class
-        /// </summary>
-        /// <param name="storageOptions"></param>
-        /// <param name="entityOptions"></param>
-        /// <param name="tableOptions"></param>
-        protected IStorageBackend(
-            TStorageOptions storageOptions,
-            TEntityOptions entityOptions,
-            TTableOptions tableOptions)
-            =>
-            (_storageOptions, _entityOptions, _tableOptions) =
-            (storageOptions, entityOptions, tableOptions);
-
         /// <summary>
         /// Retrieves all saved entity keys
         /// </summary>
-        public abstract T[] GetAllKeys<T>();
+        TKey[] GetAllKeys();
 
         /// <summary>
         /// Begins raw entity data reading from storage
         /// </summary>
         /// <param name="key">Entity unique key</param>
         /// <returns>Stream ready to be deserialized</returns>
-        public abstract Stream BeginReadEntity<T>(T key);
+        TInput BeginReadEntity(TKey key);
 
         /// <summary>
         /// Begins raw entity data writing to storage
         /// </summary>
         /// <param name="key">Entity unique key</param>
-        /// <returns>Empty stream for serialization</returns>
-        public abstract Stream BeginWriteEntity<T>(T key);
+        /// <returns>Stream for serialization</returns>
+        TOutput BeginWriteEntity(TKey key);
 
         /// <summary>
         /// Deletes entity data and corresponding tables
         /// </summary>
         /// <param name="key">Entity unique key</param>
-        public abstract void DeleteEntity<T>(T key);
+        void DropEntity(TKey key);
 
         /// <summary>
         /// Begins an 'append to table' operation (like SQL INSERT)
@@ -58,16 +33,19 @@ namespace Diffstore.IO
         /// <param name="entityKey">Entity for which data will be appended</param>
         /// <param name="tableName">Target table name</param>
         /// <returns></returns>
-        public abstract Stream BeginTableAppend<T>(T entityKey, string tableName);
+        TOutput BeginTableAppend(object entityKey, string tableName);
 
         /// <summary>
-        /// Opens raw stream containing entry with specified table key
+        /// Removes all data from the specified table for the specified entity
         /// </summary>
-        /// <param name="entityKey">Entity for which data will be written</param>
-        /// <param name="tableName"></param>
-        /// <param name="tableKey"></param>
-        /// <returns></returns>
-        public abstract Stream BeginTableReadWrite<TEntity, TTable>(TEntity entityKey, string tableName, 
-            TTable tableKey) where TTable : IComparable<TTable>;
+        /// <param name="entityKey">Entity for which the specified table will be cleared</param>
+        /// <param name="tableName">Target table name</param>
+        void DeleteFromTable(object entityKey, string tableName);
+
+        /// <summary>
+        /// Removes all data from the specified table for all entities
+        /// </summary>
+        /// <param name="tableName">Target table name</param>
+        void DeleteFromTables(string tableName);
     }
 }

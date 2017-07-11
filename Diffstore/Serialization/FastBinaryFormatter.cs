@@ -45,7 +45,7 @@ namespace Diffstore.Serialization
         public object Deserialize(Type type, BinaryReader stream)
         {
             if (!readMethods.ContainsKey(type))
-                throw new ArgumentException("No deserializer for type " + type);
+                throw new ArgumentException($"No deserializer for type ${type}");
 
             return readMethods[type].Call(stream);
         }
@@ -54,7 +54,7 @@ namespace Diffstore.Serialization
         {
             var type = value.GetType();
             if (!writeMethods.ContainsKey(type))
-                throw new ArgumentException("No serializer for type " + type);
+                throw new ArgumentException($"No serializer for type ${type}");
 
             writeMethods[type].Call(stream, value);
         }
