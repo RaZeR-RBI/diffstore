@@ -9,5 +9,6 @@
   <ItemGroup>
     <PackageReference Include="Fasterflect" Version="2.1.3" />
     <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="1.1.2" />
+    <PackageReference Include="sharpfilesystem" Version="1.0.35" />
   </ItemGroup>
 </Project>
