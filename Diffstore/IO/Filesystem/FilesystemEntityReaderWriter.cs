@@ -30,6 +30,11 @@ namespace Diffstore.IO.Filesystem
             throw new NotImplementedException();
         }
 
+        public void Dispose()
+        {
+            filesystem.Dispose();
+        }
+
         public void Drop(TKey key)
         {
             throw new NotImplementedException();

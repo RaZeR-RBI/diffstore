@@ -20,14 +20,14 @@ namespace Diffstore.Tests.Serialization
         }
 
         [Fact]
-        public void FindingPublicFields()
+        public void ShouldFindPublicFields()
         {
             var schema = new Schema(typeof(TestData));
             Assert.Equal(2, schema.Fields.Count);
         }
 
         [Fact]
-        public void FindingPrivateFields()
+        public void ShouldFindPrivateFieldsIfSpecified()
         {
             var flags = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance;
             var schema = new Schema(typeof(TestData), flags);
@@ -35,7 +35,7 @@ namespace Diffstore.Tests.Serialization
         }
 
         [Fact]
-        public void FailOnMissingAccessor()
+        public void ShouldFailOnMissingAccessor()
         {
             var ex = Assert.Throws<MissingFieldException>(() => new Schema(typeof(TestDataInvalid)));
             Assert.True(ex.Message.Contains("ReadOnlyLong"));

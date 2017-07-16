@@ -11,7 +11,7 @@ namespace Diffstore.Tests.IO.Filesystem
         [Theory]
         [InlineData("")]
         [InlineData("TestFolder")]
-        public void NumericKeyWithoutPartition(string basePath)
+        public void TestNumericKeyWithoutPartitioning(string basePath)
         {
             int key = 123;
             var options = new FilesystemEntityStorageOptions()
@@ -27,7 +27,7 @@ namespace Diffstore.Tests.IO.Filesystem
         [Theory]
         [InlineData("")]
         [InlineData("TestFolder")]
-        public void NumericKeyWithPartition(string basePath)
+        public void TestNumericKeyWithPartitioning(string basePath)
         {
             int key1 = 123;
             int key2 = 1123;
@@ -51,7 +51,7 @@ namespace Diffstore.Tests.IO.Filesystem
         [InlineData("", 10)]
         [InlineData("TestFolder", 0)]
         [InlineData("TestFolder", 10)]
-        public void StringKey(string basePath, int entitiesPerDir)
+        public void TestNonPartitionableKey(string basePath, int entitiesPerDir)
         {
             var key = "Hello World";
             var options = new FilesystemEntityStorageOptions()

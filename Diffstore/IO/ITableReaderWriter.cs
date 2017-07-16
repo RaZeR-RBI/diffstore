@@ -2,7 +2,7 @@ using System;
 
 namespace Diffstore.IO
 {
-    public interface ITableReaderWriter<TEntityKey, TInput, TOutput>
+    public interface ITableReaderWriter<TEntityKey, TInput, TOutput> : IDisposable
         where TEntityKey : IComparable
     {
 

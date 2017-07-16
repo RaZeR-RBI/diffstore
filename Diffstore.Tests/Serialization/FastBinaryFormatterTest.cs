@@ -5,6 +5,7 @@ using Xunit;
 
 namespace Diffstore.Tests.Serialization
 {
+    // TODO: Add more types
     public class FastBinaryFormatterTest : IDisposable
     {
 
@@ -35,7 +36,7 @@ namespace Diffstore.Tests.Serialization
         [InlineData(0)]
         [InlineData(255)]
         [InlineData(123)]
-        public void ByteSerialization(byte expected)
+        public void ShouldHandleByte(byte expected)
         {
             formatter.Serialize(expected, writer);
             stream.Seek(0, SeekOrigin.Begin);
@@ -49,7 +50,7 @@ namespace Diffstore.Tests.Serialization
         [InlineData(short.MinValue)]
         [InlineData(short.MaxValue)]
         [InlineData(1337)]
-        public void ShortSerialization(short expected)
+        public void ShouldHandleShort(short expected)
         {
             formatter.Serialize(expected, writer);
             stream.Seek(0, SeekOrigin.Begin);
@@ -62,7 +63,7 @@ namespace Diffstore.Tests.Serialization
         [InlineData(int.MinValue)]
         [InlineData(int.MaxValue)]
         [InlineData(1337)]
-        public void IntSerialization(int expected)
+        public void ShouldHandleInt(int expected)
         {
             formatter.Serialize(expected, writer);
             stream.Seek(0, SeekOrigin.Begin);
@@ -75,7 +76,7 @@ namespace Diffstore.Tests.Serialization
         [InlineData(long.MinValue)]
         [InlineData(long.MaxValue)]
         [InlineData(1337)]
-        public void LongSerialization(long expected)
+        public void ShouldHandleLong(long expected)
         {
             formatter.Serialize(expected, writer);
             stream.Seek(0, SeekOrigin.Begin);
