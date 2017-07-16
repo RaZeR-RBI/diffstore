@@ -1,6 +1,7 @@
 using System;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Options;
+using SharpFileSystem;
 
 namespace Diffstore.IO.Filesystem
 {
@@ -10,7 +11,7 @@ namespace Diffstore.IO.Filesystem
         /// Gets or sets the root directory for the storage backend.
         /// Defaults to current directory.
         /// </summary>
-        public string BasePath { get; set; } = "";
+        public FileSystemPath BasePath { get; set; }
 
         /// <summary>
         /// Specifies entity per directory count (0 means that all entities 

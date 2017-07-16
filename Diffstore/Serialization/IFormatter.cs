@@ -3,7 +3,7 @@ using System;
 namespace Diffstore.Serialization
 {
     /// <summary>
-    /// Represents a formatter which is used for the file I/O
+    /// Represents a formatter which is used for the serialization and deserialization
     /// </summary>
     public interface IFormatter<TInputStream, TOutputStream>
     {

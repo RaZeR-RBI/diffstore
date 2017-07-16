@@ -1,4 +1,6 @@
 using System;
+using System.IO;
+using System.Linq;
 using Diffstore.Serialization;
 using SharpFileSystem;
 
@@ -7,6 +9,8 @@ namespace Diffstore.IO.Filesystem
     public class FilesystemEntityReaderWriter<TKey, TInput, TOutput> :
         IEntityReaderWriter<TKey, TInput, TOutput>
         where TKey : IComparable
+        where TInput : IDisposable
+        where TOutput : IDisposable
     {
         protected IFileSystem filesystem;
         protected IFormatter<TInput, TOutput> formatter;
@@ -22,12 +26,33 @@ namespace Diffstore.IO.Filesystem
 
         public TInput BeginRead(TKey key)
         {
-            throw new NotImplementedException();
+            var fileToRead = filesystem.OpenFile(
+                FilesystemLocator.LocateEntityFile(key, options),
+                FileAccess.Read);
+
+            return StreamBuilder.FromStream<TInput>(fileToRead);
         }
 
         public TOutput BeginWrite(TKey key)
         {
-            throw new NotImplementedException();
+            var path = FilesystemLocator.LocateEntityFile(key, options);
+            
+            var fileToWrite = filesystem.Exists(path) ?
+                filesystem.OpenFile(path, FileAccess.Write) :
+                CreateDirectoriesAndFile(key, path);
+            
+            return StreamBuilder.FromStream<TOutput>(fileToWrite);
+        }
+
+        private Stream CreateDirectoriesAndFile(object key, FileSystemPath path)
+        {
+            filesystem.CreateDirectoryRecursive(path.ParentPath);
+
+            var keyfile = filesystem.CreateFile(FilesystemLocator.LocateKeyFile(key, options));
+            using (var keyfileWriter = StreamBuilder.FromStream<TOutput>(keyfile))
+                formatter.Serialize(key, keyfileWriter);
+            
+            return filesystem.CreateFile(path);
         }
 
         public void Dispose()
@@ -37,17 +62,30 @@ namespace Diffstore.IO.Filesystem
 
         public void Drop(TKey key)
         {
-            throw new NotImplementedException();
+            filesystem.Delete(FilesystemLocator.LocateEntityFile(key, options).ParentPath);
         }
 
         public bool Exists(TKey key)
         {
-            throw new NotImplementedException();
+            var path = FilesystemLocator.LocateKeyFile(key, options);
+            return filesystem.Exists(path);
         }
 
         public TKey[] GetAllKeys()
         {
-            throw new NotImplementedException();
+            return filesystem.GetEntitiesRecursive(options.BasePath)
+                .Where((entity) => FilesystemLocator.IsKeyFile(entity))
+                .Select((file) => ReadKeyfile(file)).ToArray();
+        }
+
+        private TKey ReadKeyfile(FileSystemPath path)
+        {
+            var keyfile = filesystem.OpenFile(path, FileAccess.Read);
+            TKey result;
+            using (var keyfileReader = StreamBuilder.FromStream<TInput>(keyfile))
+                result = (TKey)formatter.Deserialize(typeof(TKey), keyfileReader);
+
+            return result;
         }
     }
 }
