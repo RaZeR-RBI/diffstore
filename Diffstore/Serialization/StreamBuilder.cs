@@ -13,11 +13,14 @@ namespace Diffstore.Serialization
 
         public static T FromStream<T>(Stream stream)
         {
-            var type = typeof(T);
-            if (!_streamCtorCache.ContainsKey(type))
-                _streamCtorCache.Add(type, type.DelegateForCreateInstance(typeof(Stream)));
-            
-            return (T)_streamCtorCache[type].Invoke(stream);
+            lock (_streamCtorCache)
+            {
+                var type = typeof(T);
+                if (!_streamCtorCache.ContainsKey(type))
+                    _streamCtorCache.Add(type, type.DelegateForCreateInstance(typeof(Stream)));
+
+                return (T)_streamCtorCache[type].Invoke(stream);
+            }
         }
     }
 }

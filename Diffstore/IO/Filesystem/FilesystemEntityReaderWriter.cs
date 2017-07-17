@@ -12,9 +12,9 @@ namespace Diffstore.IO.Filesystem
         where TInput : IDisposable
         where TOutput : IDisposable
     {
-        protected IFileSystem filesystem;
-        protected IFormatter<TInput, TOutput> formatter;
-        protected FilesystemEntityStorageOptions options;
+        protected readonly IFileSystem filesystem;
+        protected readonly IFormatter<TInput, TOutput> formatter;
+        protected readonly FilesystemEntityStorageOptions options;
 
         public FilesystemEntityReaderWriter(
             IFileSystem filesystem,
@@ -47,7 +47,6 @@ namespace Diffstore.IO.Filesystem
         private Stream CreateDirectoriesAndFile(object key, FileSystemPath path)
         {
             filesystem.CreateDirectoryRecursive(path.ParentPath);
-
             var keyfile = filesystem.CreateFile(FilesystemLocator.LocateKeyFile(key, options));
             using (var keyfileWriter = StreamBuilder.FromStream<TOutput>(keyfile))
                 formatter.Serialize(key, keyfileWriter);

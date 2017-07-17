@@ -10,7 +10,7 @@ namespace Diffstore.Tests.IO.Filesystem
 {
     public class FilesystemEntityReaderWriterTest : IDisposable
     {
-        private FilesystemEntityReaderWriter<long, BinaryReader, BinaryWriter> entityIO;
+        private readonly FilesystemEntityReaderWriter<long, BinaryReader, BinaryWriter> entityIO;
 
         private const long KEY_RW = 1;
         private const long KEY_EXISTS = 2;

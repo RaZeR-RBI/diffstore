@@ -1,6 +1,6 @@
 using System;
 
-namespace Diffstore.Entity
+namespace Diffstore.Entities
 {
     /// <summary>
     /// Marks the POCO as Diffstore entity

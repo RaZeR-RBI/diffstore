@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Reflection;
-using Diffstore.Entity;
+using Diffstore.Entities;
 
 namespace Diffstore.Serialization
 {
@@ -11,25 +11,21 @@ namespace Diffstore.Serialization
 
         public static void Register(Type type)
         {
-            throw new NotImplementedException();
-        }
-
-        public static void Discover(Assembly assembly)
-        {
-            Discover(assembly, new[] { typeof(EntityAttribute) });
-        }
-
-        public static void Discover(Assembly assembly, params Type[] attributes)
-        {
-            throw new NotImplementedException();
+            lock (schemas) schemas.Add(type, new Schema(type));
         }
 
         public static Schema Get(Type type)
         {
-            if (!schemas.ContainsKey(type))
-                throw new ArgumentException($"No entity with type {type} registered");
+            lock (schemas)
+            {
+                if (!schemas.ContainsKey(type)) Register(type);
+                return schemas[type];
+            }
+        }
 
-            return schemas[type];
+        public static Schema Get<T>()
+        {
+            return Get(typeof(T));
         }
     }
 }
