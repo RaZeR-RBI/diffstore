@@ -8,6 +8,7 @@ namespace Diffstore.Entities
     {
         Entity<TKey, TValue> Get(TKey key);
         IEnumerable<Entity<TKey, TValue>> GetAll();
+        IEnumerable<TKey> GetKeys();
         IEnumerable<Entity<TKey, TValue>> GetLazy(IComparer<TKey> keyComparer);
         void Persist(TKey key, TValue value);
         void Persist(Entity<TKey, TValue> entity);

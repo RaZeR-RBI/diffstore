@@ -15,6 +15,11 @@ namespace Diffstore.Entities
 
             return (Key.Equals(p.Key)) && (Value.Equals(p.Value));
         }
+
+        public override int GetHashCode()
+        {
+            return unchecked(Key.GetHashCode() + Value.GetHashCode());
+        }
     }
 
     public static class Entity

@@ -47,15 +47,22 @@ namespace Diffstore.Serialization
             if (!readMethods.ContainsKey(type))
                 throw new ArgumentException($"No deserializer for type ${type}");
 
+            bool isNotNull = stream.ReadBoolean();
+            if (!isNotNull) return null;
             return readMethods[type].Call(stream);
         }
 
         public void Serialize(object value, BinaryWriter stream)
         {
+            if (value == null) {
+                stream.Write(false); return;
+            }
+
             var type = value.GetType();
             if (!writeMethods.ContainsKey(type))
                 throw new ArgumentException($"No serializer for type ${type}");
 
+            stream.Write(true);
             writeMethods[type].Call(stream, value);
         }
     }
