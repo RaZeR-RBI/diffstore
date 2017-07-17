@@ -62,7 +62,10 @@ namespace Diffstore.IO.Filesystem
 
         public void Drop(TKey key)
         {
-            filesystem.Delete(FilesystemLocator.LocateEntityFile(key, options).ParentPath);
+            var parentPath = FilesystemLocator.LocateEntityFile(key, options).ParentPath;
+            var entities = filesystem.GetEntitiesRecursive(parentPath).ToList();
+            foreach(var entity in entities)
+                filesystem.Delete(entity);
         }
 
         public bool Exists(TKey key)
@@ -80,8 +83,10 @@ namespace Diffstore.IO.Filesystem
 
         private TKey ReadKeyfile(FileSystemPath path)
         {
+            TKey result = FilesystemLocator.ExtractKey<TKey>(path);
+            if (!result.Equals(default(TKey))) return result;
+
             var keyfile = filesystem.OpenFile(path, FileAccess.Read);
-            TKey result;
             using (var keyfileReader = StreamBuilder.FromStream<TInput>(keyfile))
                 result = (TKey)formatter.Deserialize(typeof(TKey), keyfileReader);
 

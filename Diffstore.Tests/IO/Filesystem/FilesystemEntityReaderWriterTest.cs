@@ -2,6 +2,7 @@ using System;
 using System.IO;
 using Diffstore.IO.Filesystem;
 using Diffstore.Serialization;
+using Moq;
 using SharpFileSystem.FileSystems;
 using Xunit;
 
@@ -67,6 +68,32 @@ namespace Diffstore.Tests.IO.Filesystem
             WriteSampleStringData(KEY_RW, expected);
             var actual = ReadString(KEY_RW);
             Assert.Equal(expected, actual);
+        }
+
+        [Fact]
+        public void ShouldNotReadKeyfileIfKeyIsInPath()
+        {
+            var key = 1L;
+            var filesystem = new MemoryFileSystem();
+            var options = new FilesystemEntityStorageOptions();
+            var mockFormatter = new Mock<IFormatter<BinaryReader, BinaryWriter>>();
+            
+            var entityIO = new FilesystemEntityReaderWriter<long, BinaryReader, BinaryWriter>(
+                filesystem,
+                mockFormatter.Object,
+                options
+            );
+
+            using (var stream = entityIO.BeginWrite(key)) stream.Write("mock");
+            Assert.True(entityIO.Exists(key));
+            var keys = entityIO.GetAllKeys();
+            Assert.Contains(key, keys);
+            Assert.Single(keys);
+
+            mockFormatter.Verify(mock => mock.Deserialize(
+                It.IsAny<Type>(), 
+                It.IsAny<BinaryReader>()
+            ), Times.Never());
         }
 
         private void WriteSampleStringData(long key, string data = "some data")

@@ -3,6 +3,7 @@ using System.IO;
 using static System.Math;
 using static System.IO.Path;
 using SharpFileSystem;
+using System.Collections.Generic;
 
 namespace Diffstore.IO.Filesystem
 {
@@ -10,6 +11,21 @@ namespace Diffstore.IO.Filesystem
     {
         public const string EntityFilename = "entity";
         public const string KeyFilename = "keydata";
+
+        static readonly Dictionary<Type, Func<string, object>> mappers =
+            new Dictionary<Type, Func<string, object>>
+            {
+                { typeof(byte), (path) => byte.Parse(path) },
+                { typeof(short), (path) => short.Parse(path) },
+                { typeof(int), (path) => int.Parse(path) },
+                { typeof(long), (path) => long.Parse(path) },
+                #if !CLS
+                { typeof(sbyte), (path) => sbyte.Parse(path) },
+                { typeof(ushort), (path) => ushort.Parse(path) },
+                { typeof(uint), (path) => uint.Parse(path) },
+                { typeof(ulong), (path) => ulong.Parse(path) },
+                #endif
+            };
 
         public static FileSystemPath LocateEntityFile(object key, FilesystemEntityStorageOptions options)
         {
@@ -56,6 +72,14 @@ namespace Diffstore.IO.Filesystem
                 result = result.AppendDirectory(subfolder);
             }
             return result.AppendDirectory(key.ToString());
+        }
+
+        public static TKey ExtractKey<TKey>(this FileSystemPath path)
+        {
+            var type = typeof(TKey);
+            var folder = path.ParentPath.EntityName;
+            if (!mappers.ContainsKey(type)) return default(TKey);
+            return (TKey)mappers[type].Invoke(folder);
         }
 
 #if !CLS
