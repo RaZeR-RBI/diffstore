@@ -14,7 +14,7 @@ namespace Diffstore.Tests.Entities
 {
     public class EntityManagerTest
     {
-        private IEntityManager<long, SampleEntity> em;
+        private IEntityManager<long, SampleData> em;
 
         public EntityManagerTest()
         {
@@ -28,7 +28,7 @@ namespace Diffstore.Tests.Entities
             var entityIO = new FilesystemEntityReaderWriter<long, BinaryReader, BinaryWriter>
                 (filesystem, formatter, options);
 
-            em = new EntityManager<long, SampleEntity, BinaryReader, BinaryWriter>
+            em = new EntityManager<long, SampleData, BinaryReader, BinaryWriter>
                 (formatter, entityIO);
         }
 
@@ -41,7 +41,7 @@ namespace Diffstore.Tests.Entities
             Assert.False(em.Exists(key));
 
             // Create
-            var data = new SampleEntity()
+            var data = new SampleData()
             {
                 IntProperty = 1,
                 PublicString = "created"
@@ -79,7 +79,7 @@ namespace Diffstore.Tests.Entities
             var mockIO = new Mock<IEntityReaderWriter<long, BinaryReader, BinaryWriter>>();
             mockIO.Setup((io) => io.GetAllKeys()).Returns(keys);
 
-            var em = new EntityManager<long, SampleEntity, BinaryReader, BinaryWriter>(
+            var em = new EntityManager<long, SampleData, BinaryReader, BinaryWriter>(
                 mockFormatter.Object, mockIO.Object
             );
             var fetched = em.GetLazy(Comparer<long>.Default)
@@ -94,7 +94,7 @@ namespace Diffstore.Tests.Entities
         [Fact]
         public void ShouldWorkWithNullValues()
         {
-            var expected = new SampleEntity();
+            var expected = new SampleData();
             em.Persist(10, expected);
             var actual = em.Get(10).Value;
             Assert.Equal(expected, actual);

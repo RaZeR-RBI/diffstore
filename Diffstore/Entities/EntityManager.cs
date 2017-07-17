@@ -60,7 +60,6 @@ namespace Diffstore.Entities
 
         public IEnumerable<Entity<TKey, TValue>> GetLazy(IComparer<TKey> keyComparer)
         {
-            //return new LazyEntityReader<TKey, TValue>(this, keyComparer).GetEnumerable();
             return GetKeys()
                 .OrderBy(key => key, keyComparer)
                 .Select(key => Get(key));

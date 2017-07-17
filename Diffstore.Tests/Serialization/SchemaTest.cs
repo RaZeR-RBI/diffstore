@@ -10,7 +10,7 @@ namespace Diffstore.Tests.Serialization
         [Fact]
         public void ShouldFindPublicFields()
         {
-            var schema = new Schema(typeof(SampleEntity));
+            var schema = new Schema(typeof(SampleData));
             Assert.Equal(2, schema.Fields.Count);
         }
 
@@ -18,7 +18,7 @@ namespace Diffstore.Tests.Serialization
         public void ShouldFindPrivateFieldsIfSpecified()
         {
             var flags = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance;
-            var schema = new Schema(typeof(SampleEntity), flags);
+            var schema = new Schema(typeof(SampleData), flags);
             Assert.Equal(4, schema.Fields.Count); // include backing field for the int property
         }
 
