@@ -3,7 +3,7 @@ using Diffstore.Entities.Filesystem;
 using SharpFileSystem;
 using Xunit;
 
-namespace Diffstore.Tests.IO.Filesystem
+namespace Diffstore.Tests.Entities.Filesystem
 {
     public class FilesystemLocatorTest
     {

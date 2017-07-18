@@ -6,7 +6,7 @@ using Moq;
 using SharpFileSystem.FileSystems;
 using Xunit;
 
-namespace Diffstore.Tests.IO.Filesystem
+namespace Diffstore.Tests.Entities.Filesystem
 {
     public class FilesystemEntityReaderWriterTest : IDisposable
     {
