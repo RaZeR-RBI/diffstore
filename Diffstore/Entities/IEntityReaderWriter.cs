@@ -1,6 +1,6 @@
 using System;
 
-namespace Diffstore.IO
+namespace Diffstore.Entities
 {
     public interface IEntityReaderWriter<TKey, TInput, TOutput> : IDisposable
         where TKey : IComparable

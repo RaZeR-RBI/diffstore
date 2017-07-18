@@ -1,5 +1,5 @@
 using System.IO;
-using Diffstore.IO.Filesystem;
+using Diffstore.Entities.Filesystem;
 using SharpFileSystem;
 using Xunit;
 

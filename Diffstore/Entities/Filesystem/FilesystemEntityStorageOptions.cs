@@ -1,9 +1,7 @@
 using System;
-using Microsoft.Extensions.Caching.Memory;
-using Microsoft.Extensions.Options;
 using SharpFileSystem;
 
-namespace Diffstore.IO.Filesystem
+namespace Diffstore.Entities.Filesystem
 {
     public class FilesystemEntityStorageOptions
     {

@@ -2,9 +2,10 @@ using System;
 using System.IO;
 using System.Linq;
 using Diffstore.Serialization;
+using Diffstore.Utils;
 using SharpFileSystem;
 
-namespace Diffstore.IO.Filesystem
+namespace Diffstore.Entities.Filesystem
 {
     public class FilesystemEntityReaderWriter<TKey, TInput, TOutput> :
         IEntityReaderWriter<TKey, TInput, TOutput>

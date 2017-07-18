@@ -1,6 +1,6 @@
 using System;
 using System.IO;
-using Diffstore.IO.Filesystem;
+using Diffstore.Entities.Filesystem;
 using Diffstore.Serialization;
 using Moq;
 using SharpFileSystem.FileSystems;

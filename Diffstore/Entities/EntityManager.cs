@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Diffstore.IO;
 using Diffstore.Serialization;
 
 namespace Diffstore.Entities
@@ -81,7 +80,7 @@ namespace Diffstore.Entities
             foreach (var field in schema.Fields)
             {
                 var value = formatter.Deserialize(field.Type, input);
-                if (value != null) field.Setter.Invoke(result, value);
+                if (value != null) field.Setter(result, value);
             }
             return result;
         }
@@ -90,7 +89,7 @@ namespace Diffstore.Entities
         {
             foreach (var field in schema.Fields)
             {
-                var value = field.Getter.Invoke(data);
+                var value = field.Getter(data);
                 formatter.Serialize(value, output);
             }
         }

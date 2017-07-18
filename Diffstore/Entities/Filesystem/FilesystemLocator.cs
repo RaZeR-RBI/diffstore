@@ -5,7 +5,7 @@ using static System.IO.Path;
 using SharpFileSystem;
 using System.Collections.Generic;
 
-namespace Diffstore.IO.Filesystem
+namespace Diffstore.Entities.Filesystem
 {
     public static class FilesystemLocator
     {

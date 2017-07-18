@@ -4,7 +4,7 @@ using System.IO;
 using Fasterflect;
 using Diffstore.Serialization;
 
-namespace Diffstore.Serialization
+namespace Diffstore.Utils
 {
     public static class StreamBuilder
     {
