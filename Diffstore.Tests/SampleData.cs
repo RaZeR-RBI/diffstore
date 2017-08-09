@@ -24,6 +24,11 @@ namespace Diffstore.Tests
         {
             return unchecked(PublicString.GetHashCode() + IntProperty);
         }
+
+        public override string ToString()
+        {
+            return $"'{IntProperty}, {PublicString}'";
+        }
     }
 
     public class SampleDataInvalid : SampleData

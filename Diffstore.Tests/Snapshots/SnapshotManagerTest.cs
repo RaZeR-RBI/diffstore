@@ -12,7 +12,7 @@ namespace Diffstore.Tests.Snapshots
         protected const long KEY = 1L;
 
         [Fact]
-        public void ShouldSelectCorrectly()
+        public void ShouldMakeSelectAndDropCorrectly()
         {
             var sm = Build();
             var times = new int[] { 0, 1, 2, 3, 4, 10 }.AsEnumerable();
@@ -20,14 +20,14 @@ namespace Diffstore.Tests.Snapshots
             
             foreach(var time in times)
             {
-                var entity = MakeEntity(KEY, time);
+                var entity = MakeEntity(KEY, time + 0b0111011101110000);
                 var expected = MakeSnapshot(time, entity);
                 expectedSnapshots.Add(expected);
-                Assert.True(sm.Make(entity, time, true));
+                sm.Make(entity, time);
             }
 
             // GetAll
-            var allSnapshots = sm.GetAll(KEY);
+            var allSnapshots = sm.GetAll(KEY).OrderBy(x => x.Time);
             Assert.Equal(expectedSnapshots, allSnapshots);
 
             // GetFirst, GetLast
@@ -48,19 +48,6 @@ namespace Diffstore.Tests.Snapshots
             // Drop
             sm.Drop(KEY);
             Assert.Empty(sm.GetAll(KEY));
-        }
-
-        [Fact]
-        public void ShouldPreventDuplicatesIfSpecified()
-        {
-            var sm = Build();
-            var entity = MakeEntity(KEY, 1);
-            var unchangedEntity = MakeEntity(KEY, 1);
-
-            Assert.True(sm.Make(entity, true));
-            Assert.Single(sm.GetAll(KEY));
-            Assert.False(sm.Make(unchangedEntity, true));
-            Assert.Single(sm.GetAll(KEY));
         }
 
         protected Entity<long, SampleData> MakeEntity(long key, int data)

@@ -16,8 +16,8 @@ namespace Diffstore.Snapshots
         IEnumerable<Snapshot<TKey, TValue>> GetAll(TKey key);
         IEnumerable<Snapshot<TKey, TValue>> GetPage(TKey key, int from, int count);
         IEnumerable<Snapshot<TKey, TValue>> GetInRange(TKey key, long timeStart, long timeEnd);
-        bool Make(Entity<TKey, TValue> entity, bool onlyIfChanged = true);
-        bool Make(Entity<TKey, TValue> entity, long time, bool onlyIfChanged = true);
+        void Make(Entity<TKey, TValue> entity);
+        void Make(Entity<TKey, TValue> entity, long time);
         void Drop(TKey entityKey);
     }
 }

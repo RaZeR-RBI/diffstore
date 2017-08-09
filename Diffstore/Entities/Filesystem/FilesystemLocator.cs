@@ -12,6 +12,8 @@ namespace Diffstore.Entities.Filesystem
         public const string EntityFilename = "entity";
         public const string KeyFilename = "keydata";
 
+        public const string SnapshotSubfolder = "snapshots";
+
         static readonly Dictionary<Type, Func<string, object>> mappers =
             new Dictionary<Type, Func<string, object>>
             {
@@ -40,6 +42,11 @@ namespace Diffstore.Entities.Filesystem
         public static bool IsKeyFile(FileSystemPath path)
         {
             return path.IsFile && path.EntityName == KeyFilename;
+        }
+
+        public static FileSystemPath FindSnapshotFolder(object key, FilesystemStorageOptions options)
+        {
+            return FindEntitySubfolder(key, options).AppendDirectory(SnapshotSubfolder);
         }
 
         // ugly but does the job

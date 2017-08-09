@@ -20,6 +20,11 @@ namespace Diffstore.Entities
         {
             return unchecked(Key.GetHashCode() + Value.GetHashCode());
         }
+
+        public override string ToString()
+        {
+            return $"[{Key} => {Value}]";
+        }
     }
 
     public static class Entity

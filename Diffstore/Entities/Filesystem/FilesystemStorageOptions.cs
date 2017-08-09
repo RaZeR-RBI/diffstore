@@ -16,5 +16,12 @@ namespace Diffstore.Entities.Filesystem
         /// will be in one directory).
         /// </summary>
         public int EntitiesPerDirectory { get; set; } = 1000;
+
+        /// <summary>
+        /// Specifies the maximum snapshot file size. Defaults to 1 MB.
+        /// Note: the file may contain one or more snapshots depending on
+        /// the used ISnapshotManager implementation.
+        /// </summary>
+        public long MaxSnapshotFileSize = 1 * 1024 * 1024;
     }
 }

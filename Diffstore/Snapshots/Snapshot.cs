@@ -10,6 +10,25 @@ namespace Diffstore.Snapshots
 
         public Snapshot(long time, Entity<TKey, TValue> state) =>
             (Time, State) = (time, state);
+
+        public override bool Equals(object obj)
+        {
+            if (obj == null) return false;
+            var p = obj as Snapshot<TKey, TValue>;
+            if ((System.Object)p == null) return false;
+
+            return (Time.Equals(p.Time)) && (State.Equals(p.State));
+        }
+
+        public override int GetHashCode()
+        {
+            return unchecked(Time.GetHashCode() + State.GetHashCode());
+        }
+
+        public override string ToString()
+        {
+            return $"T: {Time}, S: {State.ToString()}";
+        }
     }
 
     public static class Snapshot
@@ -24,7 +43,7 @@ namespace Diffstore.Snapshots
             return Create(GetCurrentUnixSeconds(), entity);
         }
 
-        private static long GetCurrentUnixSeconds()
+        public static long GetCurrentUnixSeconds()
         {
             return ((DateTimeOffset)DateTime.Now).ToUnixTimeSeconds();
         }
