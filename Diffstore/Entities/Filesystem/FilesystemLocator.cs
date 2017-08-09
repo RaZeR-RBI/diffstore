@@ -27,12 +27,12 @@ namespace Diffstore.Entities.Filesystem
                 #endif
             };
 
-        public static FileSystemPath LocateEntityFile(object key, FilesystemEntityStorageOptions options)
+        public static FileSystemPath LocateEntityFile(object key, FilesystemStorageOptions options)
         {
             return FindEntitySubfolder(key, options).AppendFile(EntityFilename);
         }
 
-        public static FileSystemPath LocateKeyFile(object key, FilesystemEntityStorageOptions options)
+        public static FileSystemPath LocateKeyFile(object key, FilesystemStorageOptions options)
         {
             return FindEntitySubfolder(key, options).AppendFile(KeyFilename);
         }
@@ -43,7 +43,7 @@ namespace Diffstore.Entities.Filesystem
         }
 
         // ugly but does the job
-        private static FileSystemPath FindEntitySubfolder(object key, FilesystemEntityStorageOptions options)
+        private static FileSystemPath FindEntitySubfolder(object key, FilesystemStorageOptions options)
         {
             var step = options.EntitiesPerDirectory;
             var root = options.BasePath;

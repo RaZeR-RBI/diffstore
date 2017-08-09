@@ -11,25 +11,9 @@ using Xunit;
 
 namespace Diffstore.Tests.Entities
 {
-    public class EntityManagerTest
+    public abstract class EntityManagerTest
     {
-        private IEntityManager<long, SampleData> em;
-
-        public EntityManagerTest()
-        {
-            var filesystem = new MemoryFileSystem();
-            var formatter = FastBinaryFormatter.Instance;
-            var options = new FilesystemEntityStorageOptions()
-            {
-                EntitiesPerDirectory = 1000
-            };
-
-            var entityIO = new FilesystemEntityReaderWriter<long, BinaryReader, BinaryWriter>
-                (filesystem, formatter, options);
-
-            em = new EntityManager<long, SampleData, BinaryReader, BinaryWriter>
-                (formatter, entityIO);
-        }
+        protected abstract IEntityManager<long, SampleData> Build();
 
         [Theory]
         [InlineData(100)]
@@ -37,6 +21,7 @@ namespace Diffstore.Tests.Entities
         [InlineData(1337)]
         public void ShouldProvideCRUD(long key)
         {
+            var em = Build();
             Assert.False(em.Exists(key));
 
             // Create
@@ -68,31 +53,12 @@ namespace Diffstore.Tests.Entities
 
         [Theory]
         [InlineData(new long[] { 1, 2, 3, 4 })]
-        public void ShouldFetchSpecifiedCountIfLazy(long[] keys)
-        {
-            var mockFormatter = new Mock<IFormatter<BinaryReader, BinaryWriter>>();
-            mockFormatter.Setup((f) => f.Deserialize(
-                It.IsAny<Type>(),
-                It.IsAny<BinaryReader>())).Returns(null);
-
-            var mockIO = new Mock<IEntityReaderWriter<long, BinaryReader, BinaryWriter>>();
-            mockIO.Setup((io) => io.GetAllKeys()).Returns(keys);
-
-            var em = new EntityManager<long, SampleData, BinaryReader, BinaryWriter>(
-                mockFormatter.Object, mockIO.Object
-            );
-            var fetched = em.GetLazy(Comparer<long>.Default)
-                            .Take(2);
-
-            var count = fetched.Count();
-            Assert.Equal(2, count);
-            mockIO.Verify((io) => io.GetAllKeys(), Times.Once());
-            mockIO.Verify((io) => io.BeginRead(It.IsAny<long>()), Times.Exactly(2));
-        }
+        public abstract void ShouldFetchSpecifiedCountIfLazy(long[] keys);
 
         [Fact]
         public void ShouldWorkWithNullValues()
         {
+            var em = Build();
             var expected = new SampleData();
             em.Persist(10, expected);
             var actual = em.Get(10).Value;

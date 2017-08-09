@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Reflection;
 using Diffstore.Serialization;
 using Xunit;
@@ -25,8 +26,19 @@ namespace Diffstore.Tests.Serialization
         [Fact]
         public void ShouldFailOnMissingAccessor()
         {
-            var ex = Assert.Throws<MissingFieldException>(() => new Schema(typeof(SampleEntityInvalid)));
+            var ex = Assert.Throws<MissingFieldException>(() => new Schema(typeof(SampleDataInvalid)));
             Assert.True(ex.Message.Contains("ReadOnlyLong"));
+        }
+
+        [Fact]
+        public void ShouldMarkIgnoredFields()
+        {
+            var schema = new Schema(typeof(SampleDataWithIgnoredFields));
+            var actual = schema.Fields
+                .Where((field) => field.IgnoreChanges)
+                .Count();
+
+            Assert.Equal(2, actual);
         }
     }
 }

@@ -17,7 +17,7 @@ namespace Diffstore.Tests.Entities.Filesystem
         {
             int key = 123;
             var basePath = FileSystemPath.Root.AppendDirectory(directory);
-            var options = new FilesystemEntityStorageOptions()
+            var options = new FilesystemStorageOptions()
             {
                 BasePath = basePath,
                 EntitiesPerDirectory = 0
@@ -35,7 +35,7 @@ namespace Diffstore.Tests.Entities.Filesystem
             int key1 = 123;
             int key2 = 1123;
             var basePath = FileSystemPath.Root.AppendDirectory(directory);
-            var options = new FilesystemEntityStorageOptions()
+            var options = new FilesystemStorageOptions()
             {
                 BasePath = basePath,
                 EntitiesPerDirectory = 1000
@@ -65,7 +65,7 @@ namespace Diffstore.Tests.Entities.Filesystem
         {
             var key = "Hello World";
             var basePath = FileSystemPath.Root.AppendDirectory(directory);
-            var options = new FilesystemEntityStorageOptions()
+            var options = new FilesystemStorageOptions()
             {
                 BasePath = basePath,
                 EntitiesPerDirectory = entitiesPerDir
@@ -85,7 +85,7 @@ namespace Diffstore.Tests.Entities.Filesystem
         {
             int key = 123;
             var basePath = FileSystemPath.Root.AppendDirectory(directory);
-            var options = new FilesystemEntityStorageOptions()
+            var options = new FilesystemStorageOptions()
             {
                 BasePath = basePath,
                 EntitiesPerDirectory = 0

@@ -15,12 +15,12 @@ namespace Diffstore.Entities.Filesystem
     {
         protected readonly IFileSystem filesystem;
         protected readonly IFormatter<TInput, TOutput> formatter;
-        protected readonly FilesystemEntityStorageOptions options;
+        protected readonly FilesystemStorageOptions options;
 
         public FilesystemEntityReaderWriter(
             IFileSystem filesystem,
             IFormatter<TInput, TOutput> formatter,
-            FilesystemEntityStorageOptions options)
+            FilesystemStorageOptions options)
             =>
             (this.filesystem, this.formatter, this.options) =
             (filesystem, formatter, options);

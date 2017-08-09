@@ -3,7 +3,7 @@ using SharpFileSystem;
 
 namespace Diffstore.Entities.Filesystem
 {
-    public class FilesystemEntityStorageOptions
+    public class FilesystemStorageOptions
     {
         /// <summary>
         /// Gets or sets the root directory for the storage backend.

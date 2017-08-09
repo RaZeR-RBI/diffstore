@@ -20,7 +20,7 @@ namespace Diffstore.Tests.Entities.Filesystem
         public FilesystemEntityReaderWriterTest()
         {
             var filesystem = new MemoryFileSystem();
-            var options = new FilesystemEntityStorageOptions();
+            var options = new FilesystemStorageOptions();
             entityIO = new FilesystemEntityReaderWriter<long, BinaryReader, BinaryWriter>(
                 filesystem,
                 FastBinaryFormatter.Instance,
@@ -75,7 +75,7 @@ namespace Diffstore.Tests.Entities.Filesystem
         {
             var key = 1L;
             var filesystem = new MemoryFileSystem();
-            var options = new FilesystemEntityStorageOptions();
+            var options = new FilesystemStorageOptions();
             var mockFormatter = new Mock<IFormatter<BinaryReader, BinaryWriter>>();
             
             var entityIO = new FilesystemEntityReaderWriter<long, BinaryReader, BinaryWriter>(

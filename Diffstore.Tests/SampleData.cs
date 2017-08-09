@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using Diffstore.Snapshots;
 
 namespace Diffstore.Tests
 {
@@ -25,8 +26,17 @@ namespace Diffstore.Tests
         }
     }
 
-    public class SampleEntityInvalid : SampleData
+    public class SampleDataInvalid : SampleData
     {
         public long ReadOnlyLong { get; }
+    }
+
+    public class SampleDataWithIgnoredFields : SampleData
+    {
+        [IgnoreChanges]
+        public bool ignoreMe;
+
+        [IgnoreChanges]
+        public short IgnoreMeToo { get; set; }
     }
 }

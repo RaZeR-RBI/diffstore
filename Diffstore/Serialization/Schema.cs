@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reflection;
+using Diffstore.Snapshots;
 using Fasterflect;
 
 namespace Diffstore.Serialization
@@ -33,12 +34,15 @@ namespace Diffstore.Serialization
             public MemberGetter Getter { get; }
             public MemberSetter Setter { get; }
 
+            public bool IgnoreChanges { get; }
+
             public Field(FieldInfo fieldInfo)
             {
                 Name = fieldInfo.Name;
                 Type = fieldInfo.FieldType;
                 Getter = fieldInfo.DelegateForGetFieldValue();
                 Setter = fieldInfo.DelegateForSetFieldValue();
+                IgnoreChanges = fieldInfo.GetCustomAttributes(typeof(IgnoreChangesAttribute), true).Any();
             }
 
             public Field(PropertyInfo propertyInfo)
@@ -47,6 +51,7 @@ namespace Diffstore.Serialization
                 Type = propertyInfo.PropertyType;
                 Getter = propertyInfo.DelegateForGetPropertyValue();
                 Setter = propertyInfo.DelegateForSetPropertyValue();
+                IgnoreChanges = propertyInfo.GetCustomAttributes(typeof(IgnoreChangesAttribute), true).Any();
             }
 
             public void Write(object target, object value)
