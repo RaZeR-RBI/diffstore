@@ -38,11 +38,14 @@ namespace Diffstore.Snapshots.Filesystem
         private readonly Schema schema = SchemaManager.Get(typeof(TValue));
         private readonly int zeroPaddingStep;
 
-        public IncrementalBinarySnapshotManager(
-            FilesystemStorageOptions opts,
-            IFileSystem fs,
-            int maxPadding)
-            => (options, fileSystem, zeroPaddingStep) = (opts, fs, maxPadding);
+        public IncrementalBinarySnapshotManager(FilesystemStorageOptions opts, 
+            IFileSystem fs, int maxPadding)
+        {
+            (options, fileSystem, zeroPaddingStep) = (opts, fs, maxPadding);
+            if (options.MaxSnapshotFileSize % zeroPaddingStep != 0)
+                throw new ArgumentException(
+                    "MaxSnapshotFileSize must be a multiple of maxPadding");
+        }
 
         public void Dispose()
         {
@@ -52,45 +55,59 @@ namespace Diffstore.Snapshots.Filesystem
         public void Drop(TKey entityKey)
         {
             var folder = FilesystemLocator.FindSnapshotFolder(entityKey, options);
-            var entities = fileSystem.GetEntitiesRecursive(folder);
+            var entities = fileSystem.GetEntitiesRecursive(folder).ToList();
             foreach (var entity in entities) fileSystem.Delete(entity);
         }
 
         public IEnumerable<Snapshot<TKey, TValue>> GetAll(TKey key)
         {
             return GetExistingFiles(key)
+                .Reverse()
                 .Select(file => ReadAllFrom(key, file))
                 .SelectMany(i => i);
         }
 
         public Snapshot<TKey, TValue> GetFirst(TKey key)
         {
-            throw new NotImplementedException();
+            return ReadAllFrom(key,
+                GetExistingFiles(key).First()).Last();
         }
 
         public long GetFirstTime(TKey key)
         {
-            throw new NotImplementedException();
+            var path = GetExistingFiles(key).First();
+            FromFilename(path.EntityName, out long result, out int unused);
+            return result;
         }
 
         public IEnumerable<Snapshot<TKey, TValue>> GetInRange(TKey key, long timeStart, long timeEnd)
         {
-            throw new NotImplementedException();
+            return GetAll(key)
+                .SkipWhile(x => x.Time >= timeEnd)
+                .TakeWhile(x => x.Time >= timeStart);
         }
 
         public Snapshot<TKey, TValue> GetLast(TKey key)
         {
-            throw new NotImplementedException();
+            var path = GetExistingFiles(key).Last();
+            var stream = OpenReadFromStart(path, out int origin);
+            using (var br = new BinaryReader(stream))
+                return ReadSingle(key, br);
         }
 
         public long GetLastTime(TKey key)
         {
-            throw new NotImplementedException();
+            var path = GetExistingFiles(key).Last();
+            var stream = OpenReadFromStart(path, out int origin);
+            using (var br = new BinaryReader(stream))
+                return br.ReadInt64();
         }
 
-        public IEnumerable<Snapshot<TKey, TValue>> GetPage(TKey key, int from, int count)
+        public IEnumerable<Snapshot<TKey, TValue>> GetPage(TKey key, int from, int count,
+            bool ascending)
         {
-            throw new NotImplementedException();
+            var source = ascending ? GetAll(key).OrderBy(i => i.Time) : GetAll(key);
+            return source.Skip(from).Take(count);
         }
 
         public void Make(Entity<TKey, TValue> entity)
@@ -319,6 +336,11 @@ namespace Diffstore.Snapshots.Filesystem
                 field.Setter(value, fieldValue);
             }
             return Snapshot.Create(time, Entity.Create(key, value));
+        }
+
+        public bool Any(TKey key)
+        {
+            return GetExistingFiles(key).Any();
         }
     }
 }

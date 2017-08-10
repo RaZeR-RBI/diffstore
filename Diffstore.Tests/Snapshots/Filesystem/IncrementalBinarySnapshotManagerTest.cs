@@ -19,11 +19,5 @@ namespace Diffstore.Tests.Snapshots.Filesystem
             return new IncrementalBinarySnapshotManager<long, SampleData>(
                 options, filesystem, 128);
         }
-
-        [Fact]
-        public new void ShouldMakeSelectAndDropCorrectly()
-        {
-            base.ShouldMakeSelectAndDropCorrectly();
-        }
     }
 }
