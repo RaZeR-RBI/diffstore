@@ -15,7 +15,7 @@ namespace Diffstore.Tests.Snapshots
         public void ShouldMakeSelectAndDropCorrectly()
         {
             var sm = Build();
-            var times = new int[] { 0, 1, 2, 3, 4, 10 }.AsEnumerable();
+            var times = Enumerable.Range(0, 50);
             var expectedSnapshots = new List<Snapshot<long, SampleData>>();
             
             foreach(var time in times)

@@ -18,5 +18,14 @@ namespace Diffstore.Utils
                 return ms.ToArray();
             }
         }
+
+        public static MemoryStream ReadBytes(this Stream stream, int count,
+            bool close = false)
+        {
+            byte[] buffer = new byte[count];
+            stream.Read(buffer, 0, count);
+            if (close) stream.Close();
+            return new MemoryStream(buffer);
+        }
     }
 }

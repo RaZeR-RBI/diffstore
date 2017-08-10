@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using Diffstore.Entities;
@@ -107,7 +108,7 @@ namespace Diffstore.Snapshots.Filesystem
                 UseExistingFileIfPossible(existingFiles.Last(), key, time, data.Length) :
                 CreateNewFile(key, time, data.Length);
 
-            using (fileStream) 
+            using (fileStream)
                 fileStream.Write(data, 0, data.Length);
         }
 
@@ -121,14 +122,15 @@ namespace Diffstore.Snapshots.Filesystem
                 if (requiredEmptyBytes >= zeroPaddingStep)
                     throw new ArgumentException(
                         "Snapshot data cannot be bigger than zero byte padding size");
-
-                if (fileSize + requiredEmptyBytes + 1 > maxSize)
-                    return CreateNewFile(key, time, requiredEmptyBytes);
             }
 
             var stream = OpenReadFromStart(path, out int bytesRemaining);
             if (requiredEmptyBytes > bytesRemaining)
-                return Rewrite(path, key, time, requiredEmptyBytes);
+            {
+                return (fileSize + zeroPaddingStep > maxSize) ?
+                    CreateNewFile(key, time, requiredEmptyBytes) :
+                    Rewrite(path, key, time, requiredEmptyBytes);
+            }
             else
                 return SeekOrReopen(stream, path, bytesRemaining, requiredEmptyBytes);
         }
@@ -141,10 +143,12 @@ namespace Diffstore.Snapshots.Filesystem
             var data = OpenReadFromStart(path, out int origin).ReadAllBytes();
             var prefix = new byte[zeroPaddingStep];
 
+            Debug.WriteLine($"Rewriting, {requiredEmptyBytes} required, {origin} left");
             fileSystem.Delete(path);
             var newPath = path.ParentPath.AppendFile(ToFilename(startTime, fileSize));
             var stream = fileSystem.CreateFile(newPath);
             stream.Write(prefix, 0, zeroPaddingStep);
+            stream.Write(prefix, 0, origin + 1);
             stream.Write(data, 0, data.Length);
             return SeekOrReopen(stream, newPath, origin + zeroPaddingStep, requiredEmptyBytes);
         }
@@ -183,6 +187,7 @@ namespace Diffstore.Snapshots.Filesystem
                 fileStream.Write(data, 0, zeroPaddingStep);
             }
             var stream = fileSystem.OpenFile(filePath, FileAccess.ReadWrite);
+            Debug.WriteLine($"Created new file for time ${time}");
             return SeekOrReopen(stream, filePath, zeroPaddingStep - 1, requiredEmptyBytes);
         }
 
@@ -207,6 +212,7 @@ namespace Diffstore.Snapshots.Filesystem
                 var dest = new byte[prefixLength + dataLength];
                 Array.Copy(src, dataLength, dest, 0, prefixLength);
                 Array.Copy(src, 0, dest, prefixLength, dataLength);
+                Debug.WriteLine($"Snapshot size: {dest.Length} bytes");
                 return dest;
             }
         }
@@ -214,9 +220,15 @@ namespace Diffstore.Snapshots.Filesystem
         private Stream OpenReadFromStart(FileSystemPath path, out int bytesRemaining)
         {
             var stream = fileSystem.OpenFile(path, FileAccess.Read);
+            MoveToStart(stream, out int bytes);
+            bytesRemaining = bytes;
+            return stream;
+        }
+
+        private void MoveToStart(Stream stream, out int bytesRemaining)
+        {
             bytesRemaining = -1;
             do { bytesRemaining++; } while (stream.ReadByte() == 0);
-            return stream;
         }
 
         private long ReadTime(Stream stream)
@@ -258,7 +270,7 @@ namespace Diffstore.Snapshots.Filesystem
             if (!fileSystem.Exists(folder)) fileSystem.CreateDirectoryRecursive(folder);
             return fileSystem.GetEntities(folder)
                 .Where(path => path.IsFile)
-                .OrderBy(x => -TimeFromFilename(x));
+                .OrderBy(x => TimeFromFilename(x));
         }
 
         private void FromFilename(string name, out long startTime, out int fileSize)
@@ -283,18 +295,10 @@ namespace Diffstore.Snapshots.Filesystem
         private IEnumerable<Snapshot<TKey, TValue>> ReadAllFrom(TKey key,
             FileSystemPath path)
         {
-            var allData = fileSystem.OpenFile(path, FileAccess.Read).ReadAllBytes();
-            var result = new List<Snapshot<TKey, TValue>>();
-            // TODO Eliminate excessive copying
-            var data = OpenReadFromStart(path, out int unused).ReadAllBytes();
+            var data = OpenReadFromStart(path, out int origin).ReadAllBytes();
             using (var ms = new MemoryStream(data, false))
             using (var br = new BinaryReader(ms))
-                    do {
-                    //yield return ReadSingle(key, br);
-                    result.Add(ReadSingle(key, br));
-                    } while (ms.Position != ms.Length);
-
-            return result;
+                do yield return ReadSingle(key, br); while (ms.Position != ms.Length);
         }
 
         private Snapshot<TKey, TValue> ReadSingle(TKey key, BinaryReader reader)

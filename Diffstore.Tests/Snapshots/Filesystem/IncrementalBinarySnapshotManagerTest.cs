@@ -11,10 +11,13 @@ namespace Diffstore.Tests.Snapshots.Filesystem
     {
         protected override ISnapshotManager<long, SampleData> Build()
         {
-            var options = new FilesystemStorageOptions();
+            var options = new FilesystemStorageOptions()
+            {
+                MaxSnapshotFileSize = 512
+            };
             var filesystem = new MemoryFileSystem();
             return new IncrementalBinarySnapshotManager<long, SampleData>(
-                options, filesystem, 64);
+                options, filesystem, 128);
         }
 
         [Fact]
