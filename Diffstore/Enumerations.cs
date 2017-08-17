@@ -1,4 +1,0 @@
-namespace Diffstore
-{
-    // TODO
-}

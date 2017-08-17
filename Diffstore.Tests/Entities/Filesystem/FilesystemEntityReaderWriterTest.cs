@@ -92,7 +92,8 @@ namespace Diffstore.Tests.Entities.Filesystem
 
             mockFormatter.Verify(mock => mock.Deserialize(
                 It.IsAny<Type>(), 
-                It.IsAny<BinaryReader>()
+                It.IsAny<BinaryReader>(),
+                null
             ), Times.Never());
         }
 

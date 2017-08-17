@@ -42,7 +42,7 @@ namespace Diffstore.Serialization
             });
         }
 
-        public object Deserialize(Type type, BinaryReader stream)
+        public object Deserialize(Type type, BinaryReader stream, string fieldName = null)
         {
             if (!readMethods.ContainsKey(type))
                 throw new ArgumentException($"No deserializer for type ${type}");
@@ -52,7 +52,7 @@ namespace Diffstore.Serialization
             return readMethods[type].Call(stream);
         }
 
-        public void Serialize(object value, BinaryWriter stream)
+        public void Serialize(object value, BinaryWriter stream, string fieldName = null)
         {
             if (value == null) {
                 stream.Write(false); return;

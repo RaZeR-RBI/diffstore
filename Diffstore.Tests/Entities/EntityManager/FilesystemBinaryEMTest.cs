@@ -18,7 +18,7 @@ namespace Diffstore.Tests.Entities.EntityManager
             var mockFormatter = new Mock<IFormatter<BinaryReader, BinaryWriter>>();
             mockFormatter.Setup((f) => f.Deserialize(
                 It.IsAny<Type>(),
-                It.IsAny<BinaryReader>())).Returns(null);
+                It.IsAny<BinaryReader>(), null)).Returns(null);
 
             var mockIO = new Mock<IEntityReaderWriter<long, BinaryReader, BinaryWriter>>();
             mockIO.Setup((io) => io.GetAllKeys()).Returns(keys);
@@ -27,7 +27,9 @@ namespace Diffstore.Tests.Entities.EntityManager
                 mockFormatter.Object, mockIO.Object
             );
             
-            var fetched = em.GetLazy(Comparer<long>.Default)
+            var fetched = em.GetKeys()
+                            .OrderBy(i => i)
+                            .Select(i => em.Get(i))
                             .Take(2);
 
             var count = fetched.Count();

@@ -57,13 +57,6 @@ namespace Diffstore.Entities
             return io.GetAllKeys().AsEnumerable();
         }
 
-        public IEnumerable<Entity<TKey, TValue>> GetLazy(IComparer<TKey> keyComparer)
-        {
-            return GetKeys()
-                .OrderBy(key => key, keyComparer)
-                .Select(key => Get(key));
-        }
-
         public void Persist(Entity<TKey, TValue> entity)
         {
             using (var stream = io.BeginWrite(entity.Key)) Write(stream, entity.Value);
@@ -79,7 +72,7 @@ namespace Diffstore.Entities
             var result = new TValue();
             foreach (var field in schema.Fields)
             {
-                var value = formatter.Deserialize(field.Type, input);
+                var value = formatter.Deserialize(field.Type, input, field.Name);
                 if (value != null) field.Setter(result, value);
             }
             return result;
@@ -90,7 +83,7 @@ namespace Diffstore.Entities
             foreach (var field in schema.Fields)
             {
                 var value = field.Getter(data);
-                formatter.Serialize(value, output);
+                formatter.Serialize(value, output, field.Name);
             }
         }
     }

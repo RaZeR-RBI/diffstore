@@ -4,12 +4,12 @@ using System.Collections.Generic;
 namespace Diffstore.Entities
 {
     public interface IEntityManager<TKey, TValue>
+        where TKey : IComparable
         where TValue : new()
     {
         Entity<TKey, TValue> Get(TKey key);
         IEnumerable<Entity<TKey, TValue>> GetAll();
         IEnumerable<TKey> GetKeys();
-        IEnumerable<Entity<TKey, TValue>> GetLazy(IComparer<TKey> keyComparer);
         void Persist(TKey key, TValue value);
         void Persist(Entity<TKey, TValue> entity);
         void Delete(TKey key);

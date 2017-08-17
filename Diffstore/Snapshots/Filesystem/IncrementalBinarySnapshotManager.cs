@@ -160,8 +160,8 @@ namespace Diffstore.Snapshots.Filesystem
             var data = OpenReadFromStart(path, out int origin).ReadAllBytes();
             var prefix = new byte[zeroPaddingStep];
 
-            Debug.WriteLine($"Rewriting, {requiredEmptyBytes} required, {origin} left");
             fileSystem.Delete(path);
+            
             var newPath = path.ParentPath.AppendFile(ToFilename(startTime, fileSize));
             var stream = fileSystem.CreateFile(newPath);
             stream.Write(prefix, 0, zeroPaddingStep);
@@ -204,7 +204,6 @@ namespace Diffstore.Snapshots.Filesystem
                 fileStream.Write(data, 0, zeroPaddingStep);
             }
             var stream = fileSystem.OpenFile(filePath, FileAccess.ReadWrite);
-            Debug.WriteLine($"Created new file for time ${time}");
             return SeekOrReopen(stream, filePath, zeroPaddingStep - 1, requiredEmptyBytes);
         }
 
@@ -216,6 +215,7 @@ namespace Diffstore.Snapshots.Filesystem
             {
                 foreach (var field in schema.Fields)
                 {
+                    if (field.IgnoreChanges) continue;
                     var fieldValue = field.Getter(value);
                     formatter.Serialize(fieldValue, output);
                 }
@@ -229,7 +229,6 @@ namespace Diffstore.Snapshots.Filesystem
                 var dest = new byte[prefixLength + dataLength];
                 Array.Copy(src, dataLength, dest, 0, prefixLength);
                 Array.Copy(src, 0, dest, prefixLength, dataLength);
-                Debug.WriteLine($"Snapshot size: {dest.Length} bytes");
                 return dest;
             }
         }
@@ -246,39 +245,6 @@ namespace Diffstore.Snapshots.Filesystem
         {
             bytesRemaining = -1;
             do { bytesRemaining++; } while (stream.ReadByte() == 0);
-        }
-
-        private long ReadTime(Stream stream)
-        {
-            byte[] buffer = new byte[4];
-            stream.Read(buffer, 0, 4);
-            return BitConverter.ToInt64(buffer, 0);
-        }
-
-        private TValue ReadValue(BinaryReaderWith7Bit reader)
-        {
-            var result = new TValue();
-            reader.Read7BitEncodedInt(); // skipping length
-            foreach (var field in schema.Fields)
-            {
-                var value = formatter.Deserialize(field.Type, reader);
-                field.Setter(result, value);
-            }
-            return result;
-        }
-
-        private void MoveToNext(BinaryReaderWith7Bit reader)
-        {
-            var length = reader.Read7BitEncodedInt();
-            if (reader.BaseStream.CanSeek)
-            {
-                reader.BaseStream.Seek(length, SeekOrigin.Current);
-            }
-            else
-            {
-                byte[] tmp = new byte[length];
-                reader.Read(tmp, 0, length);
-            }
         }
 
         private IOrderedEnumerable<FileSystemPath> GetExistingFiles(TKey key)
@@ -331,6 +297,7 @@ namespace Diffstore.Snapshots.Filesystem
             TValue value = new TValue();
             foreach (var field in schema.Fields)
             {
+                if (field.IgnoreChanges) continue;
                 var fieldValue = formatter.Deserialize(field.Type, reader);
                 if (fieldValue == null) continue;
                 field.Setter(value, fieldValue);

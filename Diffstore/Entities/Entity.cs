@@ -1,3 +1,6 @@
+using System;
+using Diffstore.Serialization;
+
 namespace Diffstore.Entities
 {
     public class Entity<TKey, TValue>

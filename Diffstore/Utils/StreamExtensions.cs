@@ -3,7 +3,7 @@ using System.IO;
 
 namespace Diffstore.Utils
 {
-    public static class Extensions
+    public static class StreamExtensions
     {
         public static byte[] ReadAllBytes(this Stream reader)
         {
