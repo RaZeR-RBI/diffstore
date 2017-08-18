@@ -24,10 +24,15 @@ namespace Diffstore
 
         public IEnumerable<Entity<TKey, TValue>> Entities => em.GetAll();
 
+        public EventHandler<Entity<TKey, TValue>> OnSave { get; set; }
+        public EventHandler<TKey> OnDelete { get; set; }
+
         public void Delete(TKey key)
         {
+            if (!Exists(key)) return;
             sm.Drop(key);
             em.Delete(key);
+            OnDelete?.Invoke(this, key);
         }
 
         public void Delete(Entity<TKey, TValue> entity) => Delete(entity.Key);
@@ -59,9 +64,13 @@ namespace Diffstore
         public void Save(Entity<TKey, TValue> entity, bool makeSnapshot)
         {
             var old = em.Exists(entity.Key) ? em.Get(entity.Key) : null;
-            em.Persist(entity);
-            if (!makeSnapshot) return;
-            if (old == null || !entity.Value.Equals(old.Value)) sm.Make(entity);
+            var changed = old == null || !entity.Value.Equals(old.Value);
+            if (changed)
+            {
+                em.Persist(entity);
+                OnSave?.Invoke(this, entity);
+                if (makeSnapshot) sm.Make(entity);
+            }
         }
 
         public void PutSnapshot(Entity<TKey, TValue> entity, long time) => 

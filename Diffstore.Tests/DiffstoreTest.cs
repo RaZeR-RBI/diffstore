@@ -50,6 +50,45 @@ namespace Diffstore.Tests
             Assert.False(entity.ExistsIn(db));
         }
 
+        [Theory]
+        [MemberData("Builders", MemberType = typeof(TestBuilderGenerator))]
+        public void ShouldRaiseEvents(Func<IDiffstore<long, SampleData>> builder)
+        {
+            // Arrange
+            var db = builder();
+            var value = new SampleData() { PublicString = "Hello" };
+            var entity = Entity.Create(1L, value);
+            int saveEventCount = 0; int deleteEventCount = 0;
+            SetupAssertEvents(entity, db);
+            db.OnSave += (s, e) => saveEventCount++;
+            db.OnDelete += (s, e) => deleteEventCount++;
+
+            // Act
+            entity.SaveIn(db);
+            var duplicateEntity = Entity.Create(1L, value);
+            duplicateEntity.SaveIn(db);
+            duplicateEntity.DeleteFrom(db);
+            entity.DeleteFrom(db);
+
+            // Assert
+            Assert.Equal(1, saveEventCount); // must not fire on duplicate
+            Assert.Equal(1, deleteEventCount); // same here
+        }
+
+        // Helper method
+        private void SetupAssertEvents(Entity<long, SampleData> entity, 
+            IDiffstore<long, SampleData> db)
+        {
+            db.OnSave += (sender, saved) => {
+                Assert.Equal(db, sender);
+                Assert.Equal(entity, saved);
+            };
+            db.OnDelete += (sender, key) => {
+                Assert.Equal(db, sender);
+                Assert.Equal(key, entity.Key);
+            };
+        }
+
         private static class TestBuilderGenerator
         {
             private static readonly List<Func<IDiffstore<long, SampleData>>> _builders =

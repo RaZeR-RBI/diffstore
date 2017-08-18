@@ -60,7 +60,15 @@ namespace Diffstore
         /// </summary>
         void Delete(Entity<TKey, TValue> entity);
 
+        /// <summary>
+        /// Fires when an entity is successfully saved
+        /// </summary>
+        EventHandler<Entity<TKey, TValue>> OnSave { get; set; }
 
+        /// <summary>
+        /// Fires when an entity with the specified key is deleted 
+        /// </summary>
+        EventHandler<TKey> OnDelete { get; set; }
 
         /* Snapshot-related */
 
