@@ -25,15 +25,10 @@ namespace Diffstore
             return this;
         }
 
-        public DiffstoreBuilder<TKey, TValue> WithDiskStorage()
+        public DiffstoreBuilder<TKey, TValue> WithDiskStorage(string subfolder = "storage")
         {
-            var root = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
-            return WithDiskStorage(root);
-        }
-
-        public DiffstoreBuilder<TKey, TValue> WithDiskStorage(string root)
-        {
-            fileSystem = new PhysicalFileSystem(root);
+            var appRoot = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
+            fileSystem = new PhysicalFileSystem(Path.Combine(appRoot, subfolder));
             return this;
         }
 
