@@ -40,5 +40,12 @@ namespace Diffstore.Tests.Serialization
 
             Assert.Equal(2, actual);
         }
+
+        [Fact]
+        public void ShouldSkipNonPersistableFields()
+        {
+            var schema = new Schema(typeof(SampleDataWithNonPersistableFields));
+            Assert.Equal(2, schema.Fields.Count);
+        }
     }
 }

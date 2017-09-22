@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using Diffstore.Entities;
 using Diffstore.Snapshots;
 
 namespace Diffstore.Tests
@@ -8,7 +9,10 @@ namespace Diffstore.Tests
     {
         public string PublicString;
         public int IntProperty { get; set; }
+        
+        #pragma warning disable CS0169
         private string mySecret;
+        #pragma warning restore CS0169
 
         public override bool Equals(object obj)
         {
@@ -43,5 +47,14 @@ namespace Diffstore.Tests
 
         [IgnoreChanges]
         public short IgnoreMeToo { get; set; }
+    }
+
+    public class SampleDataWithNonPersistableFields : SampleData
+    {
+        [DoNotPersist]
+        public string IWillNotBeSaved;
+
+        [DoNotPersist]
+        public int IWillNotBeSavedToo { get; set; }
     }
 }
