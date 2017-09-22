@@ -29,7 +29,7 @@ namespace Diffstore.Entities.Filesystem
         {
             var fileToRead = filesystem.OpenFile(
                 FilesystemLocator.LocateEntityFile(key, options),
-                FileAccess.Read);
+                FileAccess.ReadWrite);
 
             return StreamBuilder.FromStream<TInput>(fileToRead);
         }
@@ -76,6 +76,8 @@ namespace Diffstore.Entities.Filesystem
 
         public TKey[] GetAllKeys()
         {
+            // TODO FIXME
+            //if (!filesystem.Exists(options.BasePath)) filesystem.CreateDirectoryRecursive(options.BasePath);
             return filesystem.GetEntitiesRecursive(options.BasePath)
                 .Where((entity) => FilesystemLocator.IsKeyFile(entity))
                 .Select((file) => ReadKeyfile(file)).ToArray();
@@ -86,11 +88,9 @@ namespace Diffstore.Entities.Filesystem
             TKey result = FilesystemLocator.ExtractKey<TKey>(path);
             if (!result.Equals(default(TKey))) return result;
 
-            var keyfile = filesystem.OpenFile(path, FileAccess.Read);
+            using (var keyfile = filesystem.OpenFile(path, FileAccess.Read))
             using (var keyfileReader = StreamBuilder.FromStream<TInput>(keyfile))
-                result = (TKey)formatter.Deserialize(typeof(TKey), keyfileReader);
-
-            return result;
+                return (TKey)formatter.Deserialize(typeof(TKey), keyfileReader);
         }
     }
 }

@@ -46,7 +46,9 @@ namespace Diffstore.Serialization
         {
             if (!readMethods.ContainsKey(type))
                 throw new ArgumentException($"No deserializer for type ${type}");
-
+            if (stream.BaseStream.CanSeek)
+                if (stream.BaseStream.Length == stream.BaseStream.Position) return null;
+                
             bool isNotNull = stream.ReadBoolean();
             if (!isNotNull) return null;
             return readMethods[type].Call(stream);

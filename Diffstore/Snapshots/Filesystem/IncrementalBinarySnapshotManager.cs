@@ -144,6 +144,7 @@ namespace Diffstore.Snapshots.Filesystem
             var stream = OpenReadFromStart(path, out int bytesRemaining);
             if (requiredEmptyBytes > bytesRemaining)
             {
+                stream.Close();
                 return (fileSize + zeroPaddingStep > maxSize) ?
                     CreateNewFile(key, time, requiredEmptyBytes) :
                     Rewrite(path, key, time, requiredEmptyBytes);
@@ -235,7 +236,7 @@ namespace Diffstore.Snapshots.Filesystem
 
         private Stream OpenReadFromStart(FileSystemPath path, out int bytesRemaining)
         {
-            var stream = fileSystem.OpenFile(path, FileAccess.Read);
+            var stream = fileSystem.OpenFile(path, FileAccess.ReadWrite);
             MoveToStart(stream, out int bytes);
             bytesRemaining = bytes;
             return stream;
