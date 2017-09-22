@@ -254,6 +254,7 @@ namespace Diffstore.Snapshots.Filesystem
             if (!fileSystem.Exists(folder)) fileSystem.CreateDirectoryRecursive(folder);
             return fileSystem.GetEntities(folder)
                 .Where(path => path.IsFile)
+                .Where(path => fileSystem.Exists(path))
                 .OrderBy(x => TimeFromFilename(x));
         }
 
