@@ -68,32 +68,48 @@ namespace Diffstore.Serialization
 
         private object DeserializeList(Type type, BinaryReader stream)
         {
-            int count = stream.ReadInt32();
             var itemType = type.GenericTypeArguments[0];
             CheckIfCanRead(itemType);
-
             var instance = Activator.CreateInstance(typeof(List<>).MakeGenericType(itemType))
                 as IList;
-            for (int i = 0; i < count; i++)
-                instance.Add(readMethods[itemType].Call(stream));
 
+            if (stream.BaseStream.CanSeek)
+                if (stream.BaseStream.Length == stream.BaseStream.Position)
+                    return instance;
+            try
+            {
+                int count = stream.ReadInt32();
+                if (count == 0) return instance;
+
+                for (int i = 0; i < count; i++)
+                    instance.Add(readMethods[itemType].Call(stream));
+            }
+            catch (EndOfStreamException ex) { } // TODO: Log
             return instance;
         }
 
         private object DeserializeDictionary(Type type, BinaryReader stream)
         {
-            int count = stream.ReadInt32();
             var keyType = type.GenericTypeArguments[0];
             var valueType = type.GenericTypeArguments[1];
             CheckIfCanRead(keyType);
             CheckIfCanRead(valueType);
-
             var instance = Activator.CreateInstance(typeof(Dictionary<,>)
                 .MakeGenericType(keyType, valueType)) as IDictionary;
 
-            for (int i = 0; i < count; i++)
-                instance.Add(readMethods[keyType].Call(stream), readMethods[valueType].Call(stream));
+            if (stream.BaseStream.CanSeek)
+                if (stream.BaseStream.Length == stream.BaseStream.Position)
+                    return instance;
 
+            try
+            {
+                int count = stream.ReadInt32();
+                if (count == 0) return instance;
+
+                for (int i = 0; i < count; i++)
+                    instance.Add(readMethods[keyType].Call(stream), readMethods[valueType].Call(stream));
+            }
+            catch (EndOfStreamException ex) { } // TODO: Log
             return instance;
         }
 
