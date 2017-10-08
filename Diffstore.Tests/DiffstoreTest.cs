@@ -10,8 +10,10 @@ namespace Diffstore.Tests
     public class DiffstoreTest
     {
         [Theory]
-        [MemberData("Builders", MemberType = typeof(TestBuilderGenerator))]
-        public void ShouldProvideBusinessLogic(Func<IDiffstore<long, SampleData>> builder)
+        [MemberData("Builders", MemberType = 
+            typeof(TestBuilderGenerator<SampleDataWithCollections>))]
+        public void ShouldProvideBusinessLogic(
+            Func<IDiffstore<long, SampleDataWithCollections>> builder)
         {
             // Configure
             var db = builder();
@@ -20,10 +22,15 @@ namespace Diffstore.Tests
             Assert.Empty(db.Keys);
 
             var key = 1L;
-            var value = new SampleData()
+            var value = new SampleDataWithCollections()
             {
                 IntProperty = 1337,
-                PublicString = "Diffstore rules"
+                PublicString = "Diffstore rules",
+                MyList = new List<string> { "Apple", "Orange" },
+                MyDictionary = new Dictionary<string, int> {
+                    { "Apples", 5 },
+                    { "Oranges", 3 }
+                }
             };
             var entity = Entity.Create(key, value);
 
@@ -51,7 +58,7 @@ namespace Diffstore.Tests
         }
 
         [Theory]
-        [MemberData("Builders", MemberType = typeof(TestBuilderGenerator))]
+        [MemberData("Builders", MemberType = typeof(TestBuilderGenerator<SampleData>))]
         public void ShouldRaiseEvents(Func<IDiffstore<long, SampleData>> builder)
         {
             // Arrange
@@ -89,17 +96,18 @@ namespace Diffstore.Tests
             };
         }
 
-        private static class TestBuilderGenerator
+        private static class TestBuilderGenerator<T>
+            where T : new()
         {
-            private static readonly List<Func<IDiffstore<long, SampleData>>> _builders =
-                new List<Func<IDiffstore<long, SampleData>>>()
+            private static readonly List<Func<IDiffstore<long, T>>> _builders =
+                new List<Func<IDiffstore<long, T>>>()
                 {
                     BinaryStatisticsOptimized
                 };
 
-            private static IDiffstore<long, SampleData> BinaryStatisticsOptimized()
+            private static IDiffstore<long, T> BinaryStatisticsOptimized()
             {
-                return new DiffstoreBuilder<long, SampleData>()
+                return new DiffstoreBuilder<long, T>()
                     .WithMemoryStorage()
                     .WithFileBasedEntities()
                     .WithLastFirstOptimizedSnapshots()

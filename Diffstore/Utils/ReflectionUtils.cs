@@ -11,5 +11,11 @@ namespace Diffstore.Utils
         {
             return types.Where(type => type.GetInterfaces().Contains(interfaceType));
         }
+
+        public static bool IsGenericList(this Type type) =>
+            type.GetTypeInfo().IsGenericType && type.GetGenericTypeDefinition() == typeof(IList<>);
+
+        public static bool IsGenericDictionary(this Type type) =>
+            type.GetTypeInfo().IsGenericType && type.GetGenericTypeDefinition() == typeof(IDictionary<,>);
     }
 }

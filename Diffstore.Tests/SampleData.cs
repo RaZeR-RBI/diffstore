@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using Diffstore.Entities;
 using Diffstore.Snapshots;
@@ -56,5 +57,11 @@ namespace Diffstore.Tests
 
         [DoNotPersist]
         public int IWillNotBeSavedToo { get; set; }
+    }
+
+    public class SampleDataWithCollections : SampleData
+    {
+        public IList<string> MyList { get; set; }
+        public IDictionary<string, int> MyDictionary { get; set; }
     }
 }
