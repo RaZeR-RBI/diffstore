@@ -10,7 +10,7 @@ namespace Diffstore
     /// </summary>
     public class DS<TKey, TValue> : IDiffstore<TKey, TValue>
         where TKey : IComparable
-        where TValue : new()
+        where TValue : class, new()
     {
         private readonly IEntityManager<TKey, TValue> em;
         private readonly ISnapshotManager<TKey, TValue> sm;

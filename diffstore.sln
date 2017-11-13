@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Diffstore", "Diffstore\Diff
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Diffstore.Tests", "Diffstore.Tests\Diffstore.Tests.csproj", "{A17C15A7-5B81-4DFE-B655-E83A5A88402D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Diffstore.Benchmark", "Diffstore.Benchmark\Diffstore.Benchmark.csproj", "{79B3FBE2-3969-4A08-9A58-175553E006A0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -44,5 +46,17 @@ Global
 		{A17C15A7-5B81-4DFE-B655-E83A5A88402D}.Release|x64.Build.0 = Release|x64
 		{A17C15A7-5B81-4DFE-B655-E83A5A88402D}.Release|x86.ActiveCfg = Release|x86
 		{A17C15A7-5B81-4DFE-B655-E83A5A88402D}.Release|x86.Build.0 = Release|x86
+		{79B3FBE2-3969-4A08-9A58-175553E006A0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{79B3FBE2-3969-4A08-9A58-175553E006A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{79B3FBE2-3969-4A08-9A58-175553E006A0}.Debug|x64.ActiveCfg = Debug|x64
+		{79B3FBE2-3969-4A08-9A58-175553E006A0}.Debug|x64.Build.0 = Debug|x64
+		{79B3FBE2-3969-4A08-9A58-175553E006A0}.Debug|x86.ActiveCfg = Debug|x86
+		{79B3FBE2-3969-4A08-9A58-175553E006A0}.Debug|x86.Build.0 = Debug|x86
+		{79B3FBE2-3969-4A08-9A58-175553E006A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{79B3FBE2-3969-4A08-9A58-175553E006A0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{79B3FBE2-3969-4A08-9A58-175553E006A0}.Release|x64.ActiveCfg = Release|x64
+		{79B3FBE2-3969-4A08-9A58-175553E006A0}.Release|x64.Build.0 = Release|x64
+		{79B3FBE2-3969-4A08-9A58-175553E006A0}.Release|x86.ActiveCfg = Release|x86
+		{79B3FBE2-3969-4A08-9A58-175553E006A0}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 EndGlobal

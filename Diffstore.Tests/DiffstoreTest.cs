@@ -97,7 +97,7 @@ namespace Diffstore.Tests
         }
 
         private static class TestBuilderGenerator<T>
-            where T : new()
+            where T : class, new()
         {
             private static readonly List<Func<IDiffstore<long, T>>> _builders =
                 new List<Func<IDiffstore<long, T>>>()

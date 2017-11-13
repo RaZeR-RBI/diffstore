@@ -5,7 +5,7 @@ namespace Diffstore.Entities
 {
     public interface IEntityManager<TKey, TValue>
         where TKey : IComparable
-        where TValue : new()
+        where TValue : class, new()
     {
         Entity<TKey, TValue> Get(TKey key);
         IEnumerable<Entity<TKey, TValue>> GetAll();

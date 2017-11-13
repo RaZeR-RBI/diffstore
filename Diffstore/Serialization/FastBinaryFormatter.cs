@@ -76,6 +76,7 @@ namespace Diffstore.Serialization
             if (stream.BaseStream.CanSeek)
                 if (stream.BaseStream.Length == stream.BaseStream.Position)
                     return instance;
+#pragma warning disable CS0168
             try
             {
                 int count = stream.ReadInt32();
@@ -84,7 +85,8 @@ namespace Diffstore.Serialization
                 for (int i = 0; i < count; i++)
                     instance.Add(readMethods[itemType].Call(stream));
             }
-            catch (EndOfStreamException ex) { } // TODO: Log
+            catch (EndOfStreamException ex) { }
+#pragma warning restore CS0168
             return instance;
         }
 
@@ -100,7 +102,7 @@ namespace Diffstore.Serialization
             if (stream.BaseStream.CanSeek)
                 if (stream.BaseStream.Length == stream.BaseStream.Position)
                     return instance;
-
+#pragma warning disable CS0168
             try
             {
                 int count = stream.ReadInt32();
@@ -109,7 +111,8 @@ namespace Diffstore.Serialization
                 for (int i = 0; i < count; i++)
                     instance.Add(readMethods[keyType].Call(stream), readMethods[valueType].Call(stream));
             }
-            catch (EndOfStreamException ex) { } // TODO: Log
+            catch (EndOfStreamException ex) { }
+#pragma warning restore CS0168
             return instance;
         }
 

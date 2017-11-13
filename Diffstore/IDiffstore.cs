@@ -11,7 +11,7 @@ namespace Diffstore
     /// <returns></returns>
     public interface IDiffstore<TKey, TValue>
         where TKey : IComparable
-        where TValue : new()
+        where TValue : class, new()
     {
         /* Entity-related */
 

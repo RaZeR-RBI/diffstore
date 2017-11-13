@@ -13,7 +13,7 @@ namespace Diffstore
 {
     public class DiffstoreBuilder<TKey, TValue>
         where TKey : IComparable
-        where TValue : new()
+        where TValue : class, new()
     {
         protected IEntityManager<TKey, TValue> em;
         protected ISnapshotManager<TKey, TValue> sm;

@@ -7,7 +7,7 @@ namespace Diffstore.Entities
 {
     public class EntityManager<TKey, TValue, TInput, TOutput> : IEntityManager<TKey, TValue>
         where TKey : IComparable
-        where TValue : new()
+        where TValue : class, new()
         where TInput : IDisposable
         where TOutput : IDisposable
     {

@@ -7,7 +7,7 @@ namespace Diffstore.Snapshots
 {
     public interface ISnapshotManager<TKey, TValue> : IDisposable
         where TKey : IComparable
-        where TValue : new()
+        where TValue : class, new()
     {
         bool Any(TKey key);
         long GetFirstTime(TKey key);

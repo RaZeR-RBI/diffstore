@@ -28,7 +28,7 @@ namespace Diffstore.Snapshots.Filesystem
      */
     public class IncrementalBinarySnapshotManager<TKey, TValue> : ISnapshotManager<TKey, TValue>
         where TKey : IComparable
-        where TValue : new()
+        where TValue : class, new()
     {
 
         private readonly FilesystemStorageOptions options;
