@@ -26,7 +26,7 @@ namespace Diffstore.Snapshots.Filesystem
         (bytes) - data
         ----
      */
-    public class IncrementalBinarySnapshotManager<TKey, TValue> : ISnapshotManager<TKey, TValue>
+    public class BinaryLIFOSnapshotManager<TKey, TValue> : ISnapshotManager<TKey, TValue>
         where TKey : IComparable
         where TValue : class, new()
     {
@@ -38,7 +38,7 @@ namespace Diffstore.Snapshots.Filesystem
         private readonly Schema schema = SchemaManager.Get(typeof(TValue));
         private readonly int zeroPaddingStep;
 
-        public IncrementalBinarySnapshotManager(FilesystemStorageOptions opts, 
+        public BinaryLIFOSnapshotManager(FilesystemStorageOptions opts, 
             IFileSystem fs, int maxPadding)
         {
             (options, fileSystem, zeroPaddingStep) = (opts, fs, maxPadding);

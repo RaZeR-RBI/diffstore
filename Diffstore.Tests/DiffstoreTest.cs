@@ -102,7 +102,8 @@ namespace Diffstore.Tests
             private static readonly List<Func<IDiffstore<long, T>>> _builders =
                 new List<Func<IDiffstore<long, T>>>()
                 {
-                    BinaryStatisticsOptimized
+                    BinaryStatisticsOptimized,
+                    () => SingleFile(FileFormat.XML)
                 };
 
             private static IDiffstore<long, T> BinaryStatisticsOptimized()
@@ -111,6 +112,15 @@ namespace Diffstore.Tests
                     .WithMemoryStorage()
                     .WithFileBasedEntities()
                     .WithLastFirstOptimizedSnapshots()
+                    .Setup();
+            }
+
+            private static IDiffstore<long, T> SingleFile(FileFormat format)
+            {
+                return new DiffstoreBuilder<long, T>()
+                    .WithMemoryStorage()
+                    .WithFileBasedEntities() // TODO FIXME
+                    .WithSingleFileSnapshots(format)
                     .Setup();
             }
 

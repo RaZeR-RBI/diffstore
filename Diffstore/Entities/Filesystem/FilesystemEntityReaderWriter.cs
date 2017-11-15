@@ -10,7 +10,7 @@ namespace Diffstore.Entities.Filesystem
     public class FilesystemEntityReaderWriter<TKey, TInput, TOutput> :
         IEntityReaderWriter<TKey, TInput, TOutput>
         where TKey : IComparable
-        where TInput : IDisposable
+        where TInput: IDisposable
         where TOutput : IDisposable
     {
         protected readonly IFileSystem filesystem;
@@ -50,7 +50,7 @@ namespace Diffstore.Entities.Filesystem
             filesystem.CreateDirectoryRecursive(path.ParentPath);
             var keyfile = filesystem.CreateFile(FilesystemLocator.LocateKeyFile(key, options));
             using (var keyfileWriter = StreamBuilder.FromStream<TOutput>(keyfile))
-                formatter.Serialize(key, keyfileWriter);
+                formatter.Serialize(key, keyfileWriter, "Key");
             
             return filesystem.CreateFile(path);
         }
@@ -90,7 +90,7 @@ namespace Diffstore.Entities.Filesystem
 
             using (var keyfile = filesystem.OpenFile(path, FileAccess.Read))
             using (var keyfileReader = StreamBuilder.FromStream<TInput>(keyfile))
-                return (TKey)formatter.Deserialize(typeof(TKey), keyfileReader);
+                return (TKey)formatter.Deserialize(typeof(TKey), keyfileReader, "Key");
         }
     }
 }

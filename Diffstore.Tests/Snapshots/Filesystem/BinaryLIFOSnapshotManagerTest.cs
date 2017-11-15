@@ -7,7 +7,7 @@ using Xunit;
 
 namespace Diffstore.Tests.Snapshots.Filesystem
 {
-    public class IncrementalBinarySnapshotManagerTest : SnapshotManagerTest
+    public class BinaryLIFOSnapshotManagerTest : SnapshotManagerTest
     {
         protected override ISnapshotManager<long, SampleData> Build()
         {
@@ -16,7 +16,7 @@ namespace Diffstore.Tests.Snapshots.Filesystem
                 MaxSnapshotFileSize = 512
             };
             var filesystem = new MemoryFileSystem();
-            return new IncrementalBinarySnapshotManager<long, SampleData>(
+            return new BinaryLIFOSnapshotManager<long, SampleData>(
                 options, filesystem, 128);
         }
     }
