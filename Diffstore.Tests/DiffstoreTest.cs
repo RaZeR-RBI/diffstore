@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using Diffstore.Entities;
 using Xunit;
@@ -9,6 +10,17 @@ namespace Diffstore.Tests
 {
     public class DiffstoreTest
     {
+
+        public DiffstoreTest() => Cleanup();
+
+        ~DiffstoreTest() => Cleanup();
+
+        private void Cleanup()
+        {
+            if (Directory.Exists("storage"))
+                Directory.Delete("storage", true);
+        }
+
         [Theory]
         [MemberData("Builders", MemberType = 
             typeof(TestBuilderGenerator<SampleDataWithCollections>))]
@@ -58,7 +70,8 @@ namespace Diffstore.Tests
         }
 
         [Theory]
-        [MemberData("Builders", MemberType = typeof(TestBuilderGenerator<SampleData>))]
+        [MemberData(nameof(TestBuilderGenerator<SampleData>.Builders),
+        MemberType = typeof(TestBuilderGenerator<SampleData>))]
         public void ShouldRaiseEvents(Func<IDiffstore<long, SampleData>> builder)
         {
             // Arrange
@@ -80,6 +93,21 @@ namespace Diffstore.Tests
             // Assert
             Assert.Equal(1, saveEventCount); // must not fire on duplicate
             Assert.Equal(1, deleteEventCount); // same here
+        }
+
+        [Theory]
+        [MemberData(nameof(TestBuilderGenerator<SampleData>.Builders),
+        MemberType = typeof(TestBuilderGenerator<SampleData>))]
+        public void ShouldCloseStreams(Func<IDiffstore<long, SampleData>> builder)
+        {
+            var db = builder();
+            for (int i = 1; i < 5; i++)
+            {
+                var entity = Entity.Create(1L, new SampleData() { IntProperty = i });
+                entity.SaveIn(db);
+                var actual = db.Get(1L);
+                Assert.Equal(entity, actual);
+            }
         }
 
         // Helper method
@@ -119,7 +147,7 @@ namespace Diffstore.Tests
             {
                 return new DiffstoreBuilder<long, T>()
                     .WithMemoryStorage()
-                    .WithFileBasedEntities() // TODO FIXME
+                    .WithFileBasedEntities(format)
                     .WithSingleFileSnapshots(format)
                     .Setup();
             }

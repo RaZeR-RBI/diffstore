@@ -37,11 +37,8 @@ namespace Diffstore.Entities.Filesystem
         public TOutput BeginWrite(TKey key)
         {
             var path = FilesystemLocator.LocateEntityFile(key, options);
-            
-            var fileToWrite = filesystem.Exists(path) ?
-                filesystem.OpenFile(path, FileAccess.Write) :
-                CreateDirectoriesAndFile(key, path);
-            
+            if (filesystem.Exists(path)) filesystem.Delete(path);
+            var fileToWrite = CreateDirectoriesAndFile(key, path);
             return StreamBuilder.FromStream<TOutput>(fileToWrite);
         }
 

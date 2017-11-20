@@ -103,6 +103,7 @@ namespace Diffstore.Serialization.File
 
         public void Serialize(object value, XmlWriterAdapter writer, string fieldName = null)
         {
+            if (value == null) return;
             var instance = writer.Instance;
             instance.WriteStartElement(fieldName);
             switch (value)

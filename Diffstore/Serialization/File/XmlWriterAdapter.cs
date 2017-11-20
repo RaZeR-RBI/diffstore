@@ -13,7 +13,13 @@ namespace Diffstore.Serialization.File
         }
 
         public XmlWriterAdapter(Stream stream) {
-            _writer = XmlWriter.Create(stream);
+            if (stream.CanSeek) stream.Seek(0, SeekOrigin.Begin);
+            _writer = XmlWriter.Create(stream, new XmlWriterSettings()
+            {
+                CloseOutput = true,
+                ConformanceLevel = ConformanceLevel.Document,
+                WriteEndDocumentOnClose = true
+            });
             _writer.WriteStartDocument();
             _writer.WriteStartElement("Value");
         }

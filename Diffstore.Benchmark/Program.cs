@@ -22,7 +22,7 @@ namespace Diffstore.Benchmark
             private const string Delimiter = "----------";
 
             public override string ToString() =>
-                string.Format(Format, "Min", "Max", "Average", "Per second") + "\n" +
+                string.Format(Format, "Min", "Max", "Average", "Op/sec") + "\n" +
                 string.Format(Format, Delimiter, Delimiter, Delimiter, Delimiter) + "\n" +
                 string.Format(Format, Min, Max, Average, 1000 / Average);
         }
@@ -55,10 +55,10 @@ namespace Diffstore.Benchmark
                 { "Checking existence", (db, step) => db.Exists(step) },
                 { "Reading entities", (db, step) => db.Get(step) },
                 { "Writing one snapshot", (db, step) => db.Save(step, new SampleData(step + 1)) },
-                { "Writing one hundred snapshots", (db, step) => {
+                /*{ "Writing one hundred snapshots", (db, step) => {
                     for (int i = 1; i <= 100; i++)
                         db.Save(step, new SampleData(step + i + 1));
-                }},
+                }},*/
                 { "Reading oldest snapshot", (db, step) => db.GetFirst(step) },
                 { "Reading newest snapshot", (db, step) => db.GetLast(step) },
                 { "Reading all snapshots", (db, step) => db.GetSnapshots(step).Count() }
@@ -71,16 +71,29 @@ namespace Diffstore.Benchmark
                     .WithLastFirstOptimizedSnapshots()
                     .Setup()
                 },
+                { "Memory storage, single XML per snapshot", new DiffstoreBuilder<long, SampleData>()
+                    .WithMemoryStorage()
+                    .WithFileBasedEntities(FileFormat.XML)
+                    .WithSingleFileSnapshots(FileFormat.XML)
+                    .Setup()
+                },
                 { "Disk storage, LIFO optimized files", new DiffstoreBuilder<long, SampleData>()
                     .WithDiskStorage()
                     .WithFileBasedEntities()
                     .WithLastFirstOptimizedSnapshots()
+                    .Setup()
+                },
+                { "Disk storage, single XML per snapshot", new DiffstoreBuilder<long, SampleData>()
+                    .WithDiskStorage()
+                    .WithFileBasedEntities(FileFormat.XML)
+                    .WithSingleFileSnapshots(FileFormat.XML)
                     .Setup()
                 }
             };
 
             foreach (var impl in implementations)
             {
+                Cleanup();
                 if (!isCold) Console.WriteLine($"# {impl.Key}");
                 foreach (var pair in benches)
                 {
@@ -96,8 +109,11 @@ namespace Diffstore.Benchmark
                 }
             }
 
-            // Cleanup
-            Directory.Delete("storage", true);
+            Cleanup();
+        }
+
+        static void Cleanup() {
+            if (Directory.Exists("storage")) Directory.Delete("storage", true);
         }
 
         static BenchInfo MeasureBatch(Action<int> step)
