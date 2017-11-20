@@ -1,0 +1,152 @@
+/home/razer/vscode-projects/diffstore/Diffstore.Benchmark/Diffstore.Benchmark.csproj : warning NU1701: Package 'fasterflect 2.1.3' was restored using '.NETFramework,Version=v4.6.1' instead of the project target framework '.NETCoreApp,Version=v2.0'. This package may not be fully compatible with your project.
+/home/razer/vscode-projects/diffstore/Diffstore/Diffstore.csproj : warning NU1701: Package 'fasterflect 2.1.3' was restored using '.NETFramework,Version=v4.6.1' instead of the project target framework '.NETStandard,Version=v2.0'. This package may not be fully compatible with your project. [/home/razer/vscode-projects/diffstore/Diffstore.Benchmark/Diffstore.Benchmark.csproj]
+/home/razer/vscode-projects/diffstore/Diffstore.Benchmark/Diffstore.Benchmark.csproj : warning NU1701: Package 'SharpFileSystem 1.0.35' was restored using '.NETFramework,Version=v4.6.1' instead of the project target framework '.NETCoreApp,Version=v2.0'. This package may not be fully compatible with your project.
+/home/razer/vscode-projects/diffstore/Diffstore/Diffstore.csproj : warning NU1701: Package 'SharpFileSystem 1.0.35' was restored using '.NETFramework,Version=v4.6.1' instead of the project target framework '.NETStandard,Version=v2.0'. This package may not be fully compatible with your project. [/home/razer/vscode-projects/diffstore/Diffstore.Benchmark/Diffstore.Benchmark.csproj]
+/home/razer/vscode-projects/diffstore/Diffstore.Benchmark/Diffstore.Benchmark.csproj : warning NU1701: Package 'fasterflect 2.1.3' was restored using '.NETFramework,Version=v4.6.1' instead of the project target framework '.NETCoreApp,Version=v2.0'. This package may not be fully compatible with your project.
+/home/razer/vscode-projects/diffstore/Diffstore.Benchmark/Diffstore.Benchmark.csproj : warning NU1701: Package 'SharpFileSystem 1.0.35' was restored using '.NETFramework,Version=v4.6.1' instead of the project target framework '.NETCoreApp,Version=v2.0'. This package may not be fully compatible with your project.
+/home/razer/vscode-projects/diffstore/Diffstore/Diffstore.csproj : warning NU1701: Package 'fasterflect 2.1.3' was restored using '.NETFramework,Version=v4.6.1' instead of the project target framework '.NETStandard,Version=v2.0'. This package may not be fully compatible with your project.
+/home/razer/vscode-projects/diffstore/Diffstore/Diffstore.csproj : warning NU1701: Package 'SharpFileSystem 1.0.35' was restored using '.NETFramework,Version=v4.6.1' instead of the project target framework '.NETStandard,Version=v2.0'. This package may not be fully compatible with your project.
+# Memory storage, LIFO optimized files
+## Writing entities
+|       Min|       Max|   Average|    Op/sec|
+|----------|----------|----------|----------|
+|    2,2858|  322,6091|  3,218798|   310,675|
+
+## Checking existence
+|       Min|       Max|   Average|    Op/sec|
+|----------|----------|----------|----------|
+|    0,0996|     1,072| 0,1280566|  7809,047|
+
+## Reading entities
+|       Min|       Max|   Average|    Op/sec|
+|----------|----------|----------|----------|
+|    0,4609|   55,6211| 0,6190088|  1615,486|
+
+## Writing one snapshot
+|       Min|       Max|   Average|    Op/sec|
+|----------|----------|----------|----------|
+|    3,8933|  301,1575|  5,768471|  173,3562|
+
+## Reading oldest snapshot
+|       Min|       Max|   Average|    Op/sec|
+|----------|----------|----------|----------|
+|    1,7354|  136,7588|  2,351144|  425,3249|
+
+## Reading newest snapshot
+|       Min|       Max|   Average|    Op/sec|
+|----------|----------|----------|----------|
+|    1,3578|   83,9165|  1,699058|  588,5614|
+
+## Reading all snapshots
+|       Min|       Max|   Average|    Op/sec|
+|----------|----------|----------|----------|
+|    1,9056|  118,1452|  2,813226|  355,4639|
+
+# Memory storage, single XML per snapshot
+## Writing entities
+|       Min|       Max|   Average|    Op/sec|
+|----------|----------|----------|----------|
+|    2,4754|  261,8302|  3,574566|  279,7542|
+
+## Checking existence
+|       Min|       Max|   Average|    Op/sec|
+|----------|----------|----------|----------|
+|    0,0996|   68,0053| 0,1959949|  5102,174|
+
+## Reading entities
+|       Min|       Max|   Average|    Op/sec|
+|----------|----------|----------|----------|
+|    2,4556|  223,9589|  3,264559|  306,3201|
+
+## Writing one snapshot
+|       Min|       Max|   Average|    Op/sec|
+|----------|----------|----------|----------|
+|    5,4039|  536,0759|  7,035223|  142,1419|
+
+## Reading oldest snapshot
+|       Min|       Max|   Average|    Op/sec|
+|----------|----------|----------|----------|
+|    2,6683|   71,2015|  3,072453|  325,4728|
+
+## Reading newest snapshot
+|       Min|       Max|   Average|    Op/sec|
+|----------|----------|----------|----------|
+|     2,682|   23,3151|  3,099278|  322,6558|
+
+## Reading all snapshots
+|       Min|       Max|   Average|    Op/sec|
+|----------|----------|----------|----------|
+|    2,9098|   25,6986|  3,287002|  304,2286|
+
+# Disk storage, LIFO optimized files
+## Writing entities
+|       Min|       Max|   Average|    Op/sec|
+|----------|----------|----------|----------|
+|   26,3764|  167,7801|  30,09459|  33,22856|
+
+## Checking existence
+|       Min|       Max|   Average|    Op/sec|
+|----------|----------|----------|----------|
+|    0,4872|    3,8403| 0,6130305|   1631,24|
+
+## Reading entities
+|       Min|       Max|   Average|    Op/sec|
+|----------|----------|----------|----------|
+|    2,2051|   80,7279|  2,710115|  368,9881|
+
+## Writing one snapshot
+|       Min|       Max|   Average|    Op/sec|
+|----------|----------|----------|----------|
+|   30,0685|  3048,153|  46,06651|  21,70774|
+
+## Reading oldest snapshot
+|       Min|       Max|   Average|    Op/sec|
+|----------|----------|----------|----------|
+|   10,8706|  108,5279|  12,28032|   81,4311|
+
+## Reading newest snapshot
+|       Min|       Max|   Average|    Op/sec|
+|----------|----------|----------|----------|
+|    9,8709|  126,6037|  10,96303|   91,2157|
+
+## Reading all snapshots
+|       Min|       Max|   Average|    Op/sec|
+|----------|----------|----------|----------|
+|    11,085|   95,8194|    12,004|  83,30559|
+
+# Disk storage, single XML per snapshot
+## Writing entities
+|       Min|       Max|   Average|    Op/sec|
+|----------|----------|----------|----------|
+|   23,8013|   56,1605|  25,71743|  38,88413|
+
+## Checking existence
+|       Min|       Max|   Average|    Op/sec|
+|----------|----------|----------|----------|
+|    0,5347|   20,4072| 0,6605499|   1513,89|
+
+## Reading entities
+|       Min|       Max|   Average|    Op/sec|
+|----------|----------|----------|----------|
+|    4,8591|   46,4397|  5,439537|  183,8392|
+
+## Writing one snapshot
+|       Min|       Max|   Average|    Op/sec|
+|----------|----------|----------|----------|
+|   22,6953|   51,5681|  25,96425|  38,51449|
+
+## Reading oldest snapshot
+|       Min|       Max|   Average|    Op/sec|
+|----------|----------|----------|----------|
+|   13,4882|  103,7078|  14,84586|  67,35886|
+
+## Reading newest snapshot
+|       Min|       Max|   Average|    Op/sec|
+|----------|----------|----------|----------|
+|   12,6836|   37,0301|  13,89945|  71,94527|
+
+## Reading all snapshots
+|       Min|       Max|   Average|    Op/sec|
+|----------|----------|----------|----------|
+|   15,6072|     101,5|   18,3078|  54,62154|
+
