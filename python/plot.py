@@ -1,10 +1,10 @@
-# pylint: disable=invalid-name
-
+# pylint: disable=invalid-name,redefined-outer-name
 """
 Plots the benchmark data. If a path to output file is defined, reads it,
 otherwise runs the benchmark by itself.
 """
 import json
+import os
 import sys
 import subprocess
 import matplotlib.pyplot as plt
@@ -24,11 +24,10 @@ def read(path):
     return contents
 
 def filter_samples(iterable):
-    samples = np.array(list(filter(lambda x: x < 100.0, iterable)))
-    median = np.median(samples)
-    stddev = np.std(samples)
-    lower = median - 3 * stddev
-    upper = median + 3 * stddev
+    "Filters the input samples by removing samples beyond 10 and 90 percentiles"
+    samples = np.array(iterable)
+    lower = np.percentile(samples, 10)
+    upper = np.percentile(samples, 90)
     return [x for x in samples if lower < x < upper]
 
 def frame(labels, values):
@@ -36,14 +35,21 @@ def frame(labels, values):
     d = dict(zip(labels, values))
     return pd.DataFrame(dict([(k, pd.Series(v)) for k, v in d.items()]))
 
+def extract(categories):
+    labels = categories.keys()
+    values = list(map(filter_samples, list(categories.values())))
+    return frame(labels, values)
+
 output = read(sys.argv[1]) if len(sys.argv) == 2 else run()
 graphs = json.loads(output)["Value"]
 
 sns.set_style("whitegrid")
+if not os.path.exists('images/'):
+    os.makedirs('images/')
 for title, categories in graphs.items():
-    labels = categories.keys()
-    values = list(map(filter_samples, list(categories.values())))
-    data = frame(labels, values)
+    data = extract(categories)
     f, ax = plt.subplots(figsize=(8, 8))
+    f.suptitle(title)
+    ax.set(xlabel='Implementation', ylabel='Time in milliseconds')
     sns.swarmplot(data=data)
     f.savefig('images/' + title + '.png')
