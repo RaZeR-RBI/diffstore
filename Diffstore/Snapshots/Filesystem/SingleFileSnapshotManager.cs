@@ -1,33 +1,37 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using Diffstore.Entities;
 using Diffstore.Entities.Filesystem;
 using Diffstore.Serialization;
-using Diffstore.Serialization.File;
+using Diffstore.Serialization.XML;
+using Diffstore.Utils;
 using SharpFileSystem;
 
 namespace Diffstore.Snapshots.Filesystem
 {
-    public class SingleFileSnapshotManager<TKey, TValue, TIn, TOut> : 
+    public class SingleFileSnapshotManager<TKey, TValue, TIn, TOut> :
         ISnapshotManager<TKey, TValue>
         where TKey : IComparable
         where TValue : class, new()
+        where TIn : IDisposable
+        where TOut : IDisposable
     {
         private readonly FilesystemStorageOptions options;
         private readonly IFileSystem fileSystem;
-        private readonly IFileFormatter<TIn, TOut> formatter;
+        private readonly IFormatter<TIn, TOut> formatter;
         private readonly Schema schema = SchemaManager.Get(typeof(TValue));
 
         public SingleFileSnapshotManager(FilesystemStorageOptions opts,
-            IFileFormatter<TIn, TOut> format,
+            IFormatter<TIn, TOut> format,
             IFileSystem fs) =>
             (options, fileSystem, formatter) = (opts, fs, format);
 
         public bool Any(TKey key) => GetExistingFiles(key).Any();
 
-        public void Dispose() {
-            formatter.Dispose();
+        public void Dispose()
+        {
             fileSystem.Dispose();
         }
 
@@ -56,7 +60,7 @@ namespace Diffstore.Snapshots.Filesystem
         public long GetLastTime(TKey key) =>
             TimeFromFilename(GetExistingFiles(key).Last());
 
-        public IEnumerable<Snapshot<TKey, TValue>> GetPage(TKey key, int from, int count, 
+        public IEnumerable<Snapshot<TKey, TValue>> GetPage(TKey key, int from, int count,
             bool ascending = true) =>
             GetExistingFiles(key, ascending)
                 .Skip(from)
@@ -73,29 +77,36 @@ namespace Diffstore.Snapshots.Filesystem
 
             if (!fileSystem.Exists(path.ParentPath))
                 fileSystem.CreateDirectoryRecursive(path.ParentPath);
-                
-            var writer = formatter.BeginWrite(fileSystem, path);
-            foreach(var field in schema.Fields)
+
+            if (fileSystem.Exists(path)) fileSystem.Delete(path);
+
+            var stream = fileSystem.CreateFile(path);
+            using (var writer = StreamBuilder.FromStream<TOut>(stream))
             {
-                if (field.IgnoreChanges) continue;
-                var fieldValue = field.Getter(entity.Value);
-                if (fieldValue == null) continue;
-                formatter.Serialize(fieldValue, writer, field.Name);
+                foreach (var field in schema.Fields)
+                {
+                    if (field.IgnoreChanges) continue;
+                    var fieldValue = field.Getter(entity.Value);
+                    if (fieldValue == null) continue;
+                    formatter.Serialize(fieldValue, writer, field.Name);
+                }
             }
-            formatter.EndWrite(writer);
         }
 
         private Snapshot<TKey, TValue> Read(TKey key, FileSystemPath path)
         {
             var time = long.Parse(path.EntityName);
-            var reader = formatter.BeginRead(fileSystem, path);
 
+            var stream = fileSystem.OpenFile(path, FileAccess.Read);
             var instance = new TValue();
-            foreach(var field in schema.Fields)
+            using (var reader = StreamBuilder.FromStream<TIn>(stream))
             {
-                var value = formatter.Deserialize(field.Type, reader, field.Name);
-                if (value == null) continue;
-                field.Setter(instance, value);
+                foreach (var field in schema.Fields)
+                {
+                    var value = formatter.Deserialize(field.Type, reader, field.Name);
+                    if (value == null) continue;
+                    field.Setter(instance, value);
+                }
             }
             return Snapshot.Create(time, Entity.Create(key, instance));
         }

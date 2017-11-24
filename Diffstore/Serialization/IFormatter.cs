@@ -6,6 +6,8 @@ namespace Diffstore.Serialization
     /// Represents a formatter which is used for the serialization and deserialization
     /// </summary>
     public interface IFormatter<TInputStream, TOutputStream>
+        where TInputStream : IDisposable
+        where TOutputStream : IDisposable
     {
         /// <summary>
         /// Serializes a value to the output stream

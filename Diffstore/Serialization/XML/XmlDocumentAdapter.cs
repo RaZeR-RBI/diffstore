@@ -4,7 +4,7 @@ using System.Text;
 using System.Xml;
 using Diffstore.Utils;
 
-namespace Diffstore.Serialization.File
+namespace Diffstore.Serialization.XML
 {
     /* 
         Utility class to allow XmlDocument to be used in

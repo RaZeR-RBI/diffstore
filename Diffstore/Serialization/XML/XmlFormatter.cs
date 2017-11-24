@@ -6,17 +6,22 @@ using System.Xml;
 using Diffstore.Utils;
 using SharpFileSystem;
 
-namespace Diffstore.Serialization.File
+namespace Diffstore.Serialization.XML
 {
-    public class XmlFileFormatter : IFileFormatter<XmlDocumentAdapter, XmlWriterAdapter>
+    public class XmlFormatter : IFormatter<XmlDocumentAdapter, XmlWriterAdapter>
     {
         private Dictionary<Type, Func<string, object>> _readers =
             new Dictionary<Type, Func<string, object>>() {
+                { typeof(bool), s => bool.Parse(s) },
+                { typeof(char), s => char.Parse(s) },
                 { typeof(string), s => s },
                 { typeof(byte), s => byte.Parse(s) },
                 { typeof(short), s => short.Parse(s) },
                 { typeof(int), s => int.Parse(s) },
                 { typeof(long), s => long.Parse(s) },
+                { typeof(float), s => float.Parse(s) },
+                { typeof(double), s => double.Parse(s) },
+                { typeof(decimal), s => decimal.Parse(s) },
 #if !CLS
                 { typeof(sbyte), s => sbyte.Parse(s) },
                 { typeof(ushort), s => ushort.Parse(s) },
@@ -24,21 +29,6 @@ namespace Diffstore.Serialization.File
                 { typeof(ulong), s => ulong.Parse(s) }
 #endif
             };
-
-        public XmlDocumentAdapter BeginRead(IFileSystem fs, FileSystemPath path)
-        {
-            using (var stream = fs.OpenFile(path, FileAccess.Read))
-                return new XmlDocumentAdapter(stream);
-        }
-
-        public XmlWriterAdapter BeginWrite(IFileSystem fs, FileSystemPath path)
-        {
-            var stream = fs.Exists(path) ? fs.OpenFile(path, FileAccess.Write) :
-                fs.CreateFile(path);
-
-            var writer = new XmlWriterAdapter(stream);
-            return writer;
-        }
 
         public object Deserialize(Type type, XmlDocumentAdapter stream, string fieldName = null)
         {
@@ -92,14 +82,6 @@ namespace Diffstore.Serialization.File
         }
 
         public void Dispose() { }
-
-        public void EndRead(XmlDocumentAdapter reader) { }
-
-        public void EndWrite(XmlWriterAdapter writer)
-        {
-            writer.Instance.WriteEndDocument();
-            writer.Instance.Close();
-        }
 
         public void Serialize(object value, XmlWriterAdapter writer, string fieldName = null)
         {

@@ -13,9 +13,13 @@ namespace Diffstore.Utils
         }
 
         public static bool IsGenericList(this Type type) =>
-            type.GetTypeInfo().IsGenericType && type.GetGenericTypeDefinition() == typeof(IList<>);
+            type.GetTypeInfo().IsGenericType && 
+            (type.GetGenericTypeDefinition() == typeof(IList<>) ||
+            type.GetGenericTypeDefinition() == typeof(List<>));
 
         public static bool IsGenericDictionary(this Type type) =>
-            type.GetTypeInfo().IsGenericType && type.GetGenericTypeDefinition() == typeof(IDictionary<,>);
+            type.GetTypeInfo().IsGenericType && 
+            (type.GetGenericTypeDefinition() == typeof(IDictionary<,>) ||
+            type.GetGenericTypeDefinition() == typeof(Dictionary<,>));
     }
 }

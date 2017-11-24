@@ -22,8 +22,8 @@ namespace Diffstore.Tests
         }
 
         [Theory]
-        [MemberData("Builders", MemberType = 
-            typeof(TestBuilderGenerator<SampleDataWithCollections>))]
+        [MemberData(nameof(TestBuilderGenerator<SampleDataWithCollections>.Builders),
+        MemberType = typeof(TestBuilderGenerator<SampleDataWithCollections>))]
         public void ShouldProvideBusinessLogic(
             Func<IDiffstore<long, SampleDataWithCollections>> builder)
         {

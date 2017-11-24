@@ -11,15 +11,16 @@ namespace Diffstore.Utils
         private static Dictionary<Type, ConstructorInvoker> _streamCtorCache =
             new Dictionary<Type, ConstructorInvoker>();
 
-        public static T FromStream<T>(Stream stream)
+        public static T FromStream<T>(Stream stream) => (T)FromStream(stream, typeof(T));
+
+        public static object FromStream(Stream stream, Type type)
         {
             lock (_streamCtorCache)
             {
-                var type = typeof(T);
                 if (!_streamCtorCache.ContainsKey(type))
                     _streamCtorCache.Add(type, type.DelegateForCreateInstance(typeof(Stream)));
 
-                return (T)_streamCtorCache[type].Invoke(stream);
+                return _streamCtorCache[type].Invoke(stream);
             }
         }
     }

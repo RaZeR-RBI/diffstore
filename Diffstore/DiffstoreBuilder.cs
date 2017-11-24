@@ -5,7 +5,7 @@ using System.Xml;
 using Diffstore.Entities;
 using Diffstore.Entities.Filesystem;
 using Diffstore.Serialization;
-using Diffstore.Serialization.File;
+using Diffstore.Serialization.XML;
 using Diffstore.Snapshots;
 using Diffstore.Snapshots.Filesystem;
 using SharpFileSystem;
@@ -59,7 +59,7 @@ namespace Diffstore
                 case FileFormat.Binary:
                     return WithFileBasedEntities(options, fileSystem);
                 case FileFormat.XML:
-                    var formatter = new XmlFileFormatter();
+                    var formatter = new XmlFormatter();
                     var entityIO = new FilesystemEntityReaderWriter
                         <TKey, XmlDocumentAdapter, XmlWriterAdapter>
                         (fileSystem, formatter, options);
@@ -106,7 +106,7 @@ namespace Diffstore
             switch(format) {
                 case FileFormat.XML: 
                     sm = new SingleFileSnapshotManager<TKey, TValue, XmlDocumentAdapter, XmlWriterAdapter>
-                    (options, new XmlFileFormatter(), fileSystem); break;
+                    (options, new XmlFormatter(), fileSystem); break;
                 default:
                     throw new NotImplementedException();
             }

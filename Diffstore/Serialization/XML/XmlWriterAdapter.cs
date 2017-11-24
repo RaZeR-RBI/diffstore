@@ -2,7 +2,7 @@ using System;
 using System.IO;
 using System.Xml;
 
-namespace Diffstore.Serialization.File
+namespace Diffstore.Serialization.XML
 {
     public class XmlWriterAdapter : IDisposable
     {
@@ -18,7 +18,7 @@ namespace Diffstore.Serialization.File
             {
                 CloseOutput = true,
                 ConformanceLevel = ConformanceLevel.Document,
-                WriteEndDocumentOnClose = true
+                WriteEndDocumentOnClose = true,
             });
             _writer.WriteStartDocument();
             _writer.WriteStartElement("Value");

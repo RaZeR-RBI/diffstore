@@ -1,7 +1,7 @@
 using System;
 using System.Xml;
 using Diffstore.Entities.Filesystem;
-using Diffstore.Serialization.File;
+using Diffstore.Serialization.XML;
 using Diffstore.Snapshots;
 using Diffstore.Snapshots.Filesystem;
 using SharpFileSystem.FileSystems;
@@ -16,7 +16,7 @@ namespace Diffstore.Tests.Snapshots.Filesystem
             var options = new FilesystemStorageOptions();
             var filesystem = new MemoryFileSystem();
             return new SingleFileSnapshotManager<long, SampleData, XmlDocumentAdapter, XmlWriterAdapter>(
-                options, new XmlFileFormatter(), filesystem);
+                options, new XmlFormatter(), filesystem);
         }
     }
 }
