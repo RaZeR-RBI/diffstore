@@ -70,7 +70,7 @@ namespace Diffstore.Serialization
         {
             var itemType = type.GenericTypeArguments[0];
             CheckIfCanRead(itemType);
-            var instance = Activator.CreateInstance(typeof(List<>).MakeGenericType(itemType))
+            var instance = ConstructorCache.Create(typeof(List<>).MakeGenericType(itemType))
                 as IList;
 
             if (stream.BaseStream.CanSeek)
@@ -96,7 +96,7 @@ namespace Diffstore.Serialization
             var valueType = type.GenericTypeArguments[1];
             CheckIfCanRead(keyType);
             CheckIfCanRead(valueType);
-            var instance = Activator.CreateInstance(typeof(Dictionary<,>)
+            var instance = ConstructorCache.Create(typeof(Dictionary<,>)
                 .MakeGenericType(keyType, valueType)) as IDictionary;
 
             if (stream.BaseStream.CanSeek)

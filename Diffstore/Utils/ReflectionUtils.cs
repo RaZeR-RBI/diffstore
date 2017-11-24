@@ -7,10 +7,9 @@ namespace Diffstore.Utils
 {
     public static class ReflectionUtils
     {
-        public static IEnumerable<Type> GetImplementingTypes(this Type[] types, Type interfaceType)
-        {
-            return types.Where(type => type.GetInterfaces().Contains(interfaceType));
-        }
+        public static IEnumerable<Type> GetImplementingTypes(this Type[] types, 
+            Type interfaceType) =>
+            types.Where(type => type.GetInterfaces().Contains(interfaceType));
 
         public static bool IsGenericList(this Type type) =>
             type.GetTypeInfo().IsGenericType && 

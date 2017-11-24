@@ -52,7 +52,7 @@ namespace Diffstore.Serialization.XML
         private object DeserializeList(Type type, XmlNode node)
         {
             var itemType = type.GenericTypeArguments[0];
-            var instance = Activator.CreateInstance(typeof(List<>).MakeGenericType(itemType))
+            var instance = ConstructorCache.Create(typeof(List<>).MakeGenericType(itemType))
                 as IList;
 
             if (!node.HasChildNodes) return instance;
@@ -66,7 +66,7 @@ namespace Diffstore.Serialization.XML
         {
             var keyType = type.GenericTypeArguments[0];
             var valueType = type.GenericTypeArguments[1];
-            var instance = Activator.CreateInstance(typeof(Dictionary<,>)
+            var instance = ConstructorCache.Create(typeof(Dictionary<,>)
                 .MakeGenericType(keyType, valueType)) as IDictionary;
 
             if (!node.HasChildNodes) return instance;
