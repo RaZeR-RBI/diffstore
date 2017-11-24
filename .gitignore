@@ -10,6 +10,7 @@
 *.sln.docstates
 .vscode/*
 */.vscode/*
+python/*.txt
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs

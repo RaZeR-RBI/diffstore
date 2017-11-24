@@ -20,8 +20,10 @@ namespace Diffstore.Serialization
             get { return _instance; }
         }
 
-        private static Dictionary<Type, MethodInfo> readMethods = new Dictionary<Type, MethodInfo>();
-        private static Dictionary<Type, MethodInfo> writeMethods = new Dictionary<Type, MethodInfo>();
+        private static Dictionary<Type, MethodInvoker> readMethods = 
+            new Dictionary<Type, MethodInvoker>();
+        private static Dictionary<Type, MethodInvoker> writeMethods =
+            new Dictionary<Type, MethodInvoker>();
 
         static FastBinaryFormatter()
         {
@@ -32,7 +34,7 @@ namespace Diffstore.Serialization
                 if (method.Name.Length == 4) return;
                 if (method.Parameters().Count != 0) return;
                 var returnType = method.ReturnType;
-                readMethods.Add(returnType, method);
+                readMethods.Add(returnType, method.DelegateForCallMethod());
             });
 
             var allWriterMethods = typeof(BinaryWriter).GetMethods();
@@ -41,7 +43,7 @@ namespace Diffstore.Serialization
                 if (!method.Name.Equals("Write")) return;
                 if (method.Parameters().Count != 1) return;
                 var paramType = method.GetParameters()[0].ParameterType;
-                writeMethods.Add(paramType, method);
+                writeMethods.Add(paramType, method.DelegateForCallMethod());
             });
         }
 
@@ -62,7 +64,7 @@ namespace Diffstore.Serialization
                     return DeserializeDictionary(type, stream);
                 default:
                     CheckIfCanRead(type);
-                    return readMethods[type].Call(stream);
+                    return readMethods[type](stream);
             }
         }
 
@@ -83,7 +85,7 @@ namespace Diffstore.Serialization
                 if (count == 0) return instance;
 
                 for (int i = 0; i < count; i++)
-                    instance.Add(readMethods[itemType].Call(stream));
+                    instance.Add(readMethods[itemType](stream));
             }
             catch (EndOfStreamException ex) { }
 #pragma warning restore CS0168
@@ -109,7 +111,7 @@ namespace Diffstore.Serialization
                 if (count == 0) return instance;
 
                 for (int i = 0; i < count; i++)
-                    instance.Add(readMethods[keyType].Call(stream), readMethods[valueType].Call(stream));
+                    instance.Add(readMethods[keyType](stream), readMethods[valueType](stream));
             }
             catch (EndOfStreamException ex) { }
 #pragma warning restore CS0168
@@ -133,7 +135,7 @@ namespace Diffstore.Serialization
                     var type = value.GetType();
                     CheckIfCanWrite(type);
                     stream.Write(true);
-                    writeMethods[type].Call(stream, value);
+                    writeMethods[type](stream, value);
                     break;
             }
         }
@@ -147,7 +149,7 @@ namespace Diffstore.Serialization
             var itemType = list.GetType().GenericTypeArguments[0];
 
             foreach (var item in list)
-                writeMethods[itemType].Call(stream, item);
+                writeMethods[itemType](stream, item);
         }
 
         private void SerializeDictionary(IDictionary dict, BinaryWriter stream)
@@ -163,8 +165,8 @@ namespace Diffstore.Serialization
 
             foreach (var pair in dict.ZipPairs())
             {
-                writeMethods[keyType].Call(stream, pair.Item1);
-                writeMethods[itemType].Call(stream, pair.Item2);
+                writeMethods[keyType](stream, pair.Item1);
+                writeMethods[itemType](stream, pair.Item2);
             }
         }
 
