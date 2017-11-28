@@ -40,6 +40,8 @@ namespace Diffstore.Serialization.XML
 
             switch (type)
             {
+                case Type t when t.IsArray:
+                    return DeserializeArray(type, node);
                 case Type t when t.IsGenericList():
                     return DeserializeList(type, node);
                 case Type t when t.IsGenericDictionary():
@@ -52,16 +54,27 @@ namespace Diffstore.Serialization.XML
 
         private object DeserializeSingle(Type type, string value) => _readers[type](value);
 
+        private void Read(XmlNode root, Action<string> setter)
+        {
+            if (!root.HasChildNodes) return;
+            foreach(XmlNode node in root.ChildNodes)
+                setter(node.InnerText);
+        }
+
+        private object DeserializeArray(Type type, XmlNode node)
+        {
+            var itemType = type.GetElementType();
+            var instance = Array.CreateInstance(itemType, node.ChildNodes.Count);
+            int i = 0;
+            Read(node, s => instance.SetValue(DeserializeSingle(itemType, s), i++));
+            return instance;
+        }
+
         private object DeserializeList(Type type, XmlNode node)
         {
             var itemType = type.GenericTypeArguments[0];
-            var instance = ConstructorCache.Create(type)
-                as IList;
-
-            if (!node.HasChildNodes) return instance;
-            foreach (XmlNode child in node.ChildNodes)
-                instance.Add(DeserializeSingle(itemType, child.InnerText));
-
+            var instance = ConstructorCache.Create(typeof(List<>).MakeGenericType(itemType)) as IList;
+            Read(node, s => instance.Add(DeserializeSingle(itemType, s)));
             return instance;
         }
 
