@@ -55,7 +55,7 @@ namespace Diffstore.Serialization.XML
         private object DeserializeList(Type type, XmlNode node)
         {
             var itemType = type.GenericTypeArguments[0];
-            var instance = ConstructorCache.Create(typeof(List<>).MakeGenericType(itemType))
+            var instance = ConstructorCache.Create(type)
                 as IList;
 
             if (!node.HasChildNodes) return instance;

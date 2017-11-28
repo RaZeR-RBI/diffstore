@@ -20,7 +20,7 @@ namespace Diffstore.Serialization
             get { return _instance; }
         }
 
-        private static Dictionary<Type, MethodInvoker> readMethods = 
+        private static Dictionary<Type, MethodInvoker> readMethods =
             new Dictionary<Type, MethodInvoker>();
         private static Dictionary<Type, MethodInvoker> writeMethods =
             new Dictionary<Type, MethodInvoker>();
@@ -58,6 +58,8 @@ namespace Diffstore.Serialization
 
             switch (type)
             {
+                case Type t when t.IsArray:
+                    return DeserializeArray(t, stream);
                 case Type t when t.IsGenericList():
                     return DeserializeList(type, stream);
                 case Type t when t.IsGenericDictionary():
@@ -68,6 +70,34 @@ namespace Diffstore.Serialization
             }
         }
 
+        private void Read(BinaryReader stream, int count, Type itemType,
+            Action<object> setter)
+        {
+            if (count == 0) return;
+            if (stream.BaseStream.CanSeek)
+                if (stream.BaseStream.Length == stream.BaseStream.Position)
+                    return;
+#pragma warning disable CS0168
+            try
+            {
+                for (int i = 0; i < count; i++)
+                    setter(readMethods[itemType](stream));
+            }
+            catch (EndOfStreamException ex) { }
+#pragma warning restore CS0168
+        }
+
+        private object DeserializeArray(Type type, BinaryReader stream)
+        {
+            var itemType = type.GetElementType();
+            var count = stream.ReadInt32();
+            CheckIfCanRead(itemType);
+            var instance = Array.CreateInstance(itemType, count);
+            int i = 0;
+            Read(stream, count, itemType, v => instance.SetElement(i++, v));
+            return instance;
+        }
+
         private object DeserializeList(Type type, BinaryReader stream)
         {
             var itemType = type.GenericTypeArguments[0];
@@ -75,20 +105,8 @@ namespace Diffstore.Serialization
             var instance = ConstructorCache.Create(typeof(List<>).MakeGenericType(itemType))
                 as IList;
 
-            if (stream.BaseStream.CanSeek)
-                if (stream.BaseStream.Length == stream.BaseStream.Position)
-                    return instance;
-#pragma warning disable CS0168
-            try
-            {
-                int count = stream.ReadInt32();
-                if (count == 0) return instance;
-
-                for (int i = 0; i < count; i++)
-                    instance.Add(readMethods[itemType](stream));
-            }
-            catch (EndOfStreamException ex) { }
-#pragma warning restore CS0168
+            var count = stream.ReadInt32();
+            Read(stream, count, itemType, v => instance.Add(v));
             return instance;
         }
 
@@ -146,7 +164,9 @@ namespace Diffstore.Serialization
             stream.Write(list.Count);
 
             if (list.Count == 0) return;
-            var itemType = list.GetType().GenericTypeArguments[0];
+            var type = list.GetType();
+            var itemType = type.IsArray ? type.GetElementType() :
+                type.GenericTypeArguments[0];
 
             foreach (var item in list)
                 writeMethods[itemType](stream, item);
