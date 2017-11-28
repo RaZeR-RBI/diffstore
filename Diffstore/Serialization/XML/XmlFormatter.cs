@@ -10,6 +10,9 @@ namespace Diffstore.Serialization.XML
 {
     public class XmlFormatter : IFormatter<XmlDocumentAdapter, XmlWriterAdapter>
     {
+        private static XmlFormatter _instance = new XmlFormatter();
+        public static XmlFormatter Instance => _instance;
+
         private Dictionary<Type, Func<string, object>> _readers =
             new Dictionary<Type, Func<string, object>>() {
                 { typeof(bool), s => bool.Parse(s) },

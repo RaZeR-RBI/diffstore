@@ -33,9 +33,9 @@ namespace Diffstore.Benchmark
 
             public void Add(string bench, string impl, float[] results)
             {
-                if (!Value.ContainsKey(bench)) 
+                if (!Value.ContainsKey(bench))
                     Value.Add(bench, new Dictionary<string, float[]>());
-                
+
                 Value[bench].Add(impl, results);
             }
         }
@@ -65,28 +65,22 @@ namespace Diffstore.Benchmark
             };
 
             var implementations = new Dictionary<string, IDiffstore<long, SampleData>>() {
-                { "Memory - LIFO binary", new DiffstoreBuilder<long, SampleData>()
-                    .WithMemoryStorage()
-                    .WithFileBasedEntities()
-                    .WithLastFirstOptimizedSnapshots()
-                    .Setup()
-                },
-                { "Memory - XML", new DiffstoreBuilder<long, SampleData>()
-                    .WithMemoryStorage()
-                    .WithFileBasedEntities(FileFormat.XML)
-                    .WithSingleFileSnapshots(FileFormat.XML)
-                    .Setup()
-                },
-                { "Disk - LIFO binary", new DiffstoreBuilder<long, SampleData>()
+                { "Binary LIFO", new DiffstoreBuilder<long, SampleData>()
                     .WithDiskStorage()
                     .WithFileBasedEntities()
                     .WithLastFirstOptimizedSnapshots()
                     .Setup()
                 },
-                { "Disk - XML", new DiffstoreBuilder<long, SampleData>()
+                { "XML Single File", new DiffstoreBuilder<long, SampleData>()
                     .WithDiskStorage()
                     .WithFileBasedEntities(FileFormat.XML)
                     .WithSingleFileSnapshots(FileFormat.XML)
+                    .Setup()
+                },
+                { "JSON Single File", new DiffstoreBuilder<long, SampleData>()
+                    .WithDiskStorage()
+                    .WithFileBasedEntities(FileFormat.JSON)
+                    .WithSingleFileSnapshots(FileFormat.JSON)
                     .Setup()
                 }
             };
@@ -107,7 +101,8 @@ namespace Diffstore.Benchmark
             Cleanup();
         }
 
-        static void Cleanup() {
+        static void Cleanup()
+        {
             if (Directory.Exists("storage")) Directory.Delete("storage", true);
         }
 
@@ -116,7 +111,7 @@ namespace Diffstore.Benchmark
             var times = new float[count];
             for (int i = 1; i <= count; i++)
                 times[i - 1] = MeasureSingle(() => step(i));
-            
+
             return times;
         }
 

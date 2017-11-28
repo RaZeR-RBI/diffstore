@@ -7,7 +7,7 @@ namespace Diffstore.Tests.Serialization
     public class XmlFormatterTest : IFormatterTest<XmlDocumentAdapter, XmlWriterAdapter>
     {
         protected override IFormatter<XmlDocumentAdapter, XmlWriterAdapter> Build() =>
-            new XmlFormatter();
+            XmlFormatter.Instance;
 
         [Fact]
         public override void Test() => base.Test();

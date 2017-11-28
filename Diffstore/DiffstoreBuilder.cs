@@ -5,6 +5,7 @@ using System.Xml;
 using Diffstore.Entities;
 using Diffstore.Entities.Filesystem;
 using Diffstore.Serialization;
+using Diffstore.Serialization.JSON;
 using Diffstore.Serialization.XML;
 using Diffstore.Snapshots;
 using Diffstore.Snapshots.Filesystem;
@@ -57,17 +58,13 @@ namespace Diffstore
             switch (format)
             {
                 case FileFormat.Binary:
-                    return WithFileBasedEntities(options, fileSystem);
+                    return WithFileBasedEntities(FastBinaryFormatter.Instance, options, fileSystem);
                 case FileFormat.XML:
-                    var formatter = new XmlFormatter();
-                    var entityIO = new FilesystemEntityReaderWriter
-                        <TKey, XmlDocumentAdapter, XmlWriterAdapter>
-                        (fileSystem, formatter, options);
-                    em = new EntityManager<TKey, TValue, XmlDocumentAdapter, XmlWriterAdapter>
-                        (formatter, entityIO);
-                    return this;
+                    return WithFileBasedEntities(XmlFormatter.Instance, options, fileSystem);
+                case FileFormat.JSON:
+                    return WithFileBasedEntities(JsonFormatter.Instance, options, fileSystem);
                 default:
-                    throw new NotImplementedException();
+                    throw new InvalidOperationException("Unsupported format");
             }
         }
 
@@ -103,12 +100,17 @@ namespace Diffstore
         {
             (fileSystem, options) = PrepareFileStorage(fileSystem, options);
 
-            switch(format) {
-                case FileFormat.XML: 
+            switch (format)
+            {
+                case FileFormat.XML:
                     sm = new SingleFileSnapshotManager<TKey, TValue, XmlDocumentAdapter, XmlWriterAdapter>
                     (options, new XmlFormatter(), fileSystem); break;
+                case FileFormat.JSON:
+                    sm = new SingleFileSnapshotManager<TKey, TValue, JsonReaderAdapter, JsonWriterAdapter>
+                    (options, JsonFormatter.Instance, fileSystem); break;
                 default:
-                    throw new NotImplementedException();
+                    sm = new SingleFileSnapshotManager<TKey, TValue, BinaryReader, BinaryWriter>
+                    (options, FastBinaryFormatter.Instance, fileSystem); break;
             }
 
             return this;

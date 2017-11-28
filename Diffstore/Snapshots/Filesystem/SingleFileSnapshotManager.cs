@@ -30,10 +30,7 @@ namespace Diffstore.Snapshots.Filesystem
 
         public bool Any(TKey key) => GetExistingFiles(key).Any();
 
-        public void Dispose()
-        {
-            fileSystem.Dispose();
-        }
+        public void Dispose() => fileSystem.Dispose();
 
         public void Drop(TKey entityKey) =>
             GetExistingFiles(entityKey).ToList()

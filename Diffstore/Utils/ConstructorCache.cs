@@ -24,10 +24,13 @@ namespace Diffstore.Utils
         /// <returns>New instance of T</returns>
         public static object Create(Type type)
         {
-            if (!_delegates.ContainsKey(type))
-                _delegates.Add(type, type.DelegateForCreateInstance());
+            lock (_delegates)
+            {
+                if (!_delegates.ContainsKey(type))
+                    _delegates.Add(type, type.DelegateForCreateInstance());
 
-            return _delegates[type]();
+                return _delegates[type]();
+            }
         }
     }
 }
