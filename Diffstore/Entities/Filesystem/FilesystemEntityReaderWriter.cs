@@ -73,8 +73,7 @@ namespace Diffstore.Entities.Filesystem
 
         public TKey[] GetAllKeys()
         {
-            // TODO FIXME
-            //if (!filesystem.Exists(options.BasePath)) filesystem.CreateDirectoryRecursive(options.BasePath);
+            if (!filesystem.Exists(options.BasePath)) filesystem.CreateDirectoryRecursive(options.BasePath);
             return filesystem.GetEntitiesRecursive(options.BasePath)
                 .Where((entity) => FilesystemLocator.IsKeyFile(entity))
                 .Select((file) => ReadKeyfile(file)).ToArray();

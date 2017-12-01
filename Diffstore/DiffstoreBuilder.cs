@@ -37,7 +37,10 @@ namespace Diffstore
         public DiffstoreBuilder<TKey, TValue> WithDiskStorage(string subfolder = "storage")
         {
             var appRoot = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
-            fileSystem = new PhysicalFileSystem(Path.Combine(appRoot, subfolder));
+            var storagePath = Path.Combine(appRoot, subfolder);
+            fileSystem = new PhysicalFileSystem(storagePath);
+            if (!System.IO.Directory.Exists(storagePath))
+                System.IO.Directory.CreateDirectory(storagePath);
             return this;
         }
 
