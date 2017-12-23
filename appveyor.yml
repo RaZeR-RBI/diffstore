@@ -1,4 +1,7 @@
-version: 1.0.{build}
+version: 1.0.{build}-{branch}
+branches:
+  only:
+  - master
 image: Visual Studio 2017
 nuget:
   project_feed: true
@@ -9,5 +12,10 @@ build:
 test_script:
 - cmd: >-
     cd Diffstore.Tests
-    
+
     dotnet test -f netcoreapp2.0
+artifacts:
+- path: Diffstore/bin/Debug/netcoreapp2.0/Diffstore.dll
+  name: NET Core 2.0
+- path: Diffstore/bin/Debug/netstandard2.0/Diffstore.dll
+  name: NET Standard 2.0
