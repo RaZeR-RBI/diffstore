@@ -1,6 +1,5 @@
 # Diffstore
 ### Simple and lightweight storage engine for statistical data
-------
 The README and documentation is being worked on. Stay tuned.
 
 ### Project goals
@@ -10,7 +9,7 @@ The README and documentation is being worked on. Stay tuned.
 * No additional layers such as caching and connection management
 
 ### Out-of-box configurations
-Currently supported entity formats for file-based storage are:
+Currently supported entity formats for the file-based storage are:
 - XML
 - JSON
 - Binary
@@ -23,10 +22,12 @@ It's possible to extend the engine with other options like relational DB backend
 
 ### Notable uses
 This storage engine was developed and is now used for the [SteamTrends](https://steamtrends.info/) service, which collects statistical data about Steam games every day and tracks this data for more than 19000 entries on a low-spec Linux-based VPS.
+
 Using this library? Contact me and you'll be added!
 
 ### Benchmarks
 Benchmark was performed 100 times with a warmup run before the measures to ensure JIT compilation of the benchmarking code.
+
 **Machine specifications**:
 - [HGST HTS721010A9E630](https://www.hgst.com/products/hard-drives/travelstar-7k1000) (7200 RPM, 32MB buffer, 4 ms average latency)
 - i7 2630QM
@@ -34,7 +35,7 @@ Benchmark was performed 100 times with a warmup run before the measures to ensur
 
 ![Alt text](python/images/Reading%20entities.png)
 
-![Alt text](python/images/Reading%20all%20snapshots.png.png)
+![Alt text](python/images/Reading%20all%20snapshots.png)
 
 ![Alt text](python/images/Reading%20oldest%20snapshot.png)
 
