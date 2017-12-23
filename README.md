@@ -20,6 +20,11 @@ Available snapshot managers:
 
 It's possible to extend the engine with other options like relational DB backend (MySQL, Postgres, etc.) and combined storage options (to use the Diffstore as a intermediate caching layer, for example).
 
+### How to use?
+The documentation is being worked on (using my other project for that purpose - **dotbook**).
+
+You can check out the [test source which covers the basics](Diffstore.Tests/DiffstoreTest.cs).
+
 ### Notable uses
 This storage engine was developed and is now used for the [SteamTrends](https://steamtrends.info/) service, which collects statistical data about Steam games every day and tracks this data for more than 19000 entries on a low-spec Linux-based VPS.
 
