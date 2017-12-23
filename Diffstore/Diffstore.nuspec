@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package >
+  <metadata>
+    <id>Diffstore</id>
+    <version>$version$</version>
+    <title>Diffstore</title>
+    <authors>Vilkov Adel</authors>
+    <owners>Vilkov Adel</owners>
+    <licenseUrl>https://github.com/RaZeR-RBI/diffstore/blob/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/RaZeR-RBI/diffstore</projectUrl>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <description>Simple and lightweight storage engine for statistical data.</description>
+    <releaseNotes></releaseNotes>
+    <copyright>Copyright 2017</copyright>
+    <tags>net netcore storage database statistics time data entity</tags>
+    <dependencies>
+      <dependency id="Fasterflect" version="2.1.3" />
+      <dependency id="Newtonsoft.Json" version="10.0.3" />
+      <dependency id="sharpfilesystem" version="1.0.35" />
+    </dependencies>
+  </metadata>
+</package>
