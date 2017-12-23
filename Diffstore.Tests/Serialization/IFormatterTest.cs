@@ -36,6 +36,7 @@ namespace Diffstore.Tests.Serialization
             true,
             false,
             /* Collections */
+            new int[] { 1, 2, 3 },
             new List<int>() { 1, 2, 3 },
             new Dictionary<string, int>() {
                 { "Apples", 2 },

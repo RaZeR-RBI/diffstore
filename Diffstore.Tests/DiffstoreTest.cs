@@ -131,7 +131,8 @@ namespace Diffstore.Tests
                 new List<Func<IDiffstore<long, T>>>()
                 {
                     BinaryStatisticsOptimized,
-                    () => SingleFile(FileFormat.XML)
+                    () => SingleFile(FileFormat.XML),
+                    () => SingleFile(FileFormat.JSON)
                 };
 
             private static IDiffstore<long, T> BinaryStatisticsOptimized()
