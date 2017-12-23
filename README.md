@@ -1,4 +1,5 @@
-# Diffstore
+# Diffstore [![Build status](https://ci.appveyor.com/api/projects/status/w7s71q0tpxovhxnh?svg=true)](https://ci.appveyor.com/project/RaZeR-RawByte/diffstore)
+
 ### Simple and lightweight storage engine for statistical data
 The README and documentation is being worked on. Stay tuned.
 
