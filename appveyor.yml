@@ -1,0 +1,12 @@
+version: 1.0.{build}-{branch}
+image: Visual Studio 2017
+nuget:
+  project_feed: true
+before_build:
+- cmd: dotnet restore
+build:
+  verbosity: minimal
+test_script:
+- cmd: >-
+    cd Diffstore.Tests
+    dotnet test -f netcoreapp2.0
