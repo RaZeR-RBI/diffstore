@@ -1,0 +1,523 @@
+{
+  "name": "",
+  "fullName": "",
+  "type": "Root",
+  "link": "",
+  "children": [
+    {
+      "name": "Diffstore",
+      "fullName": "Diffstore",
+      "type": "Namespace",
+      "link": "Diffstore",
+      "children": [
+        {
+          "name": "DiffstoreBuilder<TKey, TValue>",
+          "fullName": "Diffstore.DiffstoreBuilder<TKey, TValue>",
+          "type": "Class",
+          "link": "Diffstore.DiffstoreBuilder{TKey,TValue}",
+          "children": [
+            {
+              "name": "Setup()",
+              "fullName": "Diffstore.DiffstoreBuilder<TKey, TValue>.Setup()",
+              "type": "Method",
+              "link": "Diffstore.DiffstoreBuilder{TKey,TValue}.Setup()"
+            },
+            {
+              "name": "WithDiskStorage(string)",
+              "fullName": "Diffstore.DiffstoreBuilder<TKey, TValue>.WithDiskStorage(string)",
+              "type": "Method",
+              "link": "Diffstore.DiffstoreBuilder{TKey,TValue}.WithDiskStorage(string)"
+            },
+            {
+              "name": "WithFileBasedEntities(FileFormat, FilesystemStorageOptions, IFileSystem)",
+              "fullName": "Diffstore.DiffstoreBuilder<TKey, TValue>.WithFileBasedEntities(FileFormat, FilesystemStorageOptions, IFileSystem)",
+              "type": "Method",
+              "link": "Diffstore.DiffstoreBuilder{TKey,TValue}.WithFileBasedEntities(FileFormat,FilesystemStorageOptions,IFileSystem)"
+            },
+            {
+              "name": "WithFileBasedEntities(FilesystemStorageOptions, IFileSystem)",
+              "fullName": "Diffstore.DiffstoreBuilder<TKey, TValue>.WithFileBasedEntities(FilesystemStorageOptions, IFileSystem)",
+              "type": "Method",
+              "link": "Diffstore.DiffstoreBuilder{TKey,TValue}.WithFileBasedEntities(FilesystemStorageOptions,IFileSystem)"
+            },
+            {
+              "name": "WithFileBasedEntities<TIn, TOut>(IFormatter<TIn, TOut>, FilesystemStorageOptions, IFileSystem)",
+              "fullName": "Diffstore.DiffstoreBuilder<TKey, TValue>.WithFileBasedEntities<TIn, TOut>(IFormatter<TIn, TOut>, FilesystemStorageOptions, IFileSystem)",
+              "type": "Method",
+              "link": "Diffstore.DiffstoreBuilder{TKey,TValue}.WithFileBasedEntities{TIn,TOut}(IFormatter{TIn,TOut},FilesystemStorageOptions,IFileSystem)"
+            },
+            {
+              "name": "WithLastFirstOptimizedSnapshots(IFileSystem, FilesystemStorageOptions, int)",
+              "fullName": "Diffstore.DiffstoreBuilder<TKey, TValue>.WithLastFirstOptimizedSnapshots(IFileSystem, FilesystemStorageOptions, int)",
+              "type": "Method",
+              "link": "Diffstore.DiffstoreBuilder{TKey,TValue}.WithLastFirstOptimizedSnapshots(IFileSystem,FilesystemStorageOptions,int)"
+            },
+            {
+              "name": "WithMemoryStorage()",
+              "fullName": "Diffstore.DiffstoreBuilder<TKey, TValue>.WithMemoryStorage()",
+              "type": "Method",
+              "link": "Diffstore.DiffstoreBuilder{TKey,TValue}.WithMemoryStorage()"
+            },
+            {
+              "name": "WithSingleFileSnapshots(FileFormat, IFileSystem, FilesystemStorageOptions)",
+              "fullName": "Diffstore.DiffstoreBuilder<TKey, TValue>.WithSingleFileSnapshots(FileFormat, IFileSystem, FilesystemStorageOptions)",
+              "type": "Method",
+              "link": "Diffstore.DiffstoreBuilder{TKey,TValue}.WithSingleFileSnapshots(FileFormat,IFileSystem,FilesystemStorageOptions)"
+            }
+          ]
+        },
+        {
+          "name": "EntityExtensions",
+          "fullName": "Diffstore.EntityExtensions",
+          "type": "Class",
+          "link": "Diffstore.EntityExtensions",
+          "children": [
+            {
+              "name": "DeleteFrom<TK, TV>(Entity<TK, TV>, IDiffstore<TK, TV>)",
+              "fullName": "Diffstore.EntityExtensions.DeleteFrom<TK, TV>(Entity<TK, TV>, IDiffstore<TK, TV>)",
+              "type": "Method",
+              "link": "Diffstore.EntityExtensions.DeleteFrom{TK,TV}(Entity{TK,TV},IDiffstore{TK,TV})"
+            },
+            {
+              "name": "ExistsIn<TK, TV>(Entity<TK, TV>, IDiffstore<TK, TV>)",
+              "fullName": "Diffstore.EntityExtensions.ExistsIn<TK, TV>(Entity<TK, TV>, IDiffstore<TK, TV>)",
+              "type": "Method",
+              "link": "Diffstore.EntityExtensions.ExistsIn{TK,TV}(Entity{TK,TV},IDiffstore{TK,TV})"
+            },
+            {
+              "name": "SaveIn<TK, TV>(Entity<TK, TV>, IDiffstore<TK, TV>, bool)",
+              "fullName": "Diffstore.EntityExtensions.SaveIn<TK, TV>(Entity<TK, TV>, IDiffstore<TK, TV>, bool)",
+              "type": "Method",
+              "link": "Diffstore.EntityExtensions.SaveIn{TK,TV}(Entity{TK,TV},IDiffstore{TK,TV},bool)"
+            }
+          ]
+        },
+        {
+          "name": "FileFormat",
+          "fullName": "Diffstore.FileFormat",
+          "type": "Enum",
+          "link": "Diffstore.FileFormat"
+        },
+        {
+          "name": "IDiffstore<TKey, TValue>",
+          "fullName": "Diffstore.IDiffstore<TKey, TValue>",
+          "type": "Interface",
+          "link": "Diffstore.IDiffstore{TKey,TValue}",
+          "children": [
+            {
+              "name": "Keys",
+              "fullName": "Diffstore.IDiffstore<TKey, TValue>.Keys",
+              "type": "Property",
+              "link": "Diffstore.IDiffstore{TKey,TValue}.Keys"
+            },
+            {
+              "name": "Entities",
+              "fullName": "Diffstore.IDiffstore<TKey, TValue>.Entities",
+              "type": "Property",
+              "link": "Diffstore.IDiffstore{TKey,TValue}.Entities"
+            },
+            {
+              "name": "OnSave",
+              "fullName": "Diffstore.IDiffstore<TKey, TValue>.OnSave",
+              "type": "Property",
+              "link": "Diffstore.IDiffstore{TKey,TValue}.OnSave"
+            },
+            {
+              "name": "OnDelete",
+              "fullName": "Diffstore.IDiffstore<TKey, TValue>.OnDelete",
+              "type": "Property",
+              "link": "Diffstore.IDiffstore{TKey,TValue}.OnDelete"
+            },
+            {
+              "name": "Entity<TKey, TValue>[TKey]",
+              "fullName": "Diffstore.IDiffstore<TKey, TValue>.Entity<TKey, TValue>[TKey]",
+              "type": "Indexer",
+              "link": "Diffstore.IDiffstore{TKey,TValue}.Entity{TKey,TValue}[TKey]"
+            },
+            {
+              "name": "Delete(Entity<TKey, TValue>)",
+              "fullName": "Diffstore.IDiffstore<TKey, TValue>.Delete(Entity<TKey, TValue>)",
+              "type": "Method",
+              "link": "Diffstore.IDiffstore{TKey,TValue}.Delete(Entity{TKey,TValue})"
+            },
+            {
+              "name": "Delete(TKey)",
+              "fullName": "Diffstore.IDiffstore<TKey, TValue>.Delete(TKey)",
+              "type": "Method",
+              "link": "Diffstore.IDiffstore{TKey,TValue}.Delete(TKey)"
+            },
+            {
+              "name": "Exists(TKey)",
+              "fullName": "Diffstore.IDiffstore<TKey, TValue>.Exists(TKey)",
+              "type": "Method",
+              "link": "Diffstore.IDiffstore{TKey,TValue}.Exists(TKey)"
+            },
+            {
+              "name": "Get(TKey)",
+              "fullName": "Diffstore.IDiffstore<TKey, TValue>.Get(TKey)",
+              "type": "Method",
+              "link": "Diffstore.IDiffstore{TKey,TValue}.Get(TKey)"
+            },
+            {
+              "name": "GetFirst(TKey)",
+              "fullName": "Diffstore.IDiffstore<TKey, TValue>.GetFirst(TKey)",
+              "type": "Method",
+              "link": "Diffstore.IDiffstore{TKey,TValue}.GetFirst(TKey)"
+            },
+            {
+              "name": "GetFirstTime(TKey)",
+              "fullName": "Diffstore.IDiffstore<TKey, TValue>.GetFirstTime(TKey)",
+              "type": "Method",
+              "link": "Diffstore.IDiffstore{TKey,TValue}.GetFirstTime(TKey)"
+            },
+            {
+              "name": "GetLast(TKey)",
+              "fullName": "Diffstore.IDiffstore<TKey, TValue>.GetLast(TKey)",
+              "type": "Method",
+              "link": "Diffstore.IDiffstore{TKey,TValue}.GetLast(TKey)"
+            },
+            {
+              "name": "GetLastTime(TKey)",
+              "fullName": "Diffstore.IDiffstore<TKey, TValue>.GetLastTime(TKey)",
+              "type": "Method",
+              "link": "Diffstore.IDiffstore{TKey,TValue}.GetLastTime(TKey)"
+            },
+            {
+              "name": "GetSnapshots(TKey, int, int)",
+              "fullName": "Diffstore.IDiffstore<TKey, TValue>.GetSnapshots(TKey, int, int)",
+              "type": "Method",
+              "link": "Diffstore.IDiffstore{TKey,TValue}.GetSnapshots(TKey,int,int)"
+            },
+            {
+              "name": "GetSnapshots(TKey)",
+              "fullName": "Diffstore.IDiffstore<TKey, TValue>.GetSnapshots(TKey)",
+              "type": "Method",
+              "link": "Diffstore.IDiffstore{TKey,TValue}.GetSnapshots(TKey)"
+            },
+            {
+              "name": "GetSnapshotsBetween(TKey, long, long)",
+              "fullName": "Diffstore.IDiffstore<TKey, TValue>.GetSnapshotsBetween(TKey, long, long)",
+              "type": "Method",
+              "link": "Diffstore.IDiffstore{TKey,TValue}.GetSnapshotsBetween(TKey,long,long)"
+            },
+            {
+              "name": "PutSnapshot(Entity<TKey, TValue>, long)",
+              "fullName": "Diffstore.IDiffstore<TKey, TValue>.PutSnapshot(Entity<TKey, TValue>, long)",
+              "type": "Method",
+              "link": "Diffstore.IDiffstore{TKey,TValue}.PutSnapshot(Entity{TKey,TValue},long)"
+            },
+            {
+              "name": "Save(Entity<TKey, TValue>, bool)",
+              "fullName": "Diffstore.IDiffstore<TKey, TValue>.Save(Entity<TKey, TValue>, bool)",
+              "type": "Method",
+              "link": "Diffstore.IDiffstore{TKey,TValue}.Save(Entity{TKey,TValue},bool)"
+            },
+            {
+              "name": "Save(TKey, TValue, bool)",
+              "fullName": "Diffstore.IDiffstore<TKey, TValue>.Save(TKey, TValue, bool)",
+              "type": "Method",
+              "link": "Diffstore.IDiffstore{TKey,TValue}.Save(TKey,TValue,bool)"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Diffstore.Entities",
+      "fullName": "Diffstore.Entities",
+      "type": "Namespace",
+      "link": "Diffstore.Entities",
+      "children": [
+        {
+          "name": "DoNotPersistAttribute",
+          "fullName": "Diffstore.Entities.DoNotPersistAttribute",
+          "type": "Class",
+          "link": "Diffstore.Entities.DoNotPersistAttribute",
+          "children": [
+            {
+              "name": "DoNotPersistAttribute()",
+              "fullName": "Diffstore.Entities.DoNotPersistAttribute.DoNotPersistAttribute()",
+              "type": "Constructor",
+              "link": "Diffstore.Entities.DoNotPersistAttribute.DoNotPersistAttribute()"
+            }
+          ]
+        },
+        {
+          "name": "Entity",
+          "fullName": "Diffstore.Entities.Entity",
+          "type": "Class",
+          "link": "Diffstore.Entities.Entity",
+          "children": [
+            {
+              "name": "Create<TK, TV>(TK, TV)",
+              "fullName": "Diffstore.Entities.Entity.Create<TK, TV>(TK, TV)",
+              "type": "Method",
+              "link": "Diffstore.Entities.Entity.Create{TK,TV}(TK,TV)"
+            }
+          ]
+        },
+        {
+          "name": "Entity<TKey, TValue>",
+          "fullName": "Diffstore.Entities.Entity<TKey, TValue>",
+          "type": "Class",
+          "link": "Diffstore.Entities.Entity{TKey,TValue}",
+          "children": [
+            {
+              "name": "Key",
+              "fullName": "Diffstore.Entities.Entity<TKey, TValue>.Key",
+              "type": "Property",
+              "link": "Diffstore.Entities.Entity{TKey,TValue}.Key"
+            },
+            {
+              "name": "Value",
+              "fullName": "Diffstore.Entities.Entity<TKey, TValue>.Value",
+              "type": "Property",
+              "link": "Diffstore.Entities.Entity{TKey,TValue}.Value"
+            },
+            {
+              "name": "Entity(TKey, TValue)",
+              "fullName": "Diffstore.Entities.Entity<TKey, TValue>.Entity(TKey, TValue)",
+              "type": "Constructor",
+              "link": "Diffstore.Entities.Entity{TKey,TValue}.Entity(TKey,TValue)"
+            },
+            {
+              "name": "Equals(object)",
+              "fullName": "Diffstore.Entities.Entity<TKey, TValue>.Equals(object)",
+              "type": "Method",
+              "link": "Diffstore.Entities.Entity{TKey,TValue}.Equals(object)"
+            },
+            {
+              "name": "GetHashCode()",
+              "fullName": "Diffstore.Entities.Entity<TKey, TValue>.GetHashCode()",
+              "type": "Method",
+              "link": "Diffstore.Entities.Entity{TKey,TValue}.GetHashCode()"
+            },
+            {
+              "name": "ToString()",
+              "fullName": "Diffstore.Entities.Entity<TKey, TValue>.ToString()",
+              "type": "Method",
+              "link": "Diffstore.Entities.Entity{TKey,TValue}.ToString()"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Diffstore.Entities.Filesystem",
+      "fullName": "Diffstore.Entities.Filesystem",
+      "type": "Namespace",
+      "link": "Diffstore.Entities.Filesystem",
+      "children": [
+        {
+          "name": "FilesystemStorageOptions",
+          "fullName": "Diffstore.Entities.Filesystem.FilesystemStorageOptions",
+          "type": "Class",
+          "link": "Diffstore.Entities.Filesystem.FilesystemStorageOptions",
+          "children": [
+            {
+              "name": "MaxSnapshotFileSize",
+              "fullName": "Diffstore.Entities.Filesystem.FilesystemStorageOptions.MaxSnapshotFileSize",
+              "type": "Field",
+              "link": "Diffstore.Entities.Filesystem.FilesystemStorageOptions.MaxSnapshotFileSize"
+            },
+            {
+              "name": "BasePath",
+              "fullName": "Diffstore.Entities.Filesystem.FilesystemStorageOptions.BasePath",
+              "type": "Property",
+              "link": "Diffstore.Entities.Filesystem.FilesystemStorageOptions.BasePath"
+            },
+            {
+              "name": "EntitiesPerDirectory",
+              "fullName": "Diffstore.Entities.Filesystem.FilesystemStorageOptions.EntitiesPerDirectory",
+              "type": "Property",
+              "link": "Diffstore.Entities.Filesystem.FilesystemStorageOptions.EntitiesPerDirectory"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Diffstore.Serialization",
+      "fullName": "Diffstore.Serialization",
+      "type": "Namespace",
+      "link": "Diffstore.Serialization",
+      "children": [
+        {
+          "name": "IFormatter<TInputStream, TOutputStream>",
+          "fullName": "Diffstore.Serialization.IFormatter<TInputStream, TOutputStream>",
+          "type": "Interface",
+          "link": "Diffstore.Serialization.IFormatter{TInputStream,TOutputStream}",
+          "children": [
+            {
+              "name": "Deserialize(Type, TInputStream, string)",
+              "fullName": "Diffstore.Serialization.IFormatter<TInputStream, TOutputStream>.Deserialize(Type, TInputStream, string)",
+              "type": "Method",
+              "link": "Diffstore.Serialization.IFormatter{TInputStream,TOutputStream}.Deserialize(Type,TInputStream,string)"
+            },
+            {
+              "name": "Serialize(object, TOutputStream, string)",
+              "fullName": "Diffstore.Serialization.IFormatter<TInputStream, TOutputStream>.Serialize(object, TOutputStream, string)",
+              "type": "Method",
+              "link": "Diffstore.Serialization.IFormatter{TInputStream,TOutputStream}.Serialize(object,TOutputStream,string)"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Diffstore.Serialization.JSON",
+      "fullName": "Diffstore.Serialization.JSON",
+      "type": "Namespace",
+      "link": "Diffstore.Serialization.JSON",
+      "children": []
+    },
+    {
+      "name": "Diffstore.Serialization.XML",
+      "fullName": "Diffstore.Serialization.XML",
+      "type": "Namespace",
+      "link": "Diffstore.Serialization.XML",
+      "children": []
+    },
+    {
+      "name": "Diffstore.Snapshots",
+      "fullName": "Diffstore.Snapshots",
+      "type": "Namespace",
+      "link": "Diffstore.Snapshots",
+      "children": [
+        {
+          "name": "IgnoreChangesAttribute",
+          "fullName": "Diffstore.Snapshots.IgnoreChangesAttribute",
+          "type": "Class",
+          "link": "Diffstore.Snapshots.IgnoreChangesAttribute",
+          "children": [
+            {
+              "name": "IgnoreChangesAttribute()",
+              "fullName": "Diffstore.Snapshots.IgnoreChangesAttribute.IgnoreChangesAttribute()",
+              "type": "Constructor",
+              "link": "Diffstore.Snapshots.IgnoreChangesAttribute.IgnoreChangesAttribute()"
+            }
+          ]
+        },
+        {
+          "name": "Snapshot",
+          "fullName": "Diffstore.Snapshots.Snapshot",
+          "type": "Class",
+          "link": "Diffstore.Snapshots.Snapshot",
+          "children": [
+            {
+              "name": "Create<TK, TV>(Entity<TK, TV>)",
+              "fullName": "Diffstore.Snapshots.Snapshot.Create<TK, TV>(Entity<TK, TV>)",
+              "type": "Method",
+              "link": "Diffstore.Snapshots.Snapshot.Create{TK,TV}(Entity{TK,TV})"
+            },
+            {
+              "name": "Create<TK, TV>(long, Entity<TK, TV>)",
+              "fullName": "Diffstore.Snapshots.Snapshot.Create<TK, TV>(long, Entity<TK, TV>)",
+              "type": "Method",
+              "link": "Diffstore.Snapshots.Snapshot.Create{TK,TV}(long,Entity{TK,TV})"
+            },
+            {
+              "name": "GetCurrentUnixSeconds()",
+              "fullName": "Diffstore.Snapshots.Snapshot.GetCurrentUnixSeconds()",
+              "type": "Method",
+              "link": "Diffstore.Snapshots.Snapshot.GetCurrentUnixSeconds()"
+            }
+          ]
+        },
+        {
+          "name": "Snapshot<TKey, TValue>",
+          "fullName": "Diffstore.Snapshots.Snapshot<TKey, TValue>",
+          "type": "Class",
+          "link": "Diffstore.Snapshots.Snapshot{TKey,TValue}",
+          "children": [
+            {
+              "name": "Time",
+              "fullName": "Diffstore.Snapshots.Snapshot<TKey, TValue>.Time",
+              "type": "Property",
+              "link": "Diffstore.Snapshots.Snapshot{TKey,TValue}.Time"
+            },
+            {
+              "name": "State",
+              "fullName": "Diffstore.Snapshots.Snapshot<TKey, TValue>.State",
+              "type": "Property",
+              "link": "Diffstore.Snapshots.Snapshot{TKey,TValue}.State"
+            },
+            {
+              "name": "Snapshot(long, Entity<TKey, TValue>)",
+              "fullName": "Diffstore.Snapshots.Snapshot<TKey, TValue>.Snapshot(long, Entity<TKey, TValue>)",
+              "type": "Constructor",
+              "link": "Diffstore.Snapshots.Snapshot{TKey,TValue}.Snapshot(long,Entity{TKey,TValue})"
+            },
+            {
+              "name": "Equals(object)",
+              "fullName": "Diffstore.Snapshots.Snapshot<TKey, TValue>.Equals(object)",
+              "type": "Method",
+              "link": "Diffstore.Snapshots.Snapshot{TKey,TValue}.Equals(object)"
+            },
+            {
+              "name": "GetHashCode()",
+              "fullName": "Diffstore.Snapshots.Snapshot<TKey, TValue>.GetHashCode()",
+              "type": "Method",
+              "link": "Diffstore.Snapshots.Snapshot{TKey,TValue}.GetHashCode()"
+            },
+            {
+              "name": "ToString()",
+              "fullName": "Diffstore.Snapshots.Snapshot<TKey, TValue>.ToString()",
+              "type": "Method",
+              "link": "Diffstore.Snapshots.Snapshot{TKey,TValue}.ToString()"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Diffstore.Snapshots.Filesystem",
+      "fullName": "Diffstore.Snapshots.Filesystem",
+      "type": "Namespace",
+      "link": "Diffstore.Snapshots.Filesystem",
+      "children": []
+    },
+    {
+      "name": "Diffstore.Utils",
+      "fullName": "Diffstore.Utils",
+      "type": "Namespace",
+      "link": "Diffstore.Utils",
+      "children": [
+        {
+          "name": "CollectionExtensions",
+          "fullName": "Diffstore.Utils.CollectionExtensions",
+          "type": "Class",
+          "link": "Diffstore.Utils.CollectionExtensions",
+          "children": [
+            {
+              "name": "ZipPairs(IDictionary)",
+              "fullName": "Diffstore.Utils.CollectionExtensions.ZipPairs(IDictionary)",
+              "type": "Method",
+              "link": "Diffstore.Utils.CollectionExtensions.ZipPairs(IDictionary)"
+            }
+          ]
+        },
+        {
+          "name": "StreamExtensions",
+          "fullName": "Diffstore.Utils.StreamExtensions",
+          "type": "Class",
+          "link": "Diffstore.Utils.StreamExtensions",
+          "children": [
+            {
+              "name": "ReadAllBytes(Stream)",
+              "fullName": "Diffstore.Utils.StreamExtensions.ReadAllBytes(Stream)",
+              "type": "Method",
+              "link": "Diffstore.Utils.StreamExtensions.ReadAllBytes(Stream)"
+            },
+            {
+              "name": "ReadBytes(Stream, int, bool)",
+              "fullName": "Diffstore.Utils.StreamExtensions.ReadBytes(Stream, int, bool)",
+              "type": "Method",
+              "link": "Diffstore.Utils.StreamExtensions.ReadBytes(Stream,int,bool)"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
