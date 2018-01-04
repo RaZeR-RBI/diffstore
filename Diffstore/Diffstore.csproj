@@ -10,5 +10,6 @@
     <PackageReference Include="Fasterflect" Version="2.1.3" />
     <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
     <PackageReference Include="sharpfilesystem" Version="1.0.35" />
+    <DotNetCliToolReference Include="DotBook" Version="0.5.3-dev"/>         
   </ItemGroup>
 </Project>

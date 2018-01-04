@@ -5,7 +5,7 @@ using Diffstore.Snapshots;
 
 namespace Diffstore.Snapshots
 {
-    public interface ISnapshotManager<TKey, TValue> : IDisposable
+    internal interface ISnapshotManager<TKey, TValue> : IDisposable
         where TKey : IComparable
         where TValue : class, new()
     {

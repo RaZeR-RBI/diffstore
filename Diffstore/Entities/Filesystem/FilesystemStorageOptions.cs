@@ -3,6 +3,13 @@ using SharpFileSystem;
 
 namespace Diffstore.Entities.Filesystem
 {
+    /// <summary>
+    /// Defines options used by file-based storage mechanisms.
+    /// </summary>
+    /// <seealso cref="DiffstoreBuilder<TKey, TValue>"/>
+    /// <seealso cref="WithFileBasedEntities(FileFormat, FilesystemStorageOptions, IFileSystem)"/>
+    /// <seealso cref="WithFileBasedEntities(FilesystemStorageOptions, IFileSystem)"/>
+    /// <seealso cref="WithFileBasedEntities<TIn, TOut>(IFormatter<TIn, TOut>, FilesystemStorageOptions, IFileSystem)"/>
     public class FilesystemStorageOptions
     {
         /// <summary>

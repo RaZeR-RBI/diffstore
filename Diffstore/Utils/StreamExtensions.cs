@@ -3,8 +3,14 @@ using System.IO;
 
 namespace Diffstore.Utils
 {
+    /// <summary>
+    /// Defines stream-related extension methods.
+    /// </summary>
     public static class StreamExtensions
     {
+        /// <summary>
+        /// Reads all bytes from the specified stream using an intermediate buffer.
+        /// </summary>
         public static byte[] ReadAllBytes(this Stream reader)
         {
             const int bufferSize = 4096;
@@ -19,6 +25,9 @@ namespace Diffstore.Utils
             }
         }
 
+        /// <summary>
+        /// Reads specified count of bytes from the specified stream using an intermediate buffer.
+        /// </summary>
         public static MemoryStream ReadBytes(this Stream stream, int count,
             bool close = false)
         {

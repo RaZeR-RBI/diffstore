@@ -5,7 +5,7 @@ using System.Reflection;
 
 namespace Diffstore.Utils
 {
-    public static class ReflectionUtils
+    internal static class ReflectionUtils
     {
         public static IEnumerable<Type> GetImplementingTypes(this Type[] types,
             Type interfaceType) =>

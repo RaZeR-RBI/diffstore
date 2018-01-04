@@ -12,7 +12,7 @@ namespace Diffstore.Serialization
     /// <summary>
     /// Custom binary formatter based on BinaryReader/BinaryWriter for improved performance
     /// </summary>
-    public class FastBinaryFormatter : IFormatter<BinaryReader, BinaryWriter>
+    internal class FastBinaryFormatter : IFormatter<BinaryReader, BinaryWriter>
     {
         private static FastBinaryFormatter _instance = new FastBinaryFormatter();
         public static FastBinaryFormatter Instance

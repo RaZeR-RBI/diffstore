@@ -9,9 +9,12 @@ using Diffstore.Serialization.XML;
 using Diffstore.Utils;
 using SharpFileSystem;
 
+/// <summary>
+/// Filesystem snapshot storage functionality.
+/// </summary>
 namespace Diffstore.Snapshots.Filesystem
 {
-    public class SingleFileSnapshotManager<TKey, TValue, TIn, TOut> :
+    internal class SingleFileSnapshotManager<TKey, TValue, TIn, TOut> :
         ISnapshotManager<TKey, TValue>
         where TKey : IComparable
         where TValue : class, new()

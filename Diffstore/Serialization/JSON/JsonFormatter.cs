@@ -6,9 +6,12 @@ using Diffstore.Utils;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
+/// <summary>
+/// JSON format support
+/// </summary>
 namespace Diffstore.Serialization.JSON
 {
-    public class JsonFormatter : IFormatter<JsonReaderAdapter, JsonWriterAdapter>
+    internal class JsonFormatter : IFormatter<JsonReaderAdapter, JsonWriterAdapter>
     {
         private static JsonFormatter _instance = new JsonFormatter();
         public static JsonFormatter Instance => _instance;

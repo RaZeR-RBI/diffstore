@@ -6,9 +6,12 @@ using System.Xml;
 using Diffstore.Utils;
 using SharpFileSystem;
 
+/// <summary>
+/// XML format support
+/// </summary>
 namespace Diffstore.Serialization.XML
 {
-    public class XmlFormatter : IFormatter<XmlDocumentAdapter, XmlWriterAdapter>
+    internal class XmlFormatter : IFormatter<XmlDocumentAdapter, XmlWriterAdapter>
     {
         private static XmlFormatter _instance = new XmlFormatter();
         public static XmlFormatter Instance => _instance;

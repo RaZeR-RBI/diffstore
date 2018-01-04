@@ -7,7 +7,7 @@ using Newtonsoft.Json.Linq;
 
 namespace Diffstore.Serialization.JSON
 {
-    public class JsonReaderAdapter : IDisposable
+    internal class JsonReaderAdapter : IDisposable
     {
         private JObject _instance;
         public JObject Instance => _instance;
