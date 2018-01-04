@@ -11,7 +11,7 @@ namespace Diffstore.Tests.Snapshots.Filesystem
 {
     public class XmlSingleFileSnapshotManagerTest : SnapshotManagerTest
     {
-        protected override ISnapshotManager<long, SampleData> Build()
+        internal override ISnapshotManager<long, SampleData> Build()
         {
             var options = new FilesystemStorageOptions();
             var filesystem = new MemoryFileSystem();

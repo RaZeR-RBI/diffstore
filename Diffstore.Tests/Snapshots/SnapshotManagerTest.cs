@@ -8,7 +8,7 @@ namespace Diffstore.Tests.Snapshots
 {
     public abstract class SnapshotManagerTest
     {
-        protected abstract ISnapshotManager<long, SampleData> Build();
+        internal abstract ISnapshotManager<long, SampleData> Build();
         protected const long KEY = 1L;
 
         [Fact]
