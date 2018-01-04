@@ -7,7 +7,7 @@ using System.Collections.Generic;
 
 namespace Diffstore.Entities.Filesystem
 {
-    public static class FilesystemLocator
+    internal static class FilesystemLocator
     {
         public const string EntityFilename = "entity";
         public const string KeyFilename = "keydata";

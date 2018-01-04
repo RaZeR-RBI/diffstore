@@ -7,7 +7,7 @@ namespace Diffstore.Utils
     /// <summary>
     /// Caches constructor delegates to speed up object creation
     /// </summary>
-    public static class ConstructorCache
+    internal static class ConstructorCache
     {
         private static Dictionary<Type, ConstructorInvoker> _delegates =
             new Dictionary<Type, ConstructorInvoker>();

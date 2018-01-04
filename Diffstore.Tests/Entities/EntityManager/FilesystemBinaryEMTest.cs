@@ -38,7 +38,7 @@ namespace Diffstore.Tests.Entities.EntityManager
             mockIO.Verify((io) => io.BeginRead(It.IsAny<long>()), Times.Exactly(2));
         }
 
-        protected override IEntityManager<long, SampleData> Build()
+        internal override IEntityManager<long, SampleData> Build()
         {
             var filesystem = new MemoryFileSystem();
             var formatter = FastBinaryFormatter.Instance;

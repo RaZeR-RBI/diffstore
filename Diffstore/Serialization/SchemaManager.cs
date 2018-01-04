@@ -1,11 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using Diffstore.Entities;
 
 namespace Diffstore.Serialization
 {
-    public static class SchemaManager
+    internal static class SchemaManager
     {
         private static Dictionary<Type, Schema> schemas = new Dictionary<Type, Schema>();
 

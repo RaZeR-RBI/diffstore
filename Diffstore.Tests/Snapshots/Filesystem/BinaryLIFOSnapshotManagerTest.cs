@@ -9,7 +9,7 @@ namespace Diffstore.Tests.Snapshots.Filesystem
 {
     public class BinaryLIFOSnapshotManagerTest : SnapshotManagerTest
     {
-        protected override ISnapshotManager<long, SampleData> Build()
+        internal override ISnapshotManager<long, SampleData> Build()
         {
             var options = new FilesystemStorageOptions()
             {

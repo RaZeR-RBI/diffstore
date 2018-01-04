@@ -5,9 +5,12 @@ using Diffstore.Serialization;
 using Diffstore.Utils;
 using SharpFileSystem;
 
+/// <summary>
+/// Filesystem entity storage related types
+/// </summary>
 namespace Diffstore.Entities.Filesystem
 {
-    public class FilesystemEntityReaderWriter<TKey, TInput, TOutput> :
+    internal class FilesystemEntityReaderWriter<TKey, TInput, TOutput> :
         IEntityReaderWriter<TKey, TInput, TOutput>
         where TKey : IComparable
         where TInput: IDisposable

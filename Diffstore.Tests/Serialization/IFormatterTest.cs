@@ -13,11 +13,15 @@ using Xunit;
 
 namespace Diffstore.Tests.Serialization
 {
-    public abstract class IFormatterTest<TIn, TOut>
-        where TIn : IDisposable
-        where TOut : IDisposable
+    public abstract class IFormatterTest
     {
-        protected abstract IFormatter<TIn, TOut> Build();
+        internal abstract void BeginWrite(Stream input);
+        internal abstract void EndWrite();
+        internal abstract void BeginRead(Stream input);
+        internal abstract void EndRead();
+
+        internal abstract void Serialize(object val, string fieldName);
+        internal abstract object Deserialize(Type type, string fieldName);
 
         private static readonly ReadOnlyCollection<object> Values = new List<object>()
         {
@@ -48,30 +52,30 @@ namespace Diffstore.Tests.Serialization
 
         public virtual void Test()
         {
-            var formatter = Build();
             var fs = new MemoryFileSystem();
             var path = new FileSystemPath().AppendFile("test");
 
             // Write
             using (var outStream = fs.CreateFile(path))
-            using (var writer = StreamBuilder.FromStream<TOut>(outStream))
             {
+                BeginWrite(outStream);
                 int i = 0;
                 foreach (var value in Values)
-                    formatter.Serialize(value, writer, Field(i++));
+                    Serialize(value, Field(i++));
+                EndWrite();
             }
 
             // Read
             using (var inStream = fs.OpenFile(path, FileAccess.Read))
-            using (var reader = StreamBuilder.FromStream<TIn>(inStream))
             {
+                BeginRead(inStream);
                 int i = 0;
                 foreach (var expected in Values)
                 {
-                    var actual = formatter.Deserialize(expected.GetType(), reader,
-                        Field(i++));
+                    var actual = Deserialize(expected.GetType(), Field(i++));
                     Assert.Equal(expected, actual);
                 }
+                EndRead();
             }
         }
     }

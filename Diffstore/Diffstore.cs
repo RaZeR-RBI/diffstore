@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using Diffstore.Entities;
 using Diffstore.Snapshots;
 
+/// <summary>
+/// 
+/// </summary>
 namespace Diffstore
 {
     /// <summary>
-    /// Default implementation. Use DiffstoreBuilder for creation.
+    /// Default implementation. Use <see cref="DiffstoreBuilder"/> for creation.
     /// </summary>
-    public class DS<TKey, TValue> : IDiffstore<TKey, TValue>
+    internal class DS<TKey, TValue> : IDiffstore<TKey, TValue>
         where TKey : IComparable
         where TValue : class, new()
     {

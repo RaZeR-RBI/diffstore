@@ -9,7 +9,7 @@ using Fasterflect;
 
 namespace Diffstore.Serialization
 {
-    public class Schema
+    internal class Schema
     {
         public ReadOnlyCollection<Field> Fields { get; }
 

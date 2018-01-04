@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Diffstore.Entities
 {
-    public interface IEntityManager<TKey, TValue>
+    internal interface IEntityManager<TKey, TValue>
         where TKey : IComparable
         where TValue : class, new()
     {
