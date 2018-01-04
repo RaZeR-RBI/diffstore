@@ -1,5 +1,8 @@
 using System;
 
+/// <summary>
+/// Defines serialization and deserialization related functionality.
+/// </summary>
 namespace Diffstore.Serialization
 {
     /// <summary>

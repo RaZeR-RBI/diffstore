@@ -3,7 +3,7 @@ using System.Text;
 
 namespace Diffstore.Serialization
 {
-    public class BinaryReaderWith7Bit : BinaryReader
+    internal class BinaryReaderWith7Bit : BinaryReader
     {
         public BinaryReaderWith7Bit(Stream input) : 
             base(input) { }
@@ -19,7 +19,7 @@ namespace Diffstore.Serialization
         }
     }
 
-    public class BinaryWriterWith7Bit : BinaryWriter
+    internal class BinaryWriterWith7Bit : BinaryWriter
     {
         public BinaryWriterWith7Bit(Stream input) : 
             base(input) { }

@@ -4,7 +4,7 @@ using System.Xml;
 
 namespace Diffstore.Serialization.XML
 {
-    public class XmlWriterAdapter : IDisposable
+    internal class XmlWriterAdapter : IDisposable
     {
         private XmlWriter _writer;
         public XmlWriter Instance

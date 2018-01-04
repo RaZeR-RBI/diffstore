@@ -6,7 +6,7 @@ using Diffstore.Serialization;
 
 namespace Diffstore.Utils
 {
-    public static class StreamBuilder
+    internal static class StreamBuilder
     {
         private static Dictionary<Type, ConstructorInvoker> _streamCtorCache =
             new Dictionary<Type, ConstructorInvoker>();

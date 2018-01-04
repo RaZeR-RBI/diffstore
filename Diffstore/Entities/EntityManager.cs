@@ -5,7 +5,7 @@ using Diffstore.Serialization;
 
 namespace Diffstore.Entities
 {
-    public class EntityManager<TKey, TValue, TInput, TOutput> : IEntityManager<TKey, TValue>
+    internal class EntityManager<TKey, TValue, TInput, TOutput> : IEntityManager<TKey, TValue>
         where TKey : IComparable
         where TValue : class, new()
         where TInput : IDisposable

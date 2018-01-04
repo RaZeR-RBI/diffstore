@@ -13,7 +13,7 @@ namespace Diffstore.Tests.Entities
 {
     public abstract class EntityManagerTest
     {
-        protected abstract IEntityManager<long, SampleData> Build();
+        internal abstract IEntityManager<long, SampleData> Build();
 
         [Theory]
         [InlineData(100)]

@@ -26,7 +26,7 @@ namespace Diffstore.Snapshots.Filesystem
         (bytes) - data
         ----
      */
-    public class BinaryLIFOSnapshotManager<TKey, TValue> : ISnapshotManager<TKey, TValue>
+    internal class BinaryLIFOSnapshotManager<TKey, TValue> : ISnapshotManager<TKey, TValue>
         where TKey : IComparable
         where TValue : class, new()
     {

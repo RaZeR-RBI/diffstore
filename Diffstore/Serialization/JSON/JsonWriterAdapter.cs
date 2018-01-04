@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 
 namespace Diffstore.Serialization.JSON
 {
-    public class JsonWriterAdapter : IDisposable
+    internal class JsonWriterAdapter : IDisposable
     {
         private JsonWriter _instance;
         public JsonWriter Instance => _instance;

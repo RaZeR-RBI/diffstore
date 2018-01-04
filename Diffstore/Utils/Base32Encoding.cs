@@ -2,11 +2,19 @@ using System;
 
 namespace Diffstore.Utils
 {
-    //credits:
-    //https://stackoverflow.com/users/904128/shane
-    //https://stackoverflow.com/questions/641361/base32-decoding
-    public class Base32Encoding
+    /// <summary>
+    /// Base32 encoding.
+    /// </summary>
+    /// <remarks>
+    /// Credits:
+    /// https://stackoverflow.com/users/904128/shane
+    /// https://stackoverflow.com/questions/641361/base32-decoding
+    /// </remarks>
+    internal class Base32Encoding
     {
+        /// <summary>
+        /// Converts input string to base32 byte array representation.
+        /// </summary>
         public static byte[] ToBytes(string input)
         {
             if (string.IsNullOrEmpty(input))
@@ -50,6 +58,11 @@ namespace Diffstore.Utils
             return returnArray;
         }
 
+        /// <summary>
+        /// Converts base32 encoded byte array to string.
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
         public static string ToString(byte[] input)
         {
             if (input == null || input.Length == 0)

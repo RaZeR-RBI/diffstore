@@ -2,7 +2,7 @@ using System;
 
 namespace Diffstore.Entities
 {
-    public interface IEntityReaderWriter<TKey, TInput, TOutput> : IDisposable
+    internal interface IEntityReaderWriter<TKey, TInput, TOutput> : IDisposable
         where TKey : IComparable
     {        
         /// <summary>

@@ -10,7 +10,7 @@ namespace Diffstore.Serialization.XML
         Utility class to allow XmlDocument to be used in
         EntityManager and SnapshotManager classes.
      */
-    public class XmlDocumentAdapter : IDisposable
+    internal class XmlDocumentAdapter : IDisposable
     {
         private XmlDocument _document = new XmlDocument();
 
