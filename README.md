@@ -1,4 +1,8 @@
-[![Build status](https://ci.appveyor.com/api/projects/status/w7s71q0tpxovhxnh/branch/master?svg=true)](https://ci.appveyor.com/project/RaZeR-RawByte/diffstore/branch/master) [![GitHub license](https://img.shields.io/github/license/RaZeR-RBI/diffstore.svg)](https://github.com/RaZeR-RBI/diffstore/blob/master/LICENSE) [![NuGet Version](https://img.shields.io/nuget/v/Diffstore.svg)](https://www.nuget.org/packages/Diffstore) [![NuGet](https://img.shields.io/nuget/dt/Diffstore.svg)](https://www.nuget.org/packages/Diffstore)
+[![Master build status](https://ci.appveyor.com/api/projects/status/w7s71q0tpxovhxnh/branch/master?svg=true&passingText=master%20-%20OK&failingText=master%20-%20failing&pendingText=master%20-%20pending)](https://ci.appveyor.com/project/RaZeR-RawByte/diffstore/branch/master) 
+[![Develop build status](https://ci.appveyor.com/api/projects/status/w7s71q0tpxovhxnh/branch/develop?svg=true&passingText=develop%20-%20OK&failingText=develop%20-%20failing&pendingText=develop%20-%20pending)](https://ci.appveyor.com/project/RaZeR-RawByte/diffstore/branch/develop)
+[![GitHub license](https://img.shields.io/github/license/RaZeR-RBI/diffstore.svg)](https://github.com/RaZeR-RBI/diffstore/blob/master/LICENSE) 
+[![NuGet Version](https://img.shields.io/nuget/v/Diffstore.svg)](https://www.nuget.org/packages/Diffstore) 
+[![NuGet](https://img.shields.io/nuget/dt/Diffstore.svg)](https://www.nuget.org/packages/Diffstore)
 
 ---
 
