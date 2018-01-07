@@ -1,4 +1,6 @@
-# Diffstore [![Build status](https://ci.appveyor.com/api/projects/status/w7s71q0tpxovhxnh?svg=true)](https://ci.appveyor.com/project/RaZeR-RawByte/diffstore)
+[![Build status](https://ci.appveyor.com/api/projects/status/w7s71q0tpxovhxnh/branch/master?svg=true)](https://ci.appveyor.com/project/RaZeR-RawByte/diffstore/branch/master) [![GitHub license](https://img.shields.io/github/license/RaZeR-RBI/diffstore.svg)](https://github.com/RaZeR-RBI/diffstore/blob/master/LICENSE) [![NuGet Version](https://img.shields.io/nuget/v/Diffstore.svg)](https://www.nuget.org/packages/Diffstore) [![NuGet](https://img.shields.io/nuget/dt/Diffstore.svg)](https://www.nuget.org/packages/Diffstore)
+
+---
 
 ### Simple and lightweight storage engine for statistical data
 The README and documentation is being worked on. Stay tuned.
