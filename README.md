@@ -42,8 +42,7 @@ Available snapshot managers:
 It's possible to extend the engine with other options like relational DB backend (MySQL, Postgres, etc.) and combined storage options (to use the Diffstore as a intermediate caching layer, for example).
 
 ### How to use?
-- [API Documentation (Markdown)](https://github.com/RaZeR-RBI/diffstore/blob/develop/docs/index.md)
-- [API Documentation (Web)](https://razer-rbi.github.io/diffstore/) (note: some links are not working properly [due to bug](https://github.com/benbalter/jekyll-relative-links/issues/38))
+- [API Documentation](https://razer-rbi.github.io/diffstore/)
 
 You can check out the [test source which covers the basics](Diffstore.Tests/DiffstoreTest.cs).
 
