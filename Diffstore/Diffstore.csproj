@@ -1,6 +1,15 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>netstandard2.0;netcoreapp2.0</TargetFrameworks>
+	<PackageId>DotBook</PackageId>
+    <PackageVersion>1.0.0</PackageVersion>
+    <Authors>Vilkov Adel</Authors>
+    <Summary>Simple and lightweight storage engine for statistical data</Summary>
+    <PackageLicenseUrl>MIT</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/RaZeR-RBI/diffstore</PackageProjectUrl>
+    <PackageTags>net;netcore;storage;database;statistics;history;snapshot</PackageTags>
+    <RepositoryUrl>https://github.com/RaZeR-RBI/diffstore</RepositoryUrl>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)' == 'Debug_CLS'">
     <ConfigurationGroup>Release</ConfigurationGroup>
