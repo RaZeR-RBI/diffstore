@@ -1,0 +1,111 @@
+<!DOCTYPE HTML>
+<html><head><title>Diffstore.DiffstoreBuilder<TKey, TValue></title>
+<meta charset="utf-8">
+<link rel="stylesheet" href="index.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"><script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+<style>
+        pre code.hljs {
+            display: block;
+        }
+
+        code.hljs {
+            display: inline;
+        }</style>
+</head><body>
+<h1>DiffstoreBuilder&lt;TKey, TValue&gt;</h1>
+<p>
+<b>Class</b></p>
+<p>
+<b>Namespace:</b> <a href="Diffstore.html">Diffstore</a>
+</p>
+<p>
+<b>Declared in:</b> <a href="Diffstore.html">Diffstore</a>
+</p>
+<hr>
+<p>
+
+The main starting point, used to create a <a href="Diffstore.IDiffstore{TKey,TValue}.html">IDiffstore&lt;TKey, TValue&gt;</a>
+ instance.
+</p>
+<h3>Type parameters</h3>
+<p>
+<code>TKey</code>
+</p>
+<p>
+
+The type used as entity key.
+All numeric types and strings are supported.
+Any IComparable with a corresponding string representation should work.
+</p>
+<p>
+<code>TValue</code>
+</p>
+<p>
+
+The entity value, a class which contains the data that need to be stored.
+Must be a class with a parameterless constructor.
+</p>
+<h2>Members</h2>
+<h3>Method</h3>
+<li><a href="Diffstore.DiffstoreBuilder{TKey,TValue}.Setup().html">Setup()</a></li>
+<li><a href="Diffstore.DiffstoreBuilder{TKey,TValue}.WithDiskStorage(string).html">WithDiskStorage(string)</a></li>
+<li><a href="Diffstore.DiffstoreBuilder{TKey,TValue}.WithFileBasedEntities(FileFormat,FilesystemStorageOptions,IFileSystem).html">WithFileBasedEntities(FileFormat, FilesystemStorageOptions, IFileSystem)</a></li>
+<li><a href="Diffstore.DiffstoreBuilder{TKey,TValue}.WithFileBasedEntities(FilesystemStorageOptions,IFileSystem).html">WithFileBasedEntities(FilesystemStorageOptions, IFileSystem)</a></li>
+<li><a href="Diffstore.DiffstoreBuilder{TKey,TValue}.WithFileBasedEntities{TIn,TOut}(IFormatter{TIn,TOut},FilesystemStorageOptions,IFileSystem).html">WithFileBasedEntities&lt;TIn, TOut&gt;(IFormatter&lt;TIn, TOut&gt;, FilesystemStorageOptions, IFileSystem)</a></li>
+<li><a href="Diffstore.DiffstoreBuilder{TKey,TValue}.WithLastFirstOptimizedSnapshots(IFileSystem,FilesystemStorageOptions,int).html">WithLastFirstOptimizedSnapshots(IFileSystem, FilesystemStorageOptions, int)</a></li>
+<li><a href="Diffstore.DiffstoreBuilder{TKey,TValue}.WithMemoryStorage().html">WithMemoryStorage()</a></li>
+<li><a href="Diffstore.DiffstoreBuilder{TKey,TValue}.WithSingleFileSnapshots(FileFormat,IFileSystem,FilesystemStorageOptions).html">WithSingleFileSnapshots(FileFormat, IFileSystem, FilesystemStorageOptions)</a></li>
+<h2>Remarks</h2>
+
+This API may change in the near future to allow function calls in any order.
+<h2>Examples</h2>
+<p>
+
+To create a new instance, first, choose a storage option - it's either
+<a href="Diffstore.DiffstoreBuilder{TKey,TValue}.WithMemoryStorage().html">WithMemoryStorage()</a>
+ or <a href="Diffstore.DiffstoreBuilder{TKey,TValue}.WithDiskStorage(string).html">WithDiskStorage(string)</a>
+:
+<pre><code>
+var db = new DiffstoreBuilder&lt;long, MyData&gt;()
+.WithDiskStorage();
+</code></pre>
+<p>
+
+Then you should use the type of storage for entities and snapshots.
+At this time all entities are file-based, but in the future they may be stored
+in relational databases or something other. Available formats are defined in
+<a href="Diffstore.FileFormat.html">FileFormat</a>
+.
+</p>
+<p>
+
+There are several mechanisms snapshot storage - currently implemented are
+"single file per snapshot" (see <a href="Diffstore.FileFormat.html">FileFormat</a>
+) and
+"last in, first out" (optimized binary storage).
+</p>
+<p>
+
+For example, to store your entities and snapshots in JSON files:
+</p>
+<pre><code>
+var db = new DiffstoreBuilder&lt;long, MyData&gt;()
+.WithDiskStorage()
+.WithFileBasedEntities(FileFormat.JSON)
+.WithSingleFileSnapshots(FileFormat.JSON);
+.Setup();
+</code></pre>
+
+And that's it! Now you can use the storage as you like. Check out the
+<a href="Diffstore.IDiffstore{TKey,TValue}.html">IDiffstore&lt;TKey, TValue&gt;</a>
+ interface to see what can you do.
+</p>
+<h2>See also</h2>
+<li><a href="Diffstore.IDiffstore{TKey,TValue}.html">IDiffstore&lt;TKey, TValue&gt;</a></li>
+<li><a href="Diffstore.FileFormat.html">FileFormat</a></li>
+<hr>
+<a href="index.html">Back to index</a>
+<script>
+            var code = document.getElementsByTagName('code');
+            for (i = 0; i < code.length; i++) hljs.highlightBlock(code[i]);
+        </script>
+</body></html>
