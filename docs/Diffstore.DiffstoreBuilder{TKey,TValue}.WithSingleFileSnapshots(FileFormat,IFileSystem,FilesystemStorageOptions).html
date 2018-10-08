@@ -1,0 +1,67 @@
+<!DOCTYPE HTML>
+<html><head><title>Diffstore.DiffstoreBuilder<TKey, TValue>.WithSingleFileSnapshots(FileFormat, IFileSystem, FilesystemStorageOptions)</title>
+<meta charset="utf-8">
+<link rel="stylesheet" href="index.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"><script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+<style>
+        pre code.hljs {
+            display: block;
+        }
+
+        code.hljs {
+            display: inline;
+        }</style>
+</head><body>
+<h1>WithSingleFileSnapshots(FileFormat, IFileSystem, FilesystemStorageOptions)</h1>
+<p>
+<b>Method</b></p>
+<p>
+<b>Namespace:</b> <a href="Diffstore.html">Diffstore</a>
+</p>
+<p>
+<b>Declared in:</b> <a href="Diffstore.DiffstoreBuilder{TKey,TValue}.html">Diffstore.DiffstoreBuilder&lt;TKey, TValue&gt;</a>
+</p>
+<hr>
+<p>
+
+Sets up the engine to use the single-file-per-snapshot storage.
+Suitable for big entities and/or when they need to be human-readable.
+</p>
+<h2>Syntax</h2>
+<pre><code>public DiffstoreBuilder&lt;TKey, TValue&gt; WithSingleFileSnapshots(
+	FileFormat format,
+	IFileSystem fileSystem,
+	FilesystemStorageOptions options
+)</code></pre>
+<h3>Parameters</h3>
+<p>
+<code>format</code>
+</p>
+<p>
+
+Specifies the <a href="Diffstore.FileFormat.html">FileFormat</a>
+ which will be used for
+serialization and deserialization.
+</p>
+<p>
+<code>options</code>
+</p>
+<p>
+
+If not null, overrides the default <a href="Diffstore.Entities.Filesystem.FilesystemStorageOptions.html">FilesystemStorageOptions</a>
+.
+</p>
+<p>
+<code>fileSystem</code>
+</p>
+<p>
+
+If not null, uses the specified IFileSystem, otherwise uses
+what has been called before.
+</p>
+<hr>
+<a href="index.html">Back to index</a>
+<script>
+            var code = document.getElementsByTagName('code');
+            for (i = 0; i < code.length; i++) hljs.highlightBlock(code[i]);
+        </script>
+</body></html>

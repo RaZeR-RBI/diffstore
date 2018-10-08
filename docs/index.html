@@ -1,0 +1,250 @@
+<!DOCTYPE HTML>
+<html><head><title></title>
+<meta charset="utf-8">
+<link rel="stylesheet" href="index.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"><script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+<style>
+        pre code.hljs {
+            display: block;
+        }
+
+        code.hljs {
+            display: inline;
+        }</style>
+</head><body>
+<h1>API Documentation</h1>
+<ul>
+<li><a href="Diffstore.html">Diffstore</a></li>
+<ul>
+<li><a href="Diffstore.DiffstoreBuilder{TKey,TValue}.html">DiffstoreBuilder&lt;TKey, TValue&gt;</a></li>
+<ul>
+<li><a href="Diffstore.DiffstoreBuilder{TKey,TValue}.Setup().html">Setup()</a></li>
+</ul>
+<ul>
+<li><a href="Diffstore.DiffstoreBuilder{TKey,TValue}.WithDiskStorage(string).html">WithDiskStorage(string)</a></li>
+</ul>
+<ul>
+<li><a href="Diffstore.DiffstoreBuilder{TKey,TValue}.WithFileBasedEntities(FileFormat,FilesystemStorageOptions,IFileSystem).html">WithFileBasedEntities(FileFormat, FilesystemStorageOptions, IFileSystem)</a></li>
+</ul>
+<ul>
+<li><a href="Diffstore.DiffstoreBuilder{TKey,TValue}.WithFileBasedEntities(FilesystemStorageOptions,IFileSystem).html">WithFileBasedEntities(FilesystemStorageOptions, IFileSystem)</a></li>
+</ul>
+<ul>
+<li><a href="Diffstore.DiffstoreBuilder{TKey,TValue}.WithFileBasedEntities{TIn,TOut}(IFormatter{TIn,TOut},FilesystemStorageOptions,IFileSystem).html">WithFileBasedEntities&lt;TIn, TOut&gt;(IFormatter&lt;TIn, TOut&gt;, FilesystemStorageOptions, IFileSystem)</a></li>
+</ul>
+<ul>
+<li><a href="Diffstore.DiffstoreBuilder{TKey,TValue}.WithLastFirstOptimizedSnapshots(IFileSystem,FilesystemStorageOptions,int).html">WithLastFirstOptimizedSnapshots(IFileSystem, FilesystemStorageOptions, int)</a></li>
+</ul>
+<ul>
+<li><a href="Diffstore.DiffstoreBuilder{TKey,TValue}.WithMemoryStorage().html">WithMemoryStorage()</a></li>
+</ul>
+<ul>
+<li><a href="Diffstore.DiffstoreBuilder{TKey,TValue}.WithSingleFileSnapshots(FileFormat,IFileSystem,FilesystemStorageOptions).html">WithSingleFileSnapshots(FileFormat, IFileSystem, FilesystemStorageOptions)</a></li>
+</ul>
+</ul>
+<ul>
+<li><a href="Diffstore.EntityExtensions.html">EntityExtensions</a></li>
+<ul>
+<li><a href="Diffstore.EntityExtensions.DeleteFrom{TK,TV}(Entity{TK,TV},IDiffstore{TK,TV}).html">DeleteFrom&lt;TK, TV&gt;(Entity&lt;TK, TV&gt;, IDiffstore&lt;TK, TV&gt;)</a></li>
+</ul>
+<ul>
+<li><a href="Diffstore.EntityExtensions.ExistsIn{TK,TV}(Entity{TK,TV},IDiffstore{TK,TV}).html">ExistsIn&lt;TK, TV&gt;(Entity&lt;TK, TV&gt;, IDiffstore&lt;TK, TV&gt;)</a></li>
+</ul>
+<ul>
+<li><a href="Diffstore.EntityExtensions.SaveIn{TK,TV}(Entity{TK,TV},IDiffstore{TK,TV},bool).html">SaveIn&lt;TK, TV&gt;(Entity&lt;TK, TV&gt;, IDiffstore&lt;TK, TV&gt;, bool)</a></li>
+</ul>
+</ul>
+<ul>
+<li><a href="Diffstore.FileFormat.html">FileFormat</a></li>
+</ul>
+<ul>
+<li><a href="Diffstore.IDiffstore{TKey,TValue}.html">IDiffstore&lt;TKey, TValue&gt;</a></li>
+<ul>
+<li><a href="Diffstore.IDiffstore{TKey,TValue}.Keys.html">Keys</a></li>
+</ul>
+<ul>
+<li><a href="Diffstore.IDiffstore{TKey,TValue}.Entities.html">Entities</a></li>
+</ul>
+<ul>
+<li><a href="Diffstore.IDiffstore{TKey,TValue}.OnSave.html">OnSave</a></li>
+</ul>
+<ul>
+<li><a href="Diffstore.IDiffstore{TKey,TValue}.OnDelete.html">OnDelete</a></li>
+</ul>
+<ul>
+<li><a href="Diffstore.IDiffstore{TKey,TValue}.Entity{TKey,TValue}[TKey].html">Entity&lt;TKey, TValue&gt;[TKey]</a></li>
+</ul>
+<ul>
+<li><a href="Diffstore.IDiffstore{TKey,TValue}.Delete(Entity{TKey,TValue}).html">Delete(Entity&lt;TKey, TValue&gt;)</a></li>
+</ul>
+<ul>
+<li><a href="Diffstore.IDiffstore{TKey,TValue}.Delete(TKey).html">Delete(TKey)</a></li>
+</ul>
+<ul>
+<li><a href="Diffstore.IDiffstore{TKey,TValue}.Exists(TKey).html">Exists(TKey)</a></li>
+</ul>
+<ul>
+<li><a href="Diffstore.IDiffstore{TKey,TValue}.Get(TKey).html">Get(TKey)</a></li>
+</ul>
+<ul>
+<li><a href="Diffstore.IDiffstore{TKey,TValue}.GetFirst(TKey).html">GetFirst(TKey)</a></li>
+</ul>
+<ul>
+<li><a href="Diffstore.IDiffstore{TKey,TValue}.GetFirstTime(TKey).html">GetFirstTime(TKey)</a></li>
+</ul>
+<ul>
+<li><a href="Diffstore.IDiffstore{TKey,TValue}.GetLast(TKey).html">GetLast(TKey)</a></li>
+</ul>
+<ul>
+<li><a href="Diffstore.IDiffstore{TKey,TValue}.GetLastTime(TKey).html">GetLastTime(TKey)</a></li>
+</ul>
+<ul>
+<li><a href="Diffstore.IDiffstore{TKey,TValue}.GetSnapshots(TKey,int,int).html">GetSnapshots(TKey, int, int)</a></li>
+</ul>
+<ul>
+<li><a href="Diffstore.IDiffstore{TKey,TValue}.GetSnapshots(TKey).html">GetSnapshots(TKey)</a></li>
+</ul>
+<ul>
+<li><a href="Diffstore.IDiffstore{TKey,TValue}.GetSnapshotsBetween(TKey,long,long).html">GetSnapshotsBetween(TKey, long, long)</a></li>
+</ul>
+<ul>
+<li><a href="Diffstore.IDiffstore{TKey,TValue}.PutSnapshot(Entity{TKey,TValue},long).html">PutSnapshot(Entity&lt;TKey, TValue&gt;, long)</a></li>
+</ul>
+<ul>
+<li><a href="Diffstore.IDiffstore{TKey,TValue}.Save(Entity{TKey,TValue},bool).html">Save(Entity&lt;TKey, TValue&gt;, bool)</a></li>
+</ul>
+<ul>
+<li><a href="Diffstore.IDiffstore{TKey,TValue}.Save(TKey,TValue,bool).html">Save(TKey, TValue, bool)</a></li>
+</ul>
+</ul>
+</ul>
+<ul>
+<li><a href="Diffstore.Entities.html">Diffstore.Entities</a></li>
+<ul>
+<li><a href="Diffstore.Entities.DoNotPersistAttribute.html">DoNotPersistAttribute</a></li>
+<ul>
+<li><a href="Diffstore.Entities.DoNotPersistAttribute.DoNotPersistAttribute().html">DoNotPersistAttribute()</a></li>
+</ul>
+</ul>
+<ul>
+<li><a href="Diffstore.Entities.Entity.html">Entity</a></li>
+<ul>
+<li><a href="Diffstore.Entities.Entity.Create{TK,TV}(TK,TV).html">Create&lt;TK, TV&gt;(TK, TV)</a></li>
+</ul>
+</ul>
+<ul>
+<li><a href="Diffstore.Entities.Entity{TKey,TValue}.html">Entity&lt;TKey, TValue&gt;</a></li>
+<ul>
+<li><a href="Diffstore.Entities.Entity{TKey,TValue}.Key.html">Key</a></li>
+</ul>
+<ul>
+<li><a href="Diffstore.Entities.Entity{TKey,TValue}.Value.html">Value</a></li>
+</ul>
+<ul>
+<li><a href="Diffstore.Entities.Entity{TKey,TValue}.Entity(TKey,TValue).html">Entity(TKey, TValue)</a></li>
+</ul>
+<ul>
+<li><a href="Diffstore.Entities.Entity{TKey,TValue}.Equals(object).html">Equals(object)</a></li>
+</ul>
+<ul>
+<li><a href="Diffstore.Entities.Entity{TKey,TValue}.GetHashCode().html">GetHashCode()</a></li>
+</ul>
+<ul>
+<li><a href="Diffstore.Entities.Entity{TKey,TValue}.ToString().html">ToString()</a></li>
+</ul>
+</ul>
+</ul>
+<ul>
+<li><a href="Diffstore.Entities.Filesystem.html">Diffstore.Entities.Filesystem</a></li>
+<ul>
+<li><a href="Diffstore.Entities.Filesystem.FilesystemStorageOptions.html">FilesystemStorageOptions</a></li>
+<ul>
+<li><a href="Diffstore.Entities.Filesystem.FilesystemStorageOptions.MaxSnapshotFileSize.html">MaxSnapshotFileSize</a></li>
+</ul>
+<ul>
+<li><a href="Diffstore.Entities.Filesystem.FilesystemStorageOptions.BasePath.html">BasePath</a></li>
+</ul>
+<ul>
+<li><a href="Diffstore.Entities.Filesystem.FilesystemStorageOptions.EntitiesPerDirectory.html">EntitiesPerDirectory</a></li>
+</ul>
+</ul>
+</ul>
+<ul>
+<li><a href="Diffstore.Serialization.html">Diffstore.Serialization</a></li>
+<ul>
+<li><a href="Diffstore.Serialization.IFormatter{TInputStream,TOutputStream}.html">IFormatter&lt;TInputStream, TOutputStream&gt;</a></li>
+<ul>
+<li><a href="Diffstore.Serialization.IFormatter{TInputStream,TOutputStream}.Deserialize(Type,TInputStream,string).html">Deserialize(Type, TInputStream, string)</a></li>
+</ul>
+<ul>
+<li><a href="Diffstore.Serialization.IFormatter{TInputStream,TOutputStream}.Serialize(object,TOutputStream,string).html">Serialize(object, TOutputStream, string)</a></li>
+</ul>
+</ul>
+</ul>
+<ul>
+<li><a href="Diffstore.Snapshots.html">Diffstore.Snapshots</a></li>
+<ul>
+<li><a href="Diffstore.Snapshots.IgnoreChangesAttribute.html">IgnoreChangesAttribute</a></li>
+<ul>
+<li><a href="Diffstore.Snapshots.IgnoreChangesAttribute.IgnoreChangesAttribute().html">IgnoreChangesAttribute()</a></li>
+</ul>
+</ul>
+<ul>
+<li><a href="Diffstore.Snapshots.Snapshot.html">Snapshot</a></li>
+<ul>
+<li><a href="Diffstore.Snapshots.Snapshot.Create{TK,TV}(Entity{TK,TV}).html">Create&lt;TK, TV&gt;(Entity&lt;TK, TV&gt;)</a></li>
+</ul>
+<ul>
+<li><a href="Diffstore.Snapshots.Snapshot.Create{TK,TV}(long,Entity{TK,TV}).html">Create&lt;TK, TV&gt;(long, Entity&lt;TK, TV&gt;)</a></li>
+</ul>
+<ul>
+<li><a href="Diffstore.Snapshots.Snapshot.GetCurrentUnixSeconds().html">GetCurrentUnixSeconds()</a></li>
+</ul>
+</ul>
+<ul>
+<li><a href="Diffstore.Snapshots.Snapshot{TKey,TValue}.html">Snapshot&lt;TKey, TValue&gt;</a></li>
+<ul>
+<li><a href="Diffstore.Snapshots.Snapshot{TKey,TValue}.Time.html">Time</a></li>
+</ul>
+<ul>
+<li><a href="Diffstore.Snapshots.Snapshot{TKey,TValue}.State.html">State</a></li>
+</ul>
+<ul>
+<li><a href="Diffstore.Snapshots.Snapshot{TKey,TValue}.Snapshot(long,Entity{TKey,TValue}).html">Snapshot(long, Entity&lt;TKey, TValue&gt;)</a></li>
+</ul>
+<ul>
+<li><a href="Diffstore.Snapshots.Snapshot{TKey,TValue}.Equals(object).html">Equals(object)</a></li>
+</ul>
+<ul>
+<li><a href="Diffstore.Snapshots.Snapshot{TKey,TValue}.GetHashCode().html">GetHashCode()</a></li>
+</ul>
+<ul>
+<li><a href="Diffstore.Snapshots.Snapshot{TKey,TValue}.ToString().html">ToString()</a></li>
+</ul>
+</ul>
+</ul>
+<ul>
+<li><a href="Diffstore.Utils.html">Diffstore.Utils</a></li>
+<ul>
+<li><a href="Diffstore.Utils.CollectionExtensions.html">CollectionExtensions</a></li>
+<ul>
+<li><a href="Diffstore.Utils.CollectionExtensions.ZipPairs(IDictionary).html">ZipPairs(IDictionary)</a></li>
+</ul>
+</ul>
+<ul>
+<li><a href="Diffstore.Utils.StreamExtensions.html">StreamExtensions</a></li>
+<ul>
+<li><a href="Diffstore.Utils.StreamExtensions.ReadAllBytes(Stream).html">ReadAllBytes(Stream)</a></li>
+</ul>
+<ul>
+<li><a href="Diffstore.Utils.StreamExtensions.ReadBytes(Stream,int,bool).html">ReadBytes(Stream, int, bool)</a></li>
+</ul>
+</ul>
+</ul>
+<hr>
+<a href="https://github.com/RaZeR-RBI/dotbook">Generated with DotBook</a>
+
+<script>
+            var code = document.getElementsByTagName('code');
+            for (i = 0; i < code.length; i++) hljs.highlightBlock(code[i]);
+        </script>
+</body></html>
