@@ -2,7 +2,7 @@
   <PropertyGroup>
     <TargetFrameworks>netstandard2.0;netcoreapp2.0</TargetFrameworks>
 	<PackageId>DotBook</PackageId>
-    <PackageVersion>1.0.0</PackageVersion>
+    <PackageVersion>1.0.1</PackageVersion>
     <Authors>Vilkov Adel</Authors>
     <Summary>Simple and lightweight storage engine for statistical data</Summary>
     <PackageLicenseUrl>MIT</PackageLicenseUrl>
@@ -19,6 +19,6 @@
     <PackageReference Include="Fasterflect" Version="2.1.3" />
     <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
     <PackageReference Include="sharpfilesystem" Version="1.0.35" />
-    <DotNetCliToolReference Include="DotBook" Version="0.5.3-dev"/>         
+    <DotNetCliToolReference Include="DotBook" Version="0.5.3-dev"/>
   </ItemGroup>
 </Project>

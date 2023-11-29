@@ -44,6 +44,11 @@ namespace Diffstore.Entities.Filesystem
             return path.IsFile && path.EntityName == KeyFilename;
         }
 
+        public static bool IsEntityFile(FileSystemPath path)
+        {
+            return path.IsFile && path.EntityName == EntityFilename;
+        }
+
         public static FileSystemPath FindSnapshotFolder(object key, FilesystemStorageOptions options)
         {
             return FindEntitySubfolder(key, options).AppendDirectory(SnapshotSubfolder);
@@ -66,7 +71,7 @@ namespace Diffstore.Entities.Filesystem
                 case uint ui: return root.Partition(ui, step);
                 case ulong ul: return root.Partition(ul, step);
 #endif
-                default: return root.AppendDirectory(key.GetHashCode().ToString());
+                default: return root.AppendDirectory(key.ToString());
             }
         }
 

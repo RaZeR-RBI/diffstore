@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Diffstore.Serialization;
@@ -48,10 +49,12 @@ namespace Diffstore.Entities.Filesystem
         private Stream CreateDirectoriesAndFile(object key, FileSystemPath path)
         {
             filesystem.CreateDirectoryRecursive(path.ParentPath);
-            var keyfile = filesystem.CreateFile(FilesystemLocator.LocateKeyFile(key, options));
-            using (var keyfileWriter = StreamBuilder.FromStream<TOutput>(keyfile))
-                formatter.Serialize(key, keyfileWriter, "Key");
-            
+            if (!options.UseImplicitKeys)
+            {
+                var keyfile = filesystem.CreateFile(FilesystemLocator.LocateKeyFile(key, options));
+                using (var keyfileWriter = StreamBuilder.FromStream<TOutput>(keyfile))
+                    formatter.Serialize(key, keyfileWriter, "Key");
+            }
             return filesystem.CreateFile(path);
         }
 
@@ -70,16 +73,27 @@ namespace Diffstore.Entities.Filesystem
 
         public bool Exists(TKey key)
         {
-            var path = FilesystemLocator.LocateKeyFile(key, options);
-            return filesystem.Exists(path);
+            var keyFile = FilesystemLocator.LocateKeyFile(key, options);
+            var entityFile = FilesystemLocator.LocateEntityFile(key, options);
+            return (options.UseImplicitKeys || filesystem.Exists(keyFile)) && filesystem.Exists(entityFile);
         }
 
         public TKey[] GetAllKeys()
         {
             if (!filesystem.Exists(options.BasePath)) filesystem.CreateDirectoryRecursive(options.BasePath);
-            return filesystem.GetEntitiesRecursive(options.BasePath)
-                .Where((entity) => FilesystemLocator.IsKeyFile(entity))
-                .Select((file) => ReadKeyfile(file)).ToArray();
+            if (!options.UseImplicitKeys)
+            {
+                return filesystem.GetEntitiesRecursive(options.BasePath)
+                    .Where((entity) => FilesystemLocator.IsKeyFile(entity))
+                    .Select((file) => ReadKeyfile(file)).ToArray();
+            }
+            else
+            {
+                return filesystem.GetEntitiesRecursive(options.BasePath)
+                    .Where(e => FilesystemLocator.IsEntityFile(e))
+                    .Select(f => FilesystemLocator.ExtractKey<TKey>(f))
+                    .Where(k => !EqualityComparer<TKey>.Default.Equals(k, default)).ToArray();
+            }
         }
 
         private TKey ReadKeyfile(FileSystemPath path)

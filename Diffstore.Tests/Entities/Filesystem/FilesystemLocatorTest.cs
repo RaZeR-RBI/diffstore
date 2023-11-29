@@ -71,9 +71,9 @@ namespace Diffstore.Tests.Entities.Filesystem
                 EntitiesPerDirectory = entitiesPerDir
             };
 
-            var expected = basePath.AppendDirectory(key.GetHashCode().ToString())
+            var expected = basePath.AppendDirectory(key.ToString())
                                     .AppendFile(EntityFilename);
-                                    
+
             var actual = FilesystemLocator.LocateEntityFile(key, options);
             Assert.Equal(expected, actual);
         }

@@ -1,0 +1,77 @@
+<!DOCTYPE HTML>
+<html><head><title>Diffstore.DiffstoreBuilder<TKey, TValue>.WithLastFirstOptimizedSnapshots(IFileSystem, FilesystemStorageOptions, int)</title>
+<meta charset="utf-8">
+<link rel="stylesheet" href="index.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"><script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+<style>
+        pre code.hljs {
+            display: block;
+        }
+
+        code.hljs {
+            display: inline;
+        }</style>
+</head><body>
+<h1>WithLastFirstOptimizedSnapshots(IFileSystem, FilesystemStorageOptions, int)</h1>
+<p>
+<b>Method</b></p>
+<p>
+<b>Namespace:</b> <a href="Diffstore.html">Diffstore</a>
+</p>
+<p>
+<b>Declared in:</b> <a href="Diffstore.DiffstoreBuilder_TKey, TValue_.html">Diffstore.DiffstoreBuilder&lt;TKey, TValue&gt;</a>
+</p>
+<hr>
+<p>
+
+Sets up the engine to use the last-in-first-out optimized snapshot storage,
+suitable for fast reading of recent data.
+</p>
+<h2>Syntax</h2>
+<pre><code>public DiffstoreBuilder&lt;TKey, TValue&gt; WithLastFirstOptimizedSnapshots(
+	IFileSystem fileSystem,
+	FilesystemStorageOptions options,
+	int zeroPaddingBytes
+)</code></pre>
+<h3>Parameters</h3>
+<p>
+<code>formatter</code>
+</p>
+<p>
+
+Specifies a <a href="Diffstore.Serialization.IFormatter_TInputStream, TOutputStream_.html">IFormatter&lt;TInputStream, TOutputStream&gt;</a>
+ which
+will be used for serialization and deserialization.
+</p>
+<p>
+<code>options</code>
+</p>
+<p>
+
+If not null, overrides the default <a href="Diffstore.Entities.Filesystem.FilesystemStorageOptions.html">FilesystemStorageOptions</a>
+.
+</p>
+<p>
+<code>zeroPaddingBytes</code>
+</p>
+<p>
+
+Specifies maximum free space at the start of the file for future
+snapshots. When there is no free space left for writing, the file
+expands by specified byte count and rewrites.
+<p>
+
+If the number is too small, rewrites may appear often.
+</p>
+<p>
+
+If the number is big, files will be bigger and may consist
+of big unused space depending on how many data is being written.
+</p>
+</p>
+<hr>
+<a href="index.html">Back to index</a>
+<script>
+            var code = document.getElementsByTagName('code');
+            for (i = 0; i < code.length; i++) hljs.highlightBlock(code[i]);
+        </script>
+</body></html>

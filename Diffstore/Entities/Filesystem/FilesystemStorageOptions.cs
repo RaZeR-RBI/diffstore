@@ -30,5 +30,11 @@ namespace Diffstore.Entities.Filesystem
         /// the used ISnapshotManager implementation.
         /// </summary>
         public long MaxSnapshotFileSize = 1 * 1024 * 1024;
+
+	/// <summary>
+	/// When enabled, reads key from entity subfolder name instead of
+	/// writing it as a separate 'keydata' file.
+	/// </summary>
+	public bool UseImplicitKeys = true;
     }
 }
